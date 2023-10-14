@@ -1,3 +1,9 @@
 module.exports = {
-  extends: ["custom/next"],
-};
+	extends: ["custom/next"],
+	rules: {
+		"import/no-extraneous-dependencies": [
+			"error",
+			{ projectDependencies: true },
+		],
+	},
+}

@@ -1,0 +1,15 @@
+{
+	"name": "utils",
+	"version": "1.0.0",
+	"main": "./index.ts",
+	"types": "./index.ts",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"dependencies": {
+		"@tanstack/react-query": "^4.36.1",
+		"@trpc/client": "^10.40.0",
+		"@trpc/react-query": "^10.40.0",
+		"server": "*"
+	}
+}
