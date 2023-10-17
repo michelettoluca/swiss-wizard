@@ -67,9 +67,12 @@ export function StandingsTable({ standings }: StandingsTableProps) {
 						</Cell>
 					</Row>
 				) : (
-					<Row key={null}>
+					<Row key={"null"}>
 						<Cell relativeWidth={100} style={tw`pl-6`}>
-							<MoreHorizontal style={tw`text-slate-400`} />
+							{/* Magia strana, non ho ben capito perchè senza wrapparlo dimezza l'altezza */}
+							<Text style={tw`pt-[2px]`}>
+								<MoreHorizontal style={tw`text-slate-400`} size={20} />
+							</Text>
 						</Cell>
 					</Row>
 				)
