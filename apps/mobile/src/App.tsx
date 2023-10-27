@@ -1,6 +1,4 @@
-import { StatusBar } from "expo-status-bar"
 import { Tournament } from "./screens/tournament"
-import { SafeAreaView } from "react-native-safe-area-context"
 import { useFonts } from "expo-font"
 import {
 	Inter_400Regular,
@@ -8,6 +6,9 @@ import {
 	Inter_600SemiBold,
 	Inter_700Bold,
 } from "@expo-google-fonts/inter"
+import { SafeAreaView, StatusBar } from "react-native"
+import tw from "twrnc"
+import { ModalProvider } from "./components/modal"
 
 export default function App() {
 	let [fontsLoaded, fontError] = useFonts({
@@ -22,9 +23,10 @@ export default function App() {
 	}
 
 	return (
-		<SafeAreaView>
-			<StatusBar style="auto" />
-			<Tournament />
+		<SafeAreaView style={{ flex: 1, paddingTop: StatusBar.currentHeight }}>
+			<ModalProvider>
+				<Tournament />
+			</ModalProvider>
 		</SafeAreaView>
 	)
 }
