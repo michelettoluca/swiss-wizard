@@ -1,7 +1,7 @@
 import { View, Pressable, ScrollView } from "react-native"
 import tw from "twrnc"
 import { ChevronRight, Crown, ShieldAlert } from "lucide-react-native"
-import React from "react"
+import React, { useState } from "react"
 import { StandingsTable } from "../components/standings-table"
 import { STANDINGS } from "../utils/mock"
 import { Section } from "../components/section"
@@ -9,7 +9,7 @@ import { Text, fw } from "../components/text"
 import { MatchResult } from "../components/match-result"
 import { ObjectValues } from "../utils/typescript"
 import { Box } from "../components/box"
-import { useState } from "react"
+import { useModal } from "../components/modal"
 
 type TournamentProps = {}
 
@@ -18,62 +18,78 @@ export function Tournament({}: TournamentProps) {
 		MATCH_STATUS.IN_PROGRESS
 	)
 
+	const modal = useModal()
+
 	return (
-		<ScrollView>
-			<View style={tw`flex py-16 gap-8`}>
-				<View style={tw`px-6`}>
-					<Text style={[tw`text-2xl text-slate-900`, fw.bold]}>
-						LPM - Tappa #1
-					</Text>
-					<Text style={tw`mt-2`}>
-						Lorem Ipsum is simply dummy text of the printing and typesetting
-						industry. Lorem Ipsum has been the industry's standard dummy text
-						ever since the 1500s.
-					</Text>
-				</View>
-				<ActionRequired />
-				{matchStatus === MATCH_STATUS.IN_PROGRESS ? (
-					<Box style={tw`flex flex-col gap-2 bg-slate-200`}>
-						<Text style={tw`text-slate-600`}>
-							<Text style={fw.medium}>Round 1</Text> has begun, your opponent is
+		<View style={{ flex: 1, display: "flex" }}>
+			<ScrollView>
+				<View style={tw`flex gap-8`}>
+					<View style={tw`px-6`}>
+						<Text style={[tw`text-2xl text-slate-900`, fw.bold]}>
+							LPM - Tappa #1
 						</Text>
-						<Text style={[tw`text-3xl text-slate-700 capitalize`, fw.bold]}>
-							{STANDINGS[0].name}
+						<Text style={tw`mt-2`}>
+							Lorem Ipsum is simply dummy text of the printing and typesetting
+							industry. Lorem Ipsum has been the industry's standard dummy text
+							ever since the 1500s.
 						</Text>
-						<Text style={tw`text-slate-600`}>playing at table</Text>
-						<Text style={[tw`text-3xl text-slate-700 capitalize`, fw.bold]}>
-							12
-						</Text>
-						<Pressable
-							style={tw`py-3 px-6 bg-slate-700 self-end rounded-full`}
-							onPress={() => setMatchStatus("ENDED")}>
-							<Text style={[tw`text-white`, fw.semibold]}>Submit result</Text>
-						</Pressable>
-					</Box>
-				) : (
-					<MatchResult
-						match={{
-							playerA: "Io",
-							playerAScore: 2,
-							playerB: STANDINGS[0].name,
-							playerBScore: 1,
-						}}
-					/>
-				)}
-				<Section
-					icon={<Crown size={20} style={tw`text-slate-600`} />}
-					title="Standings">
-					<StandingsTable standings={STANDINGS} />
-					<View
-						style={tw`flex flex-row gap-2 mt-8 items-center justify-end px-6`}>
-						<Text style={[tw`text-slate-700`, fw.semibold]}>
-							View full standings
-						</Text>
-						<ChevronRight size={20} style={tw`text-slate-700`} />
 					</View>
-				</Section>
-			</View>
-		</ScrollView>
+					<ActionRequired />
+					{matchStatus === MATCH_STATUS.IN_PROGRESS ? (
+						<Box style={tw`flex flex-col gap-2 bg-slate-200`}>
+							<Text style={tw`text-slate-600`}>
+								<Text style={fw.medium}>Round 1</Text> has begun, your opponent
+								is
+							</Text>
+							<Text style={[tw`text-3xl text-slate-700 capitalize`, fw.bold]}>
+								{STANDINGS[0].name}
+							</Text>
+							<Text style={tw`text-slate-600`}>playing at table</Text>
+							<Text style={[tw`text-3xl text-slate-700 capitalize`, fw.bold]}>
+								12
+							</Text>
+							<Pressable
+								style={tw`py-3 px-6 bg-slate-700 self-end rounded-full`}
+								onPress={() =>
+									modal.open(
+										<MatchResult
+											match={{
+												playerA: "Io",
+												playerAScore: 2,
+												playerB: STANDINGS[0].name,
+												playerBScore: 1,
+											}}
+										/>
+									)
+								}>
+								<Text style={[tw`text-white`, fw.semibold]}>Submit result</Text>
+							</Pressable>
+						</Box>
+					) : (
+						<MatchResult
+							match={{
+								playerA: "Io",
+								playerAScore: 2,
+								playerB: STANDINGS[0].name,
+								playerBScore: 1,
+							}}
+						/>
+					)}
+					<Section
+						icon={<Crown size={20} style={tw`text-slate-600`} />}
+						title="Standings">
+						<StandingsTable standings={STANDINGS} />
+						<View
+							style={tw`flex flex-row gap-2 mt-8 items-center justify-end px-6`}>
+							<Text style={[tw`text-slate-700`, fw.semibold]}>
+								View full standings
+							</Text>
+							<ChevronRight size={20} style={tw`text-slate-700`} />
+						</View>
+					</Section>
+				</View>
+			</ScrollView>
+		</View>
 	)
 }
 

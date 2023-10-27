@@ -11,7 +11,7 @@ export function useBackPress(callback: () => void) {
 			"hardwareBackPress",
 			() => {
 				cb.current()
-				return null
+				return true
 			}
 		)
 
