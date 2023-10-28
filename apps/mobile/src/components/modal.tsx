@@ -33,6 +33,8 @@ type ModalProviderProps = {} & React.PropsWithChildren
 export function ModalProvider({ children }: ModalProviderProps) {
 	const [component, setComponent] = useState<React.ReactNode>(null)
 
+	const isOpen = !!component
+
 	function open(component: React.ReactNode) {
 		setComponent(component)
 	}
@@ -41,9 +43,10 @@ export function ModalProvider({ children }: ModalProviderProps) {
 		setComponent(null)
 	}
 
-	const isOpen = !!component
-
-	useBackPress(() => close())
+	useBackPress(() => {
+		close()
+		return isOpen
+	})
 
 	return (
 		<ModalContext.Provider
@@ -56,23 +59,21 @@ export function ModalProvider({ children }: ModalProviderProps) {
 			{isOpen && (
 				<Animated.View style={[StyleSheet.absoluteFillObject, tw`flex`]}>
 					<Animated.View
-						entering={FadeIn.duration(100).easing(Easing.linear)}
-						exiting={FadeOut.duration(100).easing(Easing.linear)}
+						entering={FadeIn.duration(300)}
+						exiting={FadeOut.duration(300)}
 						style={[
 							tw`absolute inset-0`,
 							{
-								backgroundColor: "rgba(0, 0, 0, 0.5)",
+								backgroundColor: "rgba(0, 0, 0, 0.7)",
 							},
 						]}>
 						<Pressable style={tw`flex-1`} onPress={() => close()} />
 					</Animated.View>
 					<Animated.View
 						style={tw`mt-auto bg-white rounded-t-3xl overflow-hidden`}
-						entering={FadeInDown.duration(100).easing(Easing.linear)}
-						exiting={FadeOutDown.duration(100).easing(Easing.linear)}>
-						<View
-							style={tw`w-16 h-1 rounded-full bg-slate-200 mx-auto mt-4 mb-2`}
-						/>
+						entering={FadeInDown.duration(250)}
+						exiting={FadeOutDown.duration(250)}>
+						<View style={tw`w-16 h-1 rounded-full bg-slate-200 mx-auto mt-2`} />
 						{component}
 					</Animated.View>
 				</Animated.View>
