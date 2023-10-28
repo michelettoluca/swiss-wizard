@@ -25,22 +25,22 @@ export function StandingsTable({ standings }: StandingsTableProps) {
 		<Body>
 			<Row>
 				<Cell relativeWidth={20} style={tw`pl-6`}>
-					<Text style={tw`text-slate-400`}>#</Text>
+					<Text style={tw`text-zinc-400`}>#</Text>
 				</Cell>
 				<Cell relativeWidth={55}>
-					<Text style={tw`text-slate-400`}>Name</Text>
+					<Text style={tw`text-zinc-400`}>Name</Text>
 				</Cell>
 				<Cell relativeWidth={25} style={tw`pr-6`}>
-					<Text style={tw`text-slate-400 text-right`}>Points</Text>
+					<Text style={tw`text-zinc-400 text-right`}>Points</Text>
 				</Cell>
 				<Cell relativeWidth={25}>
-					<Text style={tw`text-slate-400 text-center`}>OMW%</Text>
+					<Text style={tw`text-zinc-400 text-center`}>OMW%</Text>
 				</Cell>
 				<Cell relativeWidth={25}>
-					<Text style={tw`text-slate-400 text-center`}>GW%</Text>
+					<Text style={tw`text-zinc-400 text-center`}>GW%</Text>
 				</Cell>
 				<Cell relativeWidth={25}>
-					<Text style={tw`text-slate-400 text-center`}>OGW%</Text>
+					<Text style={tw`text-zinc-400 text-center`}>OGW%</Text>
 				</Cell>
 			</Row>
 
@@ -71,7 +71,7 @@ export function StandingsTable({ standings }: StandingsTableProps) {
 						<Cell relativeWidth={100} style={tw`pl-6`}>
 							{/* Magia strana, non ho ben capito perchè senza wrapparlo dimezza l'altezza */}
 							<Text style={tw`pt-[2px]`}>
-								<MoreHorizontal style={tw`text-slate-400`} size={20} />
+								<MoreHorizontal style={tw`text-zinc-400`} size={20} />
 							</Text>
 						</Cell>
 					</Row>
@@ -96,7 +96,7 @@ type RowProps = {} & React.PropsWithChildren
 function Row({ children }: RowProps) {
 	return (
 		<View
-			style={tw`flex flex-row items-baseline border-b border-b-slate-100 py-3`}>
+			style={tw`flex flex-row items-baseline border-b border-b-zinc-100 py-3`}>
 			{children}
 		</View>
 	)

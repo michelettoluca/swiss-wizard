@@ -73,7 +73,7 @@ export function ModalProvider({ children }: ModalProviderProps) {
 						style={tw`mt-auto bg-white rounded-t-3xl overflow-hidden`}
 						entering={FadeInDown.duration(250)}
 						exiting={FadeOutDown.duration(250)}>
-						<View style={tw`w-16 h-1 rounded-full bg-slate-200 mx-auto mt-2`} />
+						<View style={tw`w-16 h-1 rounded-full bg-zinc-200 mx-auto mt-2`} />
 						{component}
 					</Animated.View>
 				</Animated.View>

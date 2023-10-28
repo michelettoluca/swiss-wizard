@@ -5,11 +5,12 @@ import React from "react"
 import { StandingsTable } from "../components/standings-table"
 import { STANDINGS } from "../utils/mock"
 import { Section } from "../components/section"
-import { Text, fw } from "../components/text"
+import { Text } from "../components/text"
 import { MatchResult } from "../components/match-result"
 import { ObjectValues } from "../utils/typescript"
 import { Box } from "../components/box"
 import { useState } from "react"
+import { font } from "../constants/fonts"
 
 type TournamentProps = {}
 
@@ -22,7 +23,7 @@ export function Tournament({}: TournamentProps) {
 		<ScrollView>
 			<View style={tw`flex py-16 gap-8`}>
 				<View style={tw`px-6`}>
-					<Text style={[tw`text-2xl text-slate-900`, fw.bold]}>
+					<Text style={[tw`text-2xl text-zinc-900`, font["Geist Bold"]]}>
 						LPM - Tappa #1
 					</Text>
 					<Text style={tw`mt-2`}>
@@ -33,21 +34,32 @@ export function Tournament({}: TournamentProps) {
 				</View>
 				<ActionRequired />
 				{matchStatus === MATCH_STATUS.IN_PROGRESS ? (
-					<Box style={tw`flex flex-col gap-2 bg-slate-200`}>
-						<Text style={tw`text-slate-600`}>
-							<Text style={fw.medium}>Round 1</Text> has begun, your opponent is
+					<Box style={tw`flex flex-col gap-2 bg-zinc-200`}>
+						<Text style={tw`text-zinc-600`}>
+							<Text style={font["Geist Medium"]}>Round 1</Text> has begun, your
+							opponent is
 						</Text>
-						<Text style={[tw`text-3xl text-slate-700 capitalize`, fw.bold]}>
+						<Text
+							style={[
+								tw`text-3xl text-zinc-700 capitalize`,
+								font["Geist Bold"],
+							]}>
 							{STANDINGS[0].name}
 						</Text>
-						<Text style={tw`text-slate-600`}>playing at table</Text>
-						<Text style={[tw`text-3xl text-slate-700 capitalize`, fw.bold]}>
+						<Text style={tw`text-zinc-600`}>playing at table</Text>
+						<Text
+							style={[
+								tw`text-3xl text-zinc-700 capitalize`,
+								font["Geist Bold"],
+							]}>
 							12
 						</Text>
 						<Pressable
-							style={tw`py-3 px-6 bg-slate-700 self-end rounded-full`}
+							style={tw`py-3 px-6 bg-zinc-700 self-end rounded-full`}
 							onPress={() => setMatchStatus("ENDED")}>
-							<Text style={[tw`text-white`, fw.semibold]}>Submit result</Text>
+							<Text style={[tw`text-white`, font["Geist SemiBold"]]}>
+								Submit result
+							</Text>
 						</Pressable>
 					</Box>
 				) : (
@@ -61,15 +73,15 @@ export function Tournament({}: TournamentProps) {
 					/>
 				)}
 				<Section
-					icon={<Crown size={20} style={tw`text-slate-600`} />}
+					icon={<Crown size={20} style={tw`text-zinc-600`} />}
 					title="Standings">
 					<StandingsTable standings={STANDINGS} />
 					<View
 						style={tw`flex flex-row gap-2 mt-8 items-center justify-end px-6`}>
-						<Text style={[tw`text-slate-700`, fw.semibold]}>
+						<Text style={[tw`text-zinc-700`, font["Geist SemiBold"]]}>
 							View full standings
 						</Text>
-						<ChevronRight size={20} style={tw`text-slate-700`} />
+						<ChevronRight size={20} style={tw`text-zinc-700`} />
 					</View>
 				</Section>
 			</View>
@@ -86,10 +98,12 @@ export type MatchStatus = ObjectValues<typeof MATCH_STATUS>
 
 export function ActionRequired() {
 	return (
-		<Box style={tw`flex flex-col gap-4 bg-indigo-500`}>
+		<Box style={tw`flex flex-col gap-4 bg-red-500`}>
 			<View style={tw`flex flex-row items-center gap-2`}>
 				<ShieldAlert style={tw`text-white`} size={18} />
-				<Text style={[tw`text-white`, fw.semibold]}>Action required</Text>
+				<Text style={[tw`text-white`, font["Geist SemiBold"]]}>
+					Action required
+				</Text>
 			</View>
 			<View>
 				<Text style={tw`text-white`}>
@@ -107,7 +121,9 @@ export function ActionRequired() {
 			<Pressable
 				style={tw`py-3 px-6 bg-white self-end rounded-full`}
 				onPress={() => console.log("admin: take action")}>
-				<Text style={[tw`text-indigo-500`, fw.semibold]}>Take action</Text>
+				<Text style={[tw`text-red-500`, font["Geist SemiBold"]]}>
+					Take action
+				</Text>
 			</Pressable>
 		</Box>
 	)
