@@ -22,10 +22,10 @@ export function Tournament({}: TournamentProps) {
 	const modal = useModal()
 
 	return (
-		<View style={{ flex: 1, display: "flex" }}>
+		<View style={tw`flex flex-1`}>
 			<ScrollView>
 				<View style={tw`flex gap-8`}>
-					<View style={tw`px-6`}>
+					<View style={tw`px-6 bg-white`}>
 						<Text style={[tw`text-2xl text-zinc-900`, font["Geist Bold"]]}>
 							LPM - Tappa #1
 						</Text>
@@ -37,7 +37,7 @@ export function Tournament({}: TournamentProps) {
 					</View>
 					<ActionRequired />
 					{matchStatus === MATCH_STATUS.IN_PROGRESS ? (
-						<Box style={tw`flex flex-col gap-2 bg-zinc-200`}>
+						<Box style={tw`flex flex-col gap-2`}>
 							<Text style={tw`text-zinc-600`}>
 								<Text style={font["Geist Medium"]}>Round 1</Text> has begun,
 								your opponent is

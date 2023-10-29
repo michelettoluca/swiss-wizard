@@ -2,16 +2,15 @@ import { View, Pressable } from "react-native"
 import { Text } from "../components/text"
 import tw from "twrnc"
 import { font } from "../constants/fonts"
-import { useModal } from "../components/modal"
 import Google from "../../assets/svgs/google.svg"
 import X from "../../assets/svgs/x.svg"
 import Discord from "../../assets/svgs/discord.svg"
+import type { NativeStackScreenProps } from "@react-navigation/native-stack"
+import { RootStackParamList } from "../App"
 
-type SignInProps = {}
+type SignInProps = NativeStackScreenProps<RootStackParamList, "sign-in">
 
-export function SignIn({}: SignInProps) {
-	const modal = useModal()
-
+export function SignIn({ navigation }: SignInProps) {
 	return (
 		<View style={tw`flex-1 flex justify-center items-center px-6`}>
 			<View>
@@ -39,16 +38,7 @@ export function SignIn({}: SignInProps) {
 				</Pressable>
 				<Pressable
 					style={tw`flex-row gap-2 items-center px-6 py-3 justify-center w-full rounded-full border border-zinc-200`}
-					onPress={() =>
-						modal.open(
-							<View style={tw`p-6`}>
-								<Text style={tw`text-zinc-600`}>
-									C:\Users\Luca\Desktop\ci
-									provo\swiss-wizard\node_modules\@babel\parser\lib\index.js:6827:17
-								</Text>
-							</View>
-						)
-					}>
+					onPress={() => navigation.navigate("tournament")}>
 					<Discord />
 					<Text>Continue with Discord</Text>
 				</Pressable>
