@@ -2,16 +2,10 @@ import { View, Pressable } from "react-native"
 import { Text } from "../components/text"
 import tw from "twrnc"
 import { font } from "../constants/fonts"
-import {
-	BoxIcon,
-	Chrome,
-	CircleDashed,
-	Database,
-	DiscIcon,
-	Speech,
-} from "lucide-react-native"
-import { Box } from "../components/box"
 import { useModal } from "../components/modal"
+import Google from "../../assets/svgs/google.svg"
+import X from "../../assets/svgs/x.svg"
+import Discord from "../../assets/svgs/discord.svg"
 
 type SignInProps = {}
 
@@ -23,28 +17,28 @@ export function SignIn({}: SignInProps) {
 			<View>
 				<Text
 					style={[
-						tw`text-3xl text-center text-zinc-100`,
+						tw`text-3xl text-center text-zinc-800`,
 						font["Geist UltraBlack"],
 					]}>
 					Swiss Wizard
 				</Text>
-				<Text style={tw`text-center text-zinc-300`}>
+				<Text style={tw`text-center text-zinc-600`}>
 					Swiss Wizard™ is a app organize swiss style tournaments.{" "}
 				</Text>
 			</View>
 			<View style={tw`flex gap-3 w-full mt-20`}>
 				<Pressable
-					style={tw`flex-row gap-2 items-center px-6 py-3 justify-center w-full rounded-full border border-zinc-600`}>
-					<Chrome size={20} style={tw`text-zinc-100`} />
+					style={tw`flex-row gap-2 items-center px-6 py-3 justify-center w-full rounded-full border border-zinc-200`}>
+					<Google />
 					<Text>Continue with Google</Text>
 				</Pressable>
 				<Pressable
-					style={tw`flex-row gap-2 items-center px-6 py-3 justify-center w-full rounded-full border border-zinc-600`}>
-					<Speech size={20} style={tw`text-zinc-100`} />
+					style={tw`flex-row gap-2 items-center px-6 py-3 justify-center w-full rounded-full border border-zinc-200`}>
+					<X />
 					<Text>Continue with X</Text>
 				</Pressable>
 				<Pressable
-					style={tw`flex-row gap-2 items-center px-6 py-3 justify-center w-full rounded-full border border-zinc-600`}
+					style={tw`flex-row gap-2 items-center px-6 py-3 justify-center w-full rounded-full border border-zinc-200`}
 					onPress={() =>
 						modal.open(
 							<View style={tw`p-6`}>
@@ -55,7 +49,7 @@ export function SignIn({}: SignInProps) {
 							</View>
 						)
 					}>
-					<BoxIcon size={20} style={tw`text-zinc-100`} />
+					<Discord />
 					<Text>Continue with Discord</Text>
 				</Pressable>
 			</View>

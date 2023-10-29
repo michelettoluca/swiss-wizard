@@ -15,7 +15,7 @@ export default function App() {
 
 	return (
 		<SafeAreaView
-			style={[tw`flex-1 bg-zinc-800`, { paddingTop: StatusBar.currentHeight }]}>
+			style={[tw`flex-1 bg-white`, { paddingTop: StatusBar.currentHeight }]}>
 			<ModalProvider>
 				{/* <Tournament /> */}
 				<SignIn />
