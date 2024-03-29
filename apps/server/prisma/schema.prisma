@@ -3,15 +3,110 @@ generator client {
 }
 
 datasource db {
-  provider     = "mysql"
+  provider     = "postgresql"
   url          = env("DATABASE_URL")
   relationMode = "prisma"
 }
 
 model User {
-  id        String   @id @default(uuid())
+  id        Int    @id @default(autoincrement())
+  accountId String @unique
+
+  displayName String
+
+  registrations Registration[]
+
+  organizedTournaments Tournament[]
+
+  playerA Match[] @relation(name: "playerA")
+  playerB Match[] @relation(name: "playerB")
+
   createdAt DateTime @default(now())
-  accountId String   @unique
 
   @@index([accountId])
+}
+
+enum RegistrationStatus {
+  ENOLLED
+  BANNED
+  DROPPED
+}
+
+model Registration {
+  userId Int
+  user   User @relation(fields: [userId], references: [id])
+
+  tournamentId Int
+  tournament   Tournament @relation(fields: [tournamentId], references: [id])
+
+  createdAt DateTime @default(now())
+
+  @@id([userId, tournamentId])
+  @@index([userId])
+  @@index([tournamentId])
+}
+
+enum TournamentStatus {
+  OPEN
+  ASD
+}
+
+model Tournament {
+  id Int @id @default(autoincrement())
+
+  ownerId Int
+  owner   User @relation(fields: [ownerId], references: [id])
+
+  name          String
+  description   String
+  status        TournamentStatus @default(OPEN)
+  registrations Registration[]
+  rounds        Round[]
+
+  createdAt DateTime @default(now())
+
+  @@index([ownerId])
+}
+
+model Round {
+  id Int @id @default(autoincrement())
+
+  number Int
+
+  matches Match[]
+
+  tournamentId Int
+  tournament   Tournament @relation(fields: [tournamentId], references: [id])
+
+  createdAt DateTime @default(now())
+
+  @@index([tournamentId])
+}
+
+enum MatchStatus {
+  PAIRED
+  STARTED
+  SUMBITTED
+  REPORTED
+}
+
+model Match {
+  id Int @id @default(autoincrement())
+
+  status MatchStatus @default(PAIRED)
+
+  roundId Int
+  Round   Round @relation(fields: [roundId], references: [id])
+
+  playerAId    Int
+  playerA      User @relation(name: "playerA", fields: [playerAId], references: [id])
+  playerAScore Int  @default(0)
+
+  playerBId    Int
+  playerB      User @relation(name: "playerB", fields: [playerBId], references: [id])
+  playerBScore Int  @default(0)
+
+  @@index([roundId])
+  @@index([playerAId])
+  @@index([playerBId])
 }
