@@ -1,6 +1,5 @@
 import { Pressable, Text, View } from "react-native"
 import { useUserContext } from "../../context"
-import { trpc } from "../../lib"
 
 export default function () {
     const user = useUserContext()

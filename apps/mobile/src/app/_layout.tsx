@@ -1,5 +1,5 @@
 import { Slot } from "expo-router"
-import { AuthProvider, TrpcProvider } from "../providers"
+import { AuthProvider, TrpcProvider } from "../context"
 import { View } from "react-native"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
 
