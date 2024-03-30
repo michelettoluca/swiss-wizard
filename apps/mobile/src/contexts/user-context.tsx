@@ -1,8 +1,8 @@
-import { useAuth, useUser } from "@clerk/clerk-expo"
+import { useAuth } from "@clerk/clerk-expo"
 import { PropsWithChildren, createContext, useContext } from "react"
 import { Entities } from "server/src/prisma"
 import { trpc } from "../lib"
-import { Redirect, useRouter } from "expo-router"
+import { Redirect } from "expo-router"
 import { Pressable, Text } from "react-native"
 
 type UserContextValue = {
