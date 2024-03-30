@@ -1,8 +1,8 @@
 import { useAuth } from "@clerk/clerk-expo"
-import { PropsWithChildren, createContext, useContext } from "react"
+import { PropsWithChildren, createContext, useContext, useEffect } from "react"
 import { Entities } from "server/src/prisma"
 import { trpc } from "../lib"
-import { Redirect } from "expo-router"
+import { Redirect, SplashScreen } from "expo-router"
 import { Pressable, Text } from "react-native"
 
 type UserContextValue = {
@@ -20,6 +20,12 @@ export function UserProvider({ children }: PropsWithChildren) {
         { accountId: accountId! },
         { enabled: Boolean(accountId), staleTime: Infinity }
     )
+
+    useEffect(() => {
+        if (isLoaded && user) {
+            SplashScreen.hideAsync()
+        }
+    }, [isLoaded, user])
 
     if (!isLoaded) {
         return <Text>@user-context.tsx / Loading useAuth</Text>
