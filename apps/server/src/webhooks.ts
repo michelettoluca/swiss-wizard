@@ -6,7 +6,7 @@ import { prisma } from "./prisma"
 const WEBHOOK_SECRET = process.env.WEBHOOK_SECRET
 
 if (!WEBHOOK_SECRET) {
-    throw new Error("You need a WEBHOOK_SECRET in your .env")
+    throw new Error("Add WEBHOOK_SECRET to your .env file")
 }
 
 export const handleClerkWebhooks = async (req: Request, res: Response) => {

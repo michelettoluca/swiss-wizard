@@ -5,7 +5,8 @@ import { trpc } from "../lib"
 import { Redirect } from "expo-router"
 import { Text } from "react-native"
 
-type UserContextValue = Omit<Entities["User"], "createdAt"> & {
+type UserContextValue = {
+    user: Omit<Entities["User"], "createdAt">
     signOut: () => void
 }
 
@@ -14,8 +15,7 @@ const UserContext = createContext<UserContextValue>({} as UserContextValue)
 export function UserProvider({ children }: PropsWithChildren) {
     const { userId, isSignedIn, signOut, isLoaded } = useAuth()
     const utils = trpc.useUtils()
-
-    const { data: user } = trpc.user.pollUser.useQuery({ accountId: userId! }, { enabled: Boolean(userId) })
+    const { data: user } = trpc.user.findByAccountId.useQuery(userId!, { enabled: isSignedIn })
 
     if (isLoaded && !isSignedIn) {
         return <Redirect href="/sign-in" />
@@ -28,11 +28,10 @@ export function UserProvider({ children }: PropsWithChildren) {
     return (
         <UserContext.Provider
             value={{
-                id: user.id,
-                accountId: user.accountId,
+                user,
                 signOut: () => {
-                    signOut()
                     utils.user.findByAccountId.invalidate(userId)
+                    signOut()
                 }
             }}
         >

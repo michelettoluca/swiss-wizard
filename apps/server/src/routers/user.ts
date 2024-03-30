@@ -1,7 +1,6 @@
 import { z } from "zod"
 import { router, publicProcedure } from "../trpc"
 import { prisma } from "../prisma"
-import { User } from "@prisma/client"
 import { waitUntilPresent } from "../utils"
 
 const findByAccountId = publicProcedure.input(z.string()).query(async ({ input }) => {
@@ -26,21 +25,27 @@ const pollUser = publicProcedure
         return await waitUntilPresent(() => prisma.user.findUnique({ where: { accountId: input.accountId } }))
     })
 
-const deleteAll = publicProcedure.input(z.string()).mutation(async ({ input }) => {
+const deleteAll = publicProcedure.mutation(async () => {
     return await prisma.user.deleteMany({
-        where: {
-            NOT: {
-                id: {
-                    equals: input
-                }
-            }
-        }
+        where: {}
     })
 })
+
+const updateUsername = publicProcedure
+    .input(
+        z.object({
+            id: z.number(),
+            username: z.string().min(3)
+        })
+    )
+    .mutation(async ({ input }) => {
+        return await prisma.user.update({ where: { id: input.id }, data: { username: input.username } })
+    })
 
 export const userRouter = router({
     findByAccountId,
     findAll,
     deleteAll,
-    pollUser
+    pollUser,
+    updateUsername
 })

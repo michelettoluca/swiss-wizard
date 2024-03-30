@@ -12,7 +12,7 @@ model User {
   id        Int    @id @default(autoincrement())
   accountId String @unique
 
-  displayName String
+  username String?
 
   registrations Registration[]
 
