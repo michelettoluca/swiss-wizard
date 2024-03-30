@@ -37,8 +37,6 @@ export function UserProvider({ children }: PropsWithChildren) {
         return <Text>@user-context.tsx / Error while creating the account</Text>
     }
 
-    const isRegistrationCompleted = Boolean(user.username)
-
     return (
         <UserContext.Provider
             value={{
@@ -49,7 +47,7 @@ export function UserProvider({ children }: PropsWithChildren) {
                 }
             }}
         >
-            {isRegistrationCompleted ? children : <CompleteRegistration />}
+            {user.completedRegistration ? children : <CompleteRegistration />}
         </UserContext.Provider>
     )
 }
@@ -61,19 +59,21 @@ export function useUserContext() {
 export function CompleteRegistration() {
     const { user } = useUserContext()
     const utils = trpc.useUtils()
+    const { data } = trpc.user.findAll.useQuery()
 
-    const { mutate: updateUsername } = trpc.user.updateUsername.useMutation()
-
-    const completeRegistration = () => {
-        updateUsername({ id: user.id, username: "Lillo palle" })
-
-        utils.user.pollUser.invalidate()
-    }
+    const { mutate: completeRegistration } = trpc.user.completeRegistration.useMutation()
 
     return (
         <Pressable>
             <Text>Complete registration</Text>
-            <Pressable onPress={completeRegistration}>
+            <Text>{JSON.stringify(data)}</Text>
+            <Pressable
+                onPress={() => {
+                    completeRegistration({ id: user.id, username: "Lillo palle" })
+
+                    utils.user.pollUser.invalidate()
+                }}
+            >
                 <Text>Set username "Lillo Palle"</Text>
             </Pressable>
         </Pressable>

@@ -31,7 +31,7 @@ const deleteAll = publicProcedure.mutation(async () => {
     })
 })
 
-const updateUsername = publicProcedure
+const completeRegistration = publicProcedure
     .input(
         z.object({
             id: z.number(),
@@ -39,7 +39,10 @@ const updateUsername = publicProcedure
         })
     )
     .mutation(async ({ input }) => {
-        return await prisma.user.update({ where: { id: input.id }, data: { username: input.username } })
+        return await prisma.user.update({
+            where: { id: input.id },
+            data: { username: input.username, completedRegistration: true }
+        })
     })
 
 export const userRouter = router({
@@ -47,5 +50,5 @@ export const userRouter = router({
     findAll,
     deleteAll,
     pollUser,
-    updateUsername
+    completeRegistration
 })

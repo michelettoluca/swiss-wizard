@@ -9,10 +9,11 @@ datasource db {
 }
 
 model User {
-  id        Int    @id @default(autoincrement())
-  accountId String @unique
+  id        Int     @id @default(autoincrement())
+  accountId String  @unique
+  username  String? @unique
 
-  username String?
+  completedRegistration Boolean @default(false)
 
   registrations Registration[]
 
@@ -23,6 +24,7 @@ model User {
 
   createdAt DateTime @default(now())
 
+  @@index([username])
   @@index([accountId])
 }
 
