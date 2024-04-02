@@ -34,16 +34,16 @@ const sizeStyles = StyleSheet.create({
 
 const weightStyles = StyleSheet.create({
     regular: {
-        fontFamily: ""
+        fontFamily: "Geist Regular"
     },
     medium: {
-        fontFamily: ""
+        fontFamily: "Geist Medium"
     },
     semibold: {
-        fontFamily: ""
+        fontFamily: "Geist SemiBold"
     },
     bold: {
-        fontFamily: ""
+        fontFamily: "Geist Bold"
     }
 })
 
