@@ -70,17 +70,9 @@ export function Text({ color, size, weight, align, children, ...props }: TextPro
         { color: color ?? defaultColor }
     ])
 
-    console.log(style)
-
     return (
         <NativeText style={style} {...props}>
             {children}
         </NativeText>
     )
 }
-
-export const headerStyle: TextStyleProps = {
-    size: "s",
-    color: "#ffffff",
-    weight: "regular"
-} as const

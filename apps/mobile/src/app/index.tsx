@@ -6,7 +6,7 @@ import * as AuthSession from "expo-auth-session"
 import { Redirect, SplashScreen } from "expo-router"
 import { Text } from "../components"
 import { Colors, Size } from "../styles"
-import { GoogleIcon } from "../icons/google"
+import { GoogleG } from "../svgs"
 
 SplashScreen.preventAutoHideAsync()
 
@@ -72,7 +72,7 @@ export default function () {
                     android_ripple={{ color: "rgba(0, 0, 0, 0.05)", radius: 1000, foreground: false }}
                     onPress={() => authenticate()}
                 >
-                    <GoogleIcon width={24} height={24} />
+                    <GoogleG width={24} height={24} />
                     <Text size="s" color={Colors.gray[600]}>
                         Sign in with Google
                     </Text>

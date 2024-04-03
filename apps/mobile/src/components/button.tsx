@@ -56,7 +56,9 @@ export function Button({ size, type, icon, children, ...props }: ButtonProps) {
     return (
         <Pressable style={pressableStyle} {...props}>
             {icon && <View style={iconStyle}>{icon}</View>}
-            <Text size="xs">{children}</Text>
+            <Text size="xs" weight="medium">
+                {children}
+            </Text>
         </Pressable>
     )
 }

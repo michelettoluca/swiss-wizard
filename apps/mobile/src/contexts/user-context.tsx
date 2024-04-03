@@ -4,6 +4,7 @@ import { Entities } from "server/src/prisma"
 import { trpc } from "../lib"
 import { Redirect, SplashScreen } from "expo-router"
 import { Pressable, Text } from "react-native"
+import { Button } from "../components"
 
 type UserContextValue = {
     user: Omit<Entities["User"], "createdAt">
@@ -47,9 +48,9 @@ export function UserProvider({ children }: PropsWithChildren) {
         <UserContext.Provider
             value={{
                 user,
-                signOut: () => {
-                    utils.user.pollUser.invalidate({ accountId })
-                    signOut()
+                signOut: async () => {
+                    await utils.user.pollUser.invalidate({ accountId })
+                    await signOut()
                 }
             }}
         >
@@ -62,7 +63,7 @@ export function useUserContext() {
     return useContext(UserContext)
 }
 
-export function CompleteRegistration() {
+function CompleteRegistration() {
     const { user } = useUserContext()
     const utils = trpc.useUtils()
     const { data } = trpc.user.findAll.useQuery()
@@ -73,15 +74,15 @@ export function CompleteRegistration() {
         <Pressable>
             <Text>Complete registration</Text>
             <Text>{JSON.stringify(data)}</Text>
-            <Pressable
+            <Button
                 onPress={() => {
                     completeRegistration({ id: user.id, username: "Lillo palle" })
 
                     utils.user.pollUser.invalidate()
                 }}
             >
-                <Text>Set username "Lillo Palle"</Text>
-            </Pressable>
+                Set username "Lillo Palle"
+            </Button>
         </Pressable>
     )
 }
