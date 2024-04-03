@@ -1,6 +1,6 @@
-import * as React from "react"
 import Svg, { Path, SvgProps } from "react-native-svg"
-export const GoogleIcon = (props: SvgProps) => (
+
+export const GoogleG = (props: SvgProps) => (
     <Svg {...props}>
         <Path
             fill="#4285F4"
