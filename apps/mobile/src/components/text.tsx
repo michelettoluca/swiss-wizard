@@ -1,5 +1,5 @@
 import { StyleSheet, Text as NativeText, TextProps as NativeTextProps, ColorValue } from "react-native"
-import { Size } from "../styles"
+import { Colors, Size } from "../styles"
 
 type Weight = "regular" | "medium" | "semibold" | "bold"
 
@@ -7,6 +7,7 @@ type TextStyleProps = {
     size?: "xs" | "s" | "base" | "m" | "l" | "xl"
     color?: ColorValue
     weight?: Weight
+    align?: "left" | "center" | "right"
 }
 
 type TextProps = { children: string } & TextStyleProps & Omit<NativeTextProps, "children" | "style">
@@ -47,14 +48,29 @@ const weightStyles = StyleSheet.create({
     }
 })
 
-const defaultColor: ColorValue = "#FFFFFF"
+const alignStyles = StyleSheet.create({
+    left: {
+        textAlign: "left"
+    },
+    center: {
+        textAlign: "center"
+    },
+    right: {
+        textAlign: "right"
+    }
+})
 
-export function Text({ color, size, weight, children, ...props }: TextProps) {
+const defaultColor: ColorValue = Colors.gray[600]
+
+export function Text({ color, size, weight, align, children, ...props }: TextProps) {
     const style = StyleSheet.flatten([
+        alignStyles[align ?? "left"],
         sizeStyles[size ?? "base"],
         weightStyles[weight ?? "regular"],
         { color: color ?? defaultColor }
     ])
+
+    console.log(style)
 
     return (
         <NativeText style={style} {...props}>
