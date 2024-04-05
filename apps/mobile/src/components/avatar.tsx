@@ -1,5 +1,5 @@
 import { ColorValue, View } from "react-native"
-import { Size } from "../styles"
+import * as Size from "../styles/size"
 
 type AvatarProps = {
     color?: ColorValue

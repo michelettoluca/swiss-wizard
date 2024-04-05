@@ -1,5 +1,5 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
-import { trpc } from "../lib"
+import { trpc } from "../lib/trpc"
 import { httpBatchLink } from "@trpc/client"
 import { useAuth } from "@clerk/clerk-expo"
 import { useState } from "react"

@@ -1,12 +1,10 @@
-export const Size = {
-    xxxs: 4,
-    xxs: 8,
-    xs: 12,
-    s: 14,
-    base: 16,
-    m: 20,
-    l: 24,
-    xl: 32,
-    xxl: 48,
-    xxxl: 64
-} as const
+export const xxxs = 4
+export const xxs = 8
+export const xs = 12
+export const s = 14
+export const base = 16
+export const m = 20
+export const l = 24
+export const xl = 32
+export const xxl = 48
+export const xxxl = 6

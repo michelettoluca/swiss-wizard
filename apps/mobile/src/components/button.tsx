@@ -1,7 +1,8 @@
 import { Pressable, PressableProps, StyleSheet, View } from "react-native"
 import { Text } from "./text"
 import { ReactElement } from "react"
-import { Colors, Size } from "../styles"
+import * as Size from "../styles/size"
+import * as Color from "../styles/color"
 
 type ButtonProps = {
     size?: "sm" | "base" | "lg"
@@ -30,10 +31,10 @@ const pressableSizeStyles = StyleSheet.create({
 
 const typeStyles = StyleSheet.create({
     danger: {
-        backgroundColor: Colors.blue[500]
+        backgroundColor: Color.blue[500]
     },
     default: {
-        backgroundColor: Colors.blue[500]
+        backgroundColor: Color.blue[500]
     }
 })
 

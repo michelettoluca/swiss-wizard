@@ -1,5 +1,6 @@
 import { Slot } from "expo-router"
-import { AuthProvider, TrpcProvider } from "../contexts"
+import { TrpcProvider } from "../contexts/trpc"
+import { AuthProvider } from "../contexts/auth"
 import { View } from "react-native"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
 import { useFonts } from "expo-font"

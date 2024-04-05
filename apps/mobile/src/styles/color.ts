@@ -1,5 +1,3 @@
-import { ColorValue } from "react-native"
-
 export const blue = {
     50: "#EFF6FF",
     100: "#DBEAFE",
@@ -65,4 +63,4 @@ export const emerald = {
     900: "#064E3B"
 } as const
 
-export const white: ColorValue = "#FFFFFF"
+export const white = "#FFFFFF"

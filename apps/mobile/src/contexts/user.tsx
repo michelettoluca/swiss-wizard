@@ -1,7 +1,7 @@
 import { useAuth } from "@clerk/clerk-expo"
 import { PropsWithChildren, createContext, useContext, useEffect } from "react"
 import { Entities } from "server/src/prisma"
-import { trpc } from "../lib"
+import { trpc } from "../lib/trpc"
 import { Redirect, SplashScreen } from "expo-router"
 import { Pressable, Text } from "react-native"
 import { Button } from "../components"
@@ -11,7 +11,7 @@ type UserContextValue = {
     signOut: () => void
 }
 
-const UserContext = createContext<UserContextValue>({} as UserContextValue)
+const User = createContext<UserContextValue>({} as UserContextValue)
 
 export function UserProvider({ children }: PropsWithChildren) {
     const { userId: accountId, isSignedIn, signOut, isLoaded } = useAuth()
@@ -45,7 +45,7 @@ export function UserProvider({ children }: PropsWithChildren) {
     }
 
     return (
-        <UserContext.Provider
+        <User.Provider
             value={{
                 user,
                 signOut: async () => {
@@ -55,12 +55,12 @@ export function UserProvider({ children }: PropsWithChildren) {
             }}
         >
             {user.completedRegistration ? children : <CompleteRegistration />}
-        </UserContext.Provider>
+        </User.Provider>
     )
 }
 
 export function useUserContext() {
-    return useContext(UserContext)
+    return useContext(User)
 }
 
 function CompleteRegistration() {

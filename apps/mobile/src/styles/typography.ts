@@ -20,9 +20,9 @@ export const header: TextStyle = {
 export const body: TextStyle = {
     fontFamily: Geist.regular,
     fontSize: 14
-}
+} as const
 
 export const label: TextStyle = {
     fontFamily: Geist.regular,
     fontSize: 10
-}
+} as const

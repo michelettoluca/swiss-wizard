@@ -1,7 +1,11 @@
 import { View } from "react-native"
-import { Colors, Size } from "../../styles"
-import { Avatar, Button, Section, Text } from "../../components"
-import { useUser } from "../../contexts"
+import * as Color from "../../styles/color"
+import * as Size from "../../styles/size"
+import { Avatar } from "../../components/avatar"
+import { Text } from "../../components/text"
+import { Button } from "../../components/button"
+import { Section } from "../../components/section"
+import { useUser } from "@clerk/clerk-expo"
 
 export default function () {
     const { user, signOut } = useUser()
@@ -16,10 +20,10 @@ export default function () {
                     gap: Size.xxs
                 }}
             >
-                <Avatar color={Colors.blue[400]} />
+                <Avatar color={Color.blue[400]} />
                 <View>
                     <Text size="s">Welcome</Text>
-                    <Text weight="semibold" color={Colors.gray[900]}>
+                    <Text weight="semibold" color={Color.gray[900]}>
                         {user.username!}
                     </Text>
                 </View>

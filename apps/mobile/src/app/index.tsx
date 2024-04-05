@@ -1,12 +1,13 @@
 import { Pressable, View } from "react-native"
 import { useEffect } from "react"
 import { useAuth, useOAuth } from "@clerk/clerk-expo"
-import { useWarmUpBrowser } from "../hooks"
+import { useWarmUpBrowser } from "../hooks/use-warm-up-browser"
 import * as AuthSession from "expo-auth-session"
 import { Redirect, SplashScreen } from "expo-router"
-import { Text } from "../components"
-import { Colors, Size } from "../styles"
-import { GoogleG } from "../svgs"
+import { Text } from "../components/text"
+import * as Color from "../styles/color"
+import * as Size from "../styles/size"
+import { GoogleG } from "../svgs/google-g"
 
 SplashScreen.preventAutoHideAsync()
 
@@ -51,7 +52,7 @@ export default function () {
             }}
         >
             <View style={{ alignItems: "center", padding: Size.l }}>
-                <Text color={Colors.gray[800]} size="xl" weight="bold">
+                <Text color={Color.gray[800]} size="xl" weight="bold">
                     Swiss Wizard
                 </Text>
                 <Text align="center">Grande sottotitolo, importantissimo e su più righe con punto.</Text>
@@ -65,7 +66,7 @@ export default function () {
                         justifyContent: "center",
                         gap: Size.xs,
                         paddingVertical: 16,
-                        borderColor: Colors.gray[300],
+                        borderColor: Color.gray[300],
                         borderWidth: 1,
                         borderRadius: 1000
                     }}
@@ -73,7 +74,7 @@ export default function () {
                     onPress={() => authenticate()}
                 >
                     <GoogleG width={24} height={24} />
-                    <Text size="s" color={Colors.gray[600]}>
+                    <Text size="s" color={Color.gray[600]}>
                         Sign in with Google
                     </Text>
                 </Pressable>

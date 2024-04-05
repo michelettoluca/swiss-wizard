@@ -1,5 +1,7 @@
 import { StyleSheet, Text as NativeText, TextProps as NativeTextProps, ColorValue } from "react-native"
-import { Colors, Size } from "../styles"
+
+import * as Color from "../styles/color"
+import * as Size from "../styles/size"
 
 type Weight = "regular" | "medium" | "semibold" | "bold"
 
@@ -60,7 +62,7 @@ const alignStyles = StyleSheet.create({
     }
 })
 
-const defaultColor: ColorValue = Colors.gray[600]
+const defaultColor: ColorValue = Color.gray[600]
 
 export function Text({ color, size, weight, align, children, ...props }: TextProps) {
     const style = StyleSheet.flatten([
