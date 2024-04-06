@@ -5,7 +5,7 @@ import { Avatar } from "../../components/avatar"
 import { Text } from "../../components/text"
 import { Button } from "../../components/button"
 import { Section } from "../../components/section"
-import { useUser } from "@clerk/clerk-expo"
+import { useUser } from "../../contexts/user"
 
 export default function () {
     const { user, signOut } = useUser()

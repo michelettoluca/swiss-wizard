@@ -4,7 +4,7 @@ import { Entities } from "server/src/prisma"
 import { trpc } from "../lib/trpc"
 import { Redirect, SplashScreen } from "expo-router"
 import { Pressable, Text } from "react-native"
-import { Button } from "../components"
+import { Button } from "../components/button"
 
 type UserContextValue = {
     user: Omit<Entities["User"], "createdAt">
@@ -59,12 +59,12 @@ export function UserProvider({ children }: PropsWithChildren) {
     )
 }
 
-export function useUserContext() {
+export function useUser() {
     return useContext(User)
 }
 
 function CompleteRegistration() {
-    const { user } = useUserContext()
+    const { user } = useUser()
     const utils = trpc.useUtils()
     const { data } = trpc.user.findAll.useQuery()
 
