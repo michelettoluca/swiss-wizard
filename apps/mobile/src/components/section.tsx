@@ -21,7 +21,8 @@ export function Section({ name, action, children }: SectionProps) {
                     display: "flex",
                     flexDirection: "row",
                     justifyContent: "space-between",
-                    alignItems: "baseline"
+                    alignItems: "baseline",
+                    marginBottom: Size.xs
                 }}
             >
                 <Text weight="semibold" color={Color.gray[900]} size="m">

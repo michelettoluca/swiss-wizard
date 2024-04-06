@@ -2,6 +2,7 @@ import { StyleSheet, Text as NativeText, TextProps as NativeTextProps, ColorValu
 
 import * as Color from "../styles/color"
 import * as Size from "../styles/size"
+import { PropsWithChildren } from "react"
 
 type Weight = "regular" | "medium" | "semibold" | "bold"
 
@@ -12,7 +13,7 @@ type TextStyleProps = {
     align?: "left" | "center" | "right"
 }
 
-type TextProps = { children: string } & TextStyleProps & Omit<NativeTextProps, "children" | "style">
+type TextProps = PropsWithChildren & TextStyleProps & Omit<NativeTextProps, "children" | "style">
 
 const sizeStyles = StyleSheet.create({
     xs: {
