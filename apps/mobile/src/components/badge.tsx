@@ -4,7 +4,7 @@ import { XL, XXS, XXXS } from "../styles/size"
 import { RED, AMBER, EMERALD, GRAY } from "../styles/color"
 import { Text } from "./text"
 
-type Theme = "red" | "amber" | "emerald" | "gray"
+export type BadgeTheme = "red" | "amber" | "emerald" | "gray"
 
 const box: ViewStyle = {
     display: "flex",
@@ -12,11 +12,11 @@ const box: ViewStyle = {
     justifyContent: "center",
     minWidth: XL,
     borderRadius: XXXS,
-    alignSelf: "flex-start",
-    paddingHorizontal: XXS
+    paddingHorizontal: XXS,
+    paddingVertical: 1
 }
 
-const backgroundColor: Record<Theme, ViewStyle> = {
+const backgroundColor: Record<BadgeTheme, ViewStyle> = {
     red: {
         backgroundColor: RED[100]
     },
@@ -31,7 +31,7 @@ const backgroundColor: Record<Theme, ViewStyle> = {
     }
 } as const
 
-const textColor: Record<Theme, ColorValue> = {
+const textColor: Record<BadgeTheme, ColorValue> = {
     red: RED[500],
     amber: AMBER[500],
     emerald: EMERALD[600],
@@ -39,7 +39,7 @@ const textColor: Record<Theme, ColorValue> = {
 } as const
 
 type BadgeProps = {
-    theme: Theme
+    theme: BadgeTheme
 } & PropsWithChildren
 
 export function Badge({ theme, children }: BadgeProps) {

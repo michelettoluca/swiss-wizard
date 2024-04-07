@@ -1,18 +1,50 @@
 import { View } from "react-native"
 import { BLUE, GRAY, AMBER, WHITE } from "../../styles/color"
-import { L, BASE, XXS, XS } from "../../styles/size"
+import { L, BASE, XXS, XS, M, XXXS } from "../../styles/size"
 import { Avatar } from "../../components/avatar"
 import { Text } from "../../components/text"
 import { Button } from "../../components/button"
 import { Section } from "../../components/section"
 import { useUser } from "../../contexts/user"
 import { PropsWithChildren } from "react"
-import { Badge } from "../../components/badge"
+import { Badge, BadgeTheme } from "../../components/badge"
+import { List } from "../../components/list"
+import { TournamentListItem } from "../../components/torunament-list-item"
 
 const ACTIVITIES = [
-    { name: "Evento 1", rank: 1, date: "15 gennaio 2024" },
-    { name: "Evento 2", rank: 5, date: "1 febbraio 2024" },
-    { name: "Evento 3", rank: 16, date: "7 aprile 2024" }
+    {
+        name: "Evento 1",
+        rank: 1,
+        date: "15 gennaio 2024",
+        opponent: { firstName: "Pietro", lastName: "Smusi" },
+        wins: 2,
+        losses: 1,
+        omw: Math.random(),
+        gw: Math.random(),
+        ogw: Math.random()
+    },
+    {
+        name: "Evento 2",
+        rank: 5,
+        date: "1 febbraio 2024",
+        opponent: { firstName: "Orazio", lastName: "Grinzosi" },
+        wins: 0,
+        losses: 1,
+        omw: Math.random(),
+        gw: Math.random(),
+        ogw: Math.random()
+    },
+    {
+        name: "Evento 3",
+        rank: 16,
+        date: "7 aprile 2024",
+        opponent: { firstName: "Silvio", lastName: "Berlusconi" },
+        wins: 1,
+        losses: 1,
+        omw: Math.random(),
+        gw: Math.random(),
+        ogw: Math.random()
+    }
 ] as const
 
 export default function () {
@@ -38,72 +70,102 @@ export default function () {
             </View>
             <Section name="Section" action={{ name: "Show all", onPress: () => console.log("Palle") }}>
                 {/* <Text>asd</Text> */}
-                <Activity>
-                    {ACTIVITIES.map((a) => (
-                        <ActivityItem key={a.name} {...a} />
+                <List type="compact">
+                    {ACTIVITIES.map((a, i) => (
+                        <>
+                            <PlayerResult key={a.name} {...a} />
+                            {i < ACTIVITIES.length - 1 && <Separator />}
+                        </>
                     ))}
-                </Activity>
+                </List>
             </Section>
             <Button onPress={() => signOut()}>Log out</Button>
         </View>
     )
 }
 
-function Activity({ children }: PropsWithChildren) {
-    return (
-        <View
-            style={{
-                display: "flex",
-                gap: XXS
-            }}
-        >
-            {children}
-        </View>
-    )
+type SeparatorProps = {}
+
+function Separator({}: SeparatorProps) {
+    return <View style={{ height: 1, backgroundColor: GRAY[100] }}></View>
 }
 
-type ActivityItemProps = {
-    name: string
-    rank: number
-    date: string
-} & PropsWithChildren
+type PlayerResultProps = {
+    opponent: {
+        firstName: string
+        lastName: string
+    }
+    wins: number
+    losses: number
+    omw: number
+    gw: number
+    ogw: number
+}
 
-function ActivityItem({ date, name, rank }: ActivityItemProps) {
+function PlayerResult({ opponent, wins, losses, omw, gw, ogw }: PlayerResultProps) {
+    let badgeTheme: BadgeTheme
+    let badgeContent: string
+
+    if (wins > losses) {
+        badgeTheme = "emerald"
+        badgeContent = "W"
+    } else if (wins < losses) {
+        badgeTheme = "red"
+        badgeContent = "L"
+    } else {
+        badgeTheme = "amber"
+        badgeContent = "D"
+    }
+
     return (
         <View
             style={{
                 display: "flex",
                 flexDirection: "row",
-                gap: XS,
+                alignItems: "center",
+                justifyContent: "space-between",
+                gap: XXS,
                 padding: BASE,
-                backgroundColor: WHITE,
-                borderRadius: XS
+                paddingRight: M,
+                backgroundColor: WHITE
             }}
         >
-            <Avatar color={AMBER[200]} />
             <View
                 style={{
                     display: "flex",
-                    flexDirection: "row",
-                    justifyContent: "space-between",
-                    flexGrow: 1
+                    gap: XXS
                 }}
             >
-                <View>
-                    <Text weight="medium" color={GRAY[900]}>
-                        {name}
-                    </Text>
-                    <View style={{ display: "flex", gap: 4 }}>
-                        <Badge theme="emerald">W</Badge>
-                        <Badge theme="red">L</Badge>
-                        <Badge theme="amber">D</Badge>
-                        <Badge theme="gray">OMW 0.81</Badge>
-                    </View>
-                    <Text size="s" color={GRAY[400]}>
-                        {date}
+                <View
+                    style={{
+                        display: "flex",
+                        flexDirection: "row",
+                        alignItems: "center",
+                        gap: XXS
+                    }}
+                >
+                    <Badge theme={badgeTheme}>{badgeContent}</Badge>
+                    <Text>
+                        {opponent.firstName} {opponent.lastName}
                     </Text>
                 </View>
-                <Text>{rank}°</Text>
+                <View
+                    style={{
+                        display: "flex",
+                        flexDirection: "row",
+                        alignItems: "center",
+                        gap: XXS
+                    }}
+                >
+                    <Badge theme="gray">OMW {omw.toFixed(2)}</Badge>
+                    <Badge theme="gray">GW {gw.toFixed(2)}</Badge>
+                    <Badge theme="gray">OGW {ogw.toFixed(2)}</Badge>
+                </View>
+            </View>
+            <View style={{ display: "flex", flexDirection: "row" }}>
+                <Text>{wins}</Text>
+                <Text color={GRAY[400]}> - </Text>
+                <Text>{losses}</Text>
             </View>
         </View>
     )
