@@ -6,15 +6,15 @@ import { useSafeAreaInsets } from "react-native-safe-area-context"
 import { useFonts } from "expo-font"
 
 export const FONTS = {
-    "Geist Thin": require("../../assets/fonts/Geist-Thin.otf"),
-    "Geist Light": require("../../assets/fonts/Geist-Light.otf"),
-    "Geist UltraLight": require("../../assets/fonts/Geist-UltraLight.otf"),
-    "Geist Regular": require("../../assets/fonts/Geist-Regular.otf"),
-    "Geist Medium": require("../../assets/fonts/Geist-Medium.otf"),
-    "Geist SemiBold": require("../../assets/fonts/Geist-SemiBold.otf"),
-    "Geist Bold": require("../../assets/fonts/Geist-Bold.otf"),
-    "Geist Black": require("../../assets/fonts/Geist-Black.otf"),
-    "Geist UltraBlack": require("../../assets/fonts/Geist-UltraBlack.otf")
+    "Inter Thin": require("../../assets/fonts/Inter-Thin.ttf"),
+    "Inter UltraLight": require("../../assets/fonts/Inter-ExtraLight.ttf"),
+    "Inter Light": require("../../assets/fonts/Inter-Light.ttf"),
+    "Inter Regular": require("../../assets/fonts/Inter-Regular.ttf"),
+    "Inter Medium": require("../../assets/fonts/Inter-Medium.ttf"),
+    "Inter SemiBold": require("../../assets/fonts/Inter-SemiBold.ttf"),
+    "Inter Bold": require("../../assets/fonts/Inter-Bold.ttf"),
+    "Inter ExtraBold": require("../../assets/fonts/Inter-ExtraBold.ttf"),
+    "Inter Black": require("../../assets/fonts/Inter-Black.ttf")
 } as const
 
 export default function () {

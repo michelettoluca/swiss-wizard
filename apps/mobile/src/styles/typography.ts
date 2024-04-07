@@ -1,28 +1,28 @@
 import { TextStyle } from "react-native"
 
-export const Geist = {
-    thin: "Geist Thin",
-    light: "Geist Light",
-    ultraLight: "Geist UltraLight",
-    regular: "Geist Regular",
-    medium: "Geist Medium",
-    semiBold: "Geist SemiBold",
-    bold: "Geist Bold",
-    black: "Geist Black",
-    ultraBlack: "Geist UltraBlack"
+export const Inter = {
+    thin: "Inter Thin",
+    extraLight: "Inter ExtraLight",
+    light: "Inter Light",
+    regular: "Inter Regular",
+    medium: "Inter Medium",
+    semiBold: "Inter SemiBold",
+    bold: "Inter Bold",
+    extraBold: "Inter ExtraBold",
+    black: "Inter Black"
 } as const
 
 export const header: TextStyle = {
-    fontFamily: Geist.semiBold,
+    fontFamily: Inter.semiBold,
     fontSize: 16
 }
 
 export const body: TextStyle = {
-    fontFamily: Geist.regular,
+    fontFamily: Inter.regular,
     fontSize: 14
 } as const
 
 export const label: TextStyle = {
-    fontFamily: Geist.regular,
+    fontFamily: Inter.regular,
     fontSize: 10
 } as const
