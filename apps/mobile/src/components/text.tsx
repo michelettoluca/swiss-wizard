@@ -38,16 +38,16 @@ const sizeStyles: Record<Size, TextStyle> = {
 
 const weightStyles: Record<Weight, TextStyle> = {
     regular: {
-        fontFamily: "Geist Regular"
+        fontFamily: "Inter Regular"
     },
     medium: {
-        fontFamily: "Geist Medium"
+        fontFamily: "Inter Medium"
     },
     semibold: {
-        fontFamily: "Geist SemiBold"
+        fontFamily: "Inter SemiBold"
     },
     bold: {
-        fontFamily: "Geist Bold"
+        fontFamily: "Inter Bold"
     }
 }
 

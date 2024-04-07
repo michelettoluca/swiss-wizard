@@ -1,6 +1,6 @@
-import { Pressable, PressableProps, StyleSheet, TextProps, View, ViewStyle } from "react-native"
+import { Animated, Pressable, PressableProps, StyleSheet, TextProps, View, ViewStyle } from "react-native"
 import { Text } from "./text"
-import { ReactElement } from "react"
+import { ReactElement, useState } from "react"
 import { L, M, S, XL, XS, XXS } from "../styles/size"
 import { BLUE, AMBER, EMERALD, GRAY, RED, WHITE } from "../styles/color"
 
@@ -67,11 +67,14 @@ export function Button({ size, theme, icon, children, ...props }: ButtonProps) {
     const iconStyle = iconMargin[size ?? "m"]
 
     return (
-        <Pressable style={pressableStyle} {...props}>
-            {icon && <View style={iconStyle}>{icon}</View>}
-            <Text size="xs" weight="medium" color={WHITE}>
-                {children}
-            </Text>
-        </Pressable>
+        // Hack terrificante
+        <Text>
+            <Pressable style={({ pressed }) => ({ ...pressableStyle, opacity: pressed ? 0.8 : 1 })} {...props}>
+                {icon && <View style={iconStyle}>{icon}</View>}
+                <Text size="xs" weight="medium" color={WHITE}>
+                    {children}
+                </Text>
+            </Pressable>
+        </Text>
     )
 }
