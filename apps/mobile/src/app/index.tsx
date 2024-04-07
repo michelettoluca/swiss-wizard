@@ -5,8 +5,8 @@ import { useWarmUpBrowser } from "../hooks/use-warm-up-browser"
 import * as AuthSession from "expo-auth-session"
 import { Redirect, SplashScreen } from "expo-router"
 import { Text } from "../components/text"
-import * as Color from "../styles/color"
-import * as Size from "../styles/size"
+import { GRAY } from "../styles/color"
+import { BASE, L, XS, XXL } from "../styles/size"
 import { GoogleG } from "../svgs/google-g"
 
 SplashScreen.preventAutoHideAsync()
@@ -47,12 +47,12 @@ export default function () {
                 flex: 1,
                 justifyContent: "center",
                 alignItems: "center",
-                padding: Size.base,
-                gap: Size.xxl
+                padding: BASE,
+                gap: XXL
             }}
         >
-            <View style={{ alignItems: "center", padding: Size.l }}>
-                <Text color={Color.gray[800]} size="xl" weight="bold">
+            <View style={{ alignItems: "center", padding: L }}>
+                <Text color={GRAY[800]} size="xl" weight="bold">
                     Swiss Wizard
                 </Text>
                 <Text align="center">Grande sottotitolo, importantissimo e su più righe con punto.</Text>
@@ -64,9 +64,9 @@ export default function () {
                         flexDirection: "row",
                         alignItems: "center",
                         justifyContent: "center",
-                        gap: Size.xs,
+                        gap: XS,
                         paddingVertical: 16,
-                        borderColor: Color.gray[300],
+                        borderColor: GRAY[300],
                         borderWidth: 1,
                         borderRadius: 1000
                     }}
@@ -74,7 +74,7 @@ export default function () {
                     onPress={() => authenticate()}
                 >
                     <GoogleG width={24} height={24} />
-                    <Text size="s" color={Color.gray[600]}>
+                    <Text size="s" color={GRAY[600]}>
                         Sign in with Google
                     </Text>
                 </Pressable>

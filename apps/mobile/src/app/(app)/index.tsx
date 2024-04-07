@@ -1,12 +1,13 @@
-import { StyleSheet, View } from "react-native"
-import * as Color from "../../styles/color"
-import * as Size from "../../styles/size"
+import { View } from "react-native"
+import { BLUE, GRAY, AMBER, WHITE } from "../../styles/color"
+import { L, BASE, XXS, XS } from "../../styles/size"
 import { Avatar } from "../../components/avatar"
 import { Text } from "../../components/text"
 import { Button } from "../../components/button"
 import { Section } from "../../components/section"
 import { useUser } from "../../contexts/user"
 import { PropsWithChildren } from "react"
+import { Badge } from "../../components/badge"
 
 const ACTIVITIES = [
     { name: "Evento 1", rank: 1, date: "15 gennaio 2024" },
@@ -18,19 +19,19 @@ export default function () {
     const { user, signOut } = useUser()
 
     return (
-        <View style={{ display: "flex", gap: Size.l, padding: Size.base }}>
+        <View style={{ display: "flex", gap: L, padding: BASE }}>
             <View
                 style={{
                     display: "flex",
                     flexDirection: "row",
                     alignItems: "center",
-                    gap: Size.xxs
+                    gap: XXS
                 }}
             >
-                <Avatar color={Color.blue[400]} />
+                <Avatar color={BLUE[400]} />
                 <View>
                     <Text size="s">Welcome</Text>
-                    <Text weight="semibold" color={Color.gray[900]}>
+                    <Text weight="semibold" color={GRAY[900]}>
                         {user.username!}
                     </Text>
                 </View>
@@ -53,7 +54,7 @@ function Activity({ children }: PropsWithChildren) {
         <View
             style={{
                 display: "flex",
-                gap: Size.xxs
+                gap: XXS
             }}
         >
             {children}
@@ -73,13 +74,13 @@ function ActivityItem({ date, name, rank }: ActivityItemProps) {
             style={{
                 display: "flex",
                 flexDirection: "row",
-                gap: Size.xs,
-                padding: Size.base,
-                backgroundColor: Color.white,
-                borderRadius: Size.xs
+                gap: XS,
+                padding: BASE,
+                backgroundColor: WHITE,
+                borderRadius: XS
             }}
         >
-            <Avatar color={Color.amber[200]} />
+            <Avatar color={AMBER[200]} />
             <View
                 style={{
                     display: "flex",
@@ -89,10 +90,16 @@ function ActivityItem({ date, name, rank }: ActivityItemProps) {
                 }}
             >
                 <View>
-                    <Text weight="medium" color={Color.gray[900]}>
+                    <Text weight="medium" color={GRAY[900]}>
                         {name}
                     </Text>
-                    <Text size="s" color={Color.gray[400]}>
+                    <View style={{ display: "flex", gap: 4 }}>
+                        <Badge theme="emerald">W</Badge>
+                        <Badge theme="red">L</Badge>
+                        <Badge theme="amber">D</Badge>
+                        <Badge theme="gray">OMW 0.81</Badge>
+                    </View>
+                    <Text size="s" color={GRAY[400]}>
                         {date}
                     </Text>
                 </View>

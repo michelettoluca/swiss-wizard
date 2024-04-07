@@ -1,5 +1,5 @@
 import { ColorValue, View } from "react-native"
-import * as Size from "../styles/size"
+import { XXL } from "../styles/size"
 
 type AvatarProps = {
     color?: ColorValue
@@ -12,8 +12,8 @@ export function Avatar({ color }: AvatarProps) {
             style={{
                 borderRadius: Number.MAX_SAFE_INTEGER,
                 backgroundColor: color,
-                height: Size.xxl,
-                width: Size.xxl
+                height: XXL,
+                width: XXL
             }}
         />
     )

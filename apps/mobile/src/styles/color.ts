@@ -1,4 +1,4 @@
-export const blue = {
+export const BLUE = {
     50: "#EFF6FF",
     100: "#DBEAFE",
     200: "#BFDBFE",
@@ -11,7 +11,7 @@ export const blue = {
     900: "#1E3A8A"
 } as const
 
-export const gray = {
+export const GRAY = {
     50: "#FAFAFA",
     100: "#F4F4F5",
     200: "#E4E4E7",
@@ -24,7 +24,7 @@ export const gray = {
     900: "#18181B"
 } as const
 
-export const red = {
+export const RED = {
     50: "#FEF2F2",
     100: "#FEE2E2",
     200: "#FECACA",
@@ -37,7 +37,7 @@ export const red = {
     900: "#7F1D1D"
 } as const
 
-export const amber = {
+export const AMBER = {
     50: "#FFFBEB",
     100: "#FEF3C7",
     200: "#FDE68A",
@@ -50,7 +50,7 @@ export const amber = {
     900: "#78350F"
 } as const
 
-export const emerald = {
+export const EMERALD = {
     50: "#ECFDF5",
     100: "#D1FAE5",
     200: "#A7F3D0",
@@ -63,4 +63,4 @@ export const emerald = {
     900: "#064E3B"
 } as const
 
-export const white = "#FFFFFF"
+export const WHITE = "#FFFFFF"

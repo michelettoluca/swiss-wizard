@@ -1,42 +1,42 @@
-import { StyleSheet, Text as NativeText, TextProps as NativeTextProps, ColorValue } from "react-native"
-
-import * as Color from "../styles/color"
-import * as Size from "../styles/size"
-import { PropsWithChildren } from "react"
+import { StyleSheet, Text as NativeText, TextProps as NativeTextProps, ColorValue, TextStyle } from "react-native"
+import { GRAY } from "../styles/color"
+import { BASE, L, M, S, XL, XS } from "../styles/size"
 
 type Weight = "regular" | "medium" | "semibold" | "bold"
 
+type Align = "left" | "center" | "right"
+type Size = "xs" | "s" | "base" | "m" | "l" | "xl"
 type TextStyleProps = {
-    size?: "xs" | "s" | "base" | "m" | "l" | "xl"
+    size?: Size
     color?: ColorValue
     weight?: Weight
-    align?: "left" | "center" | "right"
+    align?: Align
 }
 
-type TextProps = PropsWithChildren & TextStyleProps & Omit<NativeTextProps, "children" | "style">
+type TextProps = TextStyleProps & Omit<NativeTextProps, "style">
 
-const sizeStyles = StyleSheet.create({
+const sizeStyles: Record<Size, TextStyle> = {
     xs: {
-        fontSize: Size.xs
+        fontSize: XS
     },
     s: {
-        fontSize: Size.s
+        fontSize: S
     },
     base: {
-        fontSize: Size.base
+        fontSize: BASE
     },
     m: {
-        fontSize: Size.m
+        fontSize: M
     },
     l: {
-        fontSize: Size.l
+        fontSize: L
     },
     xl: {
-        fontSize: Size.xl
+        fontSize: XL
     }
-})
+}
 
-const weightStyles = StyleSheet.create({
+const weightStyles: Record<Weight, TextStyle> = {
     regular: {
         fontFamily: "Geist Regular"
     },
@@ -49,9 +49,9 @@ const weightStyles = StyleSheet.create({
     bold: {
         fontFamily: "Geist Bold"
     }
-})
+}
 
-const alignStyles = StyleSheet.create({
+const $align: Record<Align, TextStyle> = {
     left: {
         textAlign: "left"
     },
@@ -61,13 +61,13 @@ const alignStyles = StyleSheet.create({
     right: {
         textAlign: "right"
     }
-})
+}
 
-const defaultColor: ColorValue = Color.gray[600]
+const defaultColor: ColorValue = GRAY[600]
 
 export function Text({ color, size, weight, align, children, ...props }: TextProps) {
     const style = StyleSheet.flatten([
-        alignStyles[align ?? "left"],
+        $align[align ?? "left"],
         sizeStyles[size ?? "base"],
         weightStyles[weight ?? "regular"],
         { color: color ?? defaultColor }

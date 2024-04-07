@@ -1,63 +1,75 @@
-import { Pressable, PressableProps, StyleSheet, View } from "react-native"
+import { Pressable, PressableProps, StyleSheet, TextProps, View, ViewStyle } from "react-native"
 import { Text } from "./text"
 import { ReactElement } from "react"
-import * as Size from "../styles/size"
-import * as Color from "../styles/color"
+import { L, M, S, XL, XS, XXS } from "../styles/size"
+import { BLUE, AMBER, EMERALD, GRAY, RED, WHITE } from "../styles/color"
+
+type Size = "s" | "m" | "l"
+type Theme = "red" | "amber" | "emerald" | "gray" | "blue"
 
 type ButtonProps = {
-    size?: "sm" | "base" | "lg"
-    type?: "danger" | "default"
+    size?: Size
+    theme?: Theme
     icon?: ReactElement
-    children: string
-} & Omit<PressableProps, "children">
+} & Omit<PressableProps, "children"> &
+    Pick<TextProps, "children">
 
-const pressableSizeStyles = StyleSheet.create({
-    sm: {
-        paddingVertical: Size.xxs,
-        paddingHorizontal: Size.s,
-        borderRadius: Size.s
+const pressableSizeStyles: Record<Size, ViewStyle> = {
+    s: {
+        paddingVertical: XXS,
+        paddingHorizontal: S,
+        borderRadius: S
     },
-    base: {
-        paddingVertical: Size.xxs,
-        paddingHorizontal: Size.m,
-        borderRadius: Size.xs
+    m: {
+        paddingVertical: XXS,
+        paddingHorizontal: M,
+        borderRadius: XS
     },
-    lg: {
-        paddingVertical: Size.l,
-        paddingHorizontal: Size.xl,
-        borderRadius: Size.xxs
+    l: {
+        paddingVertical: L,
+        paddingHorizontal: XL,
+        borderRadius: XXS
     }
-})
+}
 
-const typeStyles = StyleSheet.create({
-    danger: {
-        backgroundColor: Color.blue[500]
+const backgroundColor: Record<Theme, ViewStyle> = {
+    blue: {
+        backgroundColor: BLUE[500]
     },
-    default: {
-        backgroundColor: Color.blue[500]
+    red: {
+        backgroundColor: RED[500]
+    },
+    amber: {
+        backgroundColor: AMBER[500]
+    },
+    emerald: {
+        backgroundColor: EMERALD[500]
+    },
+    gray: {
+        backgroundColor: GRAY[500]
     }
-})
+} as const
 
-const iconMarginStyle = StyleSheet.create({
-    sm: {
-        marginLeft: -Size.xxs
+const iconMargin: Record<Size, ViewStyle> = {
+    s: {
+        marginLeft: -XXS
     },
-    base: {
-        marginLeft: -Size.xs
+    m: {
+        marginLeft: -XS
     },
-    lg: {
-        marginLeft: -Size.l
+    l: {
+        marginLeft: -L
     }
-})
+} as const
 
-export function Button({ size, type, icon, children, ...props }: ButtonProps) {
-    const pressableStyle = StyleSheet.flatten([pressableSizeStyles[size ?? "base"], typeStyles[type ?? "default"]])
-    const iconStyle = [iconMarginStyle[size ?? "base"]]
+export function Button({ size, theme, icon, children, ...props }: ButtonProps) {
+    const pressableStyle = StyleSheet.flatten([pressableSizeStyles[size ?? "m"], backgroundColor[theme ?? "blue"]])
+    const iconStyle = iconMargin[size ?? "m"]
 
     return (
         <Pressable style={pressableStyle} {...props}>
             {icon && <View style={iconStyle}>{icon}</View>}
-            <Text size="xs" weight="medium" color={Color.white}>
+            <Text size="xs" weight="medium" color={WHITE}>
                 {children}
             </Text>
         </Pressable>
