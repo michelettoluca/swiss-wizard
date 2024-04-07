@@ -57,59 +57,57 @@ export default function () {
     const { user, signOut } = useUser()
 
     return (
-        <ScrollView>
-            <View style={{ display: "flex", gap: L, padding: BASE }}>
-                <View
-                    style={{
-                        display: "flex",
-                        flexDirection: "row",
-                        alignItems: "center",
-                        gap: XXS
-                    }}
-                >
-                    <Avatar color={BLUE[400]} />
-                    <View>
-                        <Text size="s">Welcome</Text>
-                        <Text weight="semibold" color={GRAY[900]}>
-                            {user.username!}
-                        </Text>
-                    </View>
-                </View>
-                <Section name="Match history">
-                    <List>
-                        {ACTIVITIES.map((a, i) => (
-                            <PlayerResult {...a} />
-                        ))}
-                    </List>
-                </Section>
-
-                <Section name="Standing" action={{ name: "Show all", onPress: () => console.log("Palle") }}>
-                    <List type="compact">
-                        {ACTIVITIES.map((a, i) => (
-                            <Fragment key={a.opponent.lastName}>
-                                <Standing {...a} rank={i + 1} />
-                                <Separator />
-                            </Fragment>
-                        ))}
-                        {ACTIVITIES.map((a, i) => (
-                            <Fragment key={a.opponent.firstName}>
-                                <Standing {...a} rank={i + 1} />
-                                <Separator />
-                            </Fragment>
-                        ))}
-                    </List>
-                </Section>
-
-                <View
-                    style={{
-                        display: "flex",
-                        alignItems: "flex-end"
-                    }}
-                >
-                    <Button onPress={() => signOut()}>Log out</Button>
+        <View style={{ display: "flex", gap: L, padding: BASE }}>
+            <View
+                style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    alignItems: "center",
+                    gap: XXS
+                }}
+            >
+                <Avatar color={BLUE[400]} />
+                <View>
+                    <Text size="s">Welcome</Text>
+                    <Text weight="semibold" color={GRAY[900]}>
+                        {user.username!}
+                    </Text>
                 </View>
             </View>
-        </ScrollView>
+            <Section name="Match history">
+                <List>
+                    {ACTIVITIES.map((a, i) => (
+                        <PlayerResult key={i} {...a} />
+                    ))}
+                </List>
+            </Section>
+
+            <Section name="Standing" action={{ name: "Show all", onPress: () => console.log("Palle") }}>
+                <List type="compact">
+                    {ACTIVITIES.map((a, i) => (
+                        <Fragment key={a.opponent.lastName}>
+                            <Standing {...a} rank={i + 1} />
+                            <Separator />
+                        </Fragment>
+                    ))}
+                    {ACTIVITIES.map((a, i) => (
+                        <Fragment key={a.opponent.firstName}>
+                            <Standing {...a} rank={i + 1} />
+                            <Separator />
+                        </Fragment>
+                    ))}
+                </List>
+            </Section>
+
+            <View
+                style={{
+                    display: "flex",
+                    alignItems: "flex-end"
+                }}
+            >
+                <Button onPress={() => signOut()}>Log out</Button>
+            </View>
+        </View>
     )
 }
 

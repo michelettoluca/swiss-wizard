@@ -14,6 +14,8 @@ type UserContextValue = {
 const User = createContext<UserContextValue>({} as UserContextValue)
 
 export function UserProvider({ children }: PropsWithChildren) {
+    console.log("Aiaiaia")
+
     const { userId: accountId, isSignedIn, signOut, isLoaded } = useAuth()
     const utils = trpc.useUtils()
 

@@ -7,4 +7,4 @@ export const M = 20
 export const L = 24
 export const XL = 32
 export const XXL = 48
-export const XXXL = 6
+export const XXXL = 64
