@@ -1,5 +1,6 @@
-import { Text } from "../../components/text"
+import { View } from "lucide-react-native"
+import { XXXL } from "../../styles/size"
 
 export default function () {
-    return <Text>UNO</Text>
+    return <View style={{ height: XXXL, width: XXXL, backgroundColor: "red" }}></View>
 }

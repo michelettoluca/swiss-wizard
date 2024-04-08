@@ -1,5 +1,5 @@
 import { useAuth } from "@clerk/clerk-expo"
-import { PropsWithChildren, createContext, useContext, useEffect } from "react"
+import { PropsWithChildren, createContext, useContext, useEffect, useState } from "react"
 import { Entities } from "server/src/prisma"
 import { trpc } from "../lib/trpc"
 import { Redirect, SplashScreen } from "expo-router"
@@ -14,8 +14,6 @@ type UserContextValue = {
 const User = createContext<UserContextValue>({} as UserContextValue)
 
 export function UserProvider({ children }: PropsWithChildren) {
-    console.log("Aiaiaia")
-
     const { userId: accountId, isSignedIn, signOut, isLoaded } = useAuth()
     const utils = trpc.useUtils()
 

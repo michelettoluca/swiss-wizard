@@ -35,7 +35,7 @@ function Navbar() {
                 gap: 1
             }}
         >
-            <NavItem href={""} icon={"LayoutGrid"} />
+            <NavItem href={"/home"} icon={"LayoutGrid"} />
             <NavItem href={"/uno"} icon={"CirclePlus"} />
             <NavItem href={"/due"} icon={"UserRound"} />
         </View>

@@ -19,6 +19,7 @@ export default function () {
 
     useEffect(() => {
         if (isLoaded && !isSignedIn) {
+            console.log("@app/index - SplashScreen.hideAsync()")
             SplashScreen.hideAsync()
         }
     }, [isLoaded, isSignedIn])
