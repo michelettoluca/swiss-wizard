@@ -1,20 +1,19 @@
-import { ReactElement } from "react"
-import { Pressable, PressableProps, StyleSheet, TextProps, View, ViewStyle } from "react-native"
-import { AMBER, BLUE, EMERALD, GRAY, RED, WHITE } from "../styles/color"
+import { View } from "lucide-react-native"
+import { ReactNode } from "react"
+import { ColorValue, Pressable, PressableProps, Text, TextProps, ViewStyle } from "react-native"
+import { BLUE } from "../styles/color"
 import { L, M, S, XL, XS, XXS } from "../styles/size"
-import { Text } from "./text"
 
 type Size = "s" | "m" | "l"
-type Theme = "red" | "amber" | "emerald" | "gray" | "blue"
 
 type ButtonProps = {
     size?: Size
-    theme?: Theme
-    icon?: ReactElement
-} & Omit<PressableProps, "children"> &
-    Pick<TextProps, "children">
+    backgroundColor?: ColorValue
+    icon?: ReactNode
+} & Omit<PressableProps, "style"> &
+    Pick<TextProps, "style">
 
-const pressableSizeStyles: Record<Size, ViewStyle> = {
+const pressableSize: Record<Size, ViewStyle> = {
     s: {
         paddingVertical: XXS,
         paddingHorizontal: S,
@@ -30,24 +29,6 @@ const pressableSizeStyles: Record<Size, ViewStyle> = {
         paddingHorizontal: XL,
         borderRadius: XXS
     }
-}
-
-const backgroundColor: Record<Theme, ViewStyle> = {
-    blue: {
-        backgroundColor: BLUE[500]
-    },
-    red: {
-        backgroundColor: RED[500]
-    },
-    amber: {
-        backgroundColor: AMBER[500]
-    },
-    emerald: {
-        backgroundColor: EMERALD[500]
-    },
-    gray: {
-        backgroundColor: GRAY[500]
-    }
 } as const
 
 const iconMargin: Record<Size, ViewStyle> = {
@@ -62,18 +43,22 @@ const iconMargin: Record<Size, ViewStyle> = {
     }
 } as const
 
-export function Button({ size, theme, icon, children, ...props }: ButtonProps) {
-    const pressableStyle = StyleSheet.flatten([pressableSizeStyles[size ?? "m"], backgroundColor[theme ?? "blue"]])
-    const iconStyle = iconMargin[size ?? "m"]
-
+export function Button({ size, backgroundColor, icon, children, style, ...props }: ButtonProps) {
     return (
         // Hack terrificante
-        <Text>
-            <Pressable style={({ pressed }) => ({ ...pressableStyle, opacity: pressed ? 0.8 : 1 })} {...props}>
-                {icon && <View style={iconStyle}>{icon}</View>}
-                <Text size={XS} weight="medium" color={WHITE}>
+        <Text style={style}>
+            <Pressable
+                style={({ pressed }) => ({
+                    ...pressableSize[size ?? "m"],
+                    backgroundColor: backgroundColor ?? BLUE[500],
+                    opacity: pressed ? 0.8 : 1
+                })}
+                {...props}
+            >
+                <>
+                    {icon && <View style={{ ...iconMargin[size ?? "m"] }}>{icon}</View>}
                     {children}
-                </Text>
+                </>
             </Pressable>
         </Text>
     )
