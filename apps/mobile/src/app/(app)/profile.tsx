@@ -8,16 +8,10 @@ import { Text } from "../../components/text"
 import { EMERALD, GRAY, WHITE } from "../../styles/color"
 import { BASE, L, M, XXL, XXXL } from "../../styles/size"
 
-const MOCK_PROFILE = {
-    played: 3,
-    winRate: Math.random() * 100,
-    averageRank: Math.abs(Math.random() * 20)
-} as const
-
 export default function () {
     return (
         <ScrollView style={{ backgroundColor: GRAY[100], marginBottom: XXXL }}>
-            <View style={{ display: "flex", gap: L, paddingHorizontal: BASE, paddingVertical: XXL }}>
+            <View style={{ display: "flex", gap: L, padding: BASE, paddingTop: XXL }}>
                 <View style={{ display: "flex", alignItems: "center", gap: BASE, margin: "auto" }}>
                     <Avatar size={128} color={EMERALD[200]} />
                     <Text color={GRAY[900]} weight="semibold" size={L}>
@@ -26,21 +20,21 @@ export default function () {
                 </View>
                 <List type={"compact"}>
                     <ListItem>
-                        <Text>Played</Text>
-                        <Text color={GRAY[900]}>{MOCK_PROFILE.played}</Text>
+                        <Text>???</Text>
+                        <Text color={GRAY[900]}>???</Text>
                     </ListItem>
                     <Separator color={GRAY[100]} />
                     <ListItem>
-                        <Text>Win rate</Text>
-                        <Text color={GRAY[900]}>{MOCK_PROFILE.winRate.toFixed(2)}%</Text>
+                        <Text>???</Text>
+                        <Text color={GRAY[900]}>???</Text>
                     </ListItem>
                     <Separator color={GRAY[100]} />
                     <ListItem>
-                        <Text>Average rank</Text>
-                        <Text color={GRAY[900]}>{MOCK_PROFILE.averageRank.toFixed()}</Text>
+                        <Text>???</Text>
+                        <Text color={GRAY[900]}>???</Text>
                     </ListItem>
                 </List>
-                <Section name="Statistics">
+                <Section name="Stats">
                     <List type={"compact"}>
                         <ListItem>
                             <Text>???</Text>

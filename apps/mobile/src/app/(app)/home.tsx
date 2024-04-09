@@ -84,7 +84,6 @@ export default function () {
                         ))}
                     </List>
                 </Section>
-
                 <Section name="Standing" action={{ name: "Show all", onPress: () => console.log("Palle") }}>
                     <List type="compact">
                         {ACTIVITIES.map((a, i) => (
@@ -95,14 +94,15 @@ export default function () {
                         ))}
                     </List>
                 </Section>
-
                 <View
                     style={{
                         display: "flex",
                         alignItems: "flex-end"
                     }}
                 >
-                    <Button onPress={() => signOut()}>Log out</Button>
+                    <Button onPress={() => signOut()}>
+                        <Text color={WHITE}>Log out</Text>
+                    </Button>
                 </View>
             </View>
         </ScrollView>
