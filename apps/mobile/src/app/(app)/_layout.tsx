@@ -8,7 +8,7 @@ import { L, XXXL } from "../../styles/size"
 export default function AppLayout() {
     return (
         <UserProvider>
-            <ScrollView style={{ backgroundColor: GRAY[100] }}>
+            <ScrollView style={{ backgroundColor: GRAY[100], marginBottom: XXXL }}>
                 <Slot />
             </ScrollView>
             <Navbar />
@@ -52,11 +52,12 @@ function NavbarItem({ href, icon }: NavbarItemProps) {
     const router = useRouter()
     const isActive = pathname.startsWith(href)
 
-    async function navigate() {
-        await router.push(href)
+    function navigate() {
+        router.push(href)
     }
 
-    const Icon = icons[icon]
+    const Icon = icons[icon] // This is not raccomended but I cannot be fucked right now
+
     return (
         <Pressable onPress={navigate} style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
             <Icon height={24} width={24} stroke={isActive ? GRAY[900] : GRAY[400]} />
