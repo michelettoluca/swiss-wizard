@@ -1,6 +1,6 @@
 import { Slot, usePathname, useRouter } from "expo-router"
 import { icons } from "lucide-react-native"
-import { Pressable, ScrollView, View } from "react-native"
+import { Pressable, View } from "react-native"
 import { UserProvider } from "../../contexts/user"
 import { GRAY, WHITE } from "../../styles/color"
 import { L, XXXL } from "../../styles/size"
@@ -8,9 +8,7 @@ import { L, XXXL } from "../../styles/size"
 export default function AppLayout() {
     return (
         <UserProvider>
-            <ScrollView style={{ backgroundColor: GRAY[100], marginBottom: XXXL }}>
-                <Slot />
-            </ScrollView>
+            <Slot />
             <Navbar />
         </UserProvider>
     )
@@ -53,7 +51,7 @@ function NavbarItem({ href, icon }: NavbarItemProps) {
     const isActive = pathname.startsWith(href)
 
     function navigate() {
-        router.push(href)
+        router.replace(href)
     }
 
     const Icon = icons[icon] // This is not raccomended but I cannot be fucked right now

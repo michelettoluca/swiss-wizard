@@ -13,9 +13,9 @@ export function List({ type, direction, children }: ListProps) {
             style={{
                 display: "flex",
                 flexDirection: direction,
-                gap: type === "compact" ? 0 : XXS,
-                borderRadius: XS,
-                overflow: "hidden"
+                gap: type === "compact" ? undefined : XXS,
+                borderRadius: type === "compact" ? XS : undefined,
+                overflow: type === "compact" ? "hidden" : undefined
             }}
         >
             {children}

@@ -1,8 +1,8 @@
-import { Animated, Pressable, PressableProps, StyleSheet, TextProps, View, ViewStyle } from "react-native"
-import { Text } from "./text"
-import { ReactElement, useState } from "react"
+import { ReactElement } from "react"
+import { Pressable, PressableProps, StyleSheet, TextProps, View, ViewStyle } from "react-native"
+import { AMBER, BLUE, EMERALD, GRAY, RED, WHITE } from "../styles/color"
 import { L, M, S, XL, XS, XXS } from "../styles/size"
-import { BLUE, AMBER, EMERALD, GRAY, RED, WHITE } from "../styles/color"
+import { Text } from "./text"
 
 type Size = "s" | "m" | "l"
 type Theme = "red" | "amber" | "emerald" | "gray" | "blue"
@@ -71,7 +71,7 @@ export function Button({ size, theme, icon, children, ...props }: ButtonProps) {
         <Text>
             <Pressable style={({ pressed }) => ({ ...pressableStyle, opacity: pressed ? 0.8 : 1 })} {...props}>
                 {icon && <View style={iconStyle}>{icon}</View>}
-                <Text size="xs" weight="medium" color={WHITE}>
+                <Text size={XS} weight="medium" color={WHITE}>
                     {children}
                 </Text>
             </Pressable>

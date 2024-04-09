@@ -1,7 +1,7 @@
 import { PropsWithChildren } from "react"
 import { View } from "react-native"
 import { AMBER, GRAY, WHITE } from "../styles/color"
-import { BASE, XS, XXL, XXS } from "../styles/size"
+import { BASE, S, XS, XXL, XXS } from "../styles/size"
 import { Avatar } from "./avatar"
 import { Text } from "./text"
 
@@ -36,7 +36,7 @@ export function TournamentListItem({ date, name, rank }: ActivityItemProps) {
                     <Text weight="medium" color={GRAY[900]}>
                         {name}
                     </Text>
-                    <Text size="s" color={GRAY[400]}>
+                    <Text size={S} color={GRAY[400]}>
                         {date}
                     </Text>
                 </View>

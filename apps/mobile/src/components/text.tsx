@@ -1,11 +1,10 @@
-import { StyleSheet, Text as NativeText, TextProps as NativeTextProps, ColorValue, TextStyle } from "react-native"
+import { ColorValue, Text as NativeText, TextProps as NativeTextProps, StyleSheet, TextStyle } from "react-native"
 import { GRAY } from "../styles/color"
-import { BASE, L, M, S, XL, XS } from "../styles/size"
 
 type Weight = "regular" | "medium" | "semibold" | "bold"
 
 type Align = "left" | "center" | "right"
-type Size = "xs" | "s" | "base" | "m" | "l" | "xl"
+type Size = number
 type TextStyleProps = {
     size?: Size
     color?: ColorValue
@@ -14,27 +13,6 @@ type TextStyleProps = {
 }
 
 type TextProps = TextStyleProps & Omit<NativeTextProps, "style">
-
-const sizeStyles: Record<Size, TextStyle> = {
-    xs: {
-        fontSize: XS
-    },
-    s: {
-        fontSize: S
-    },
-    base: {
-        fontSize: BASE
-    },
-    m: {
-        fontSize: M
-    },
-    l: {
-        fontSize: L
-    },
-    xl: {
-        fontSize: XL
-    }
-}
 
 const weightStyles: Record<Weight, TextStyle> = {
     regular: {
@@ -68,7 +46,9 @@ const defaultColor: ColorValue = GRAY[600]
 export function Text({ color, size, weight, align, children, ...props }: TextProps) {
     const style = StyleSheet.flatten([
         $align[align ?? "left"],
-        sizeStyles[size ?? "base"],
+        {
+            fontSize: size
+        },
         weightStyles[weight ?? "regular"],
         { color: color ?? defaultColor }
     ])
