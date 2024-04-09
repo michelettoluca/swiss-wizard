@@ -1,6 +1,9 @@
+import { Plus } from "lucide-react-native"
 import { useState } from "react"
 import { TextInput, View } from "react-native"
-import { GRAY } from "../../styles/color"
+import { Button } from "../../components/button"
+import { Text } from "../../components/text"
+import { GRAY, WHITE } from "../../styles/color"
 import { BASE, XL } from "../../styles/size"
 
 export default function () {
@@ -8,7 +11,7 @@ export default function () {
 
     return (
         <View style={{ flex: 1, padding: BASE, alignItems: "stretch", justifyContent: "center" }}>
-            {/* <Button>
+            <Button style={{ position: "absolute", top: BASE, right: BASE }}>
                 <View
                     style={{
                         display: "flex",
@@ -19,7 +22,7 @@ export default function () {
                     <Plus stroke={WHITE} />
                     <Text color={WHITE}>Add</Text>
                 </View>
-            </Button> */}
+            </Button>
             <TextInput
                 placeholder="CODE"
                 placeholderTextColor={GRAY[400]}
