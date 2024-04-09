@@ -1,10 +1,10 @@
 import { useAuth } from "@clerk/clerk-expo"
-import { PropsWithChildren, createContext, useContext, useEffect, useState } from "react"
-import { Entities } from "server/src/prisma"
-import { trpc } from "../lib/trpc"
 import { Redirect, SplashScreen } from "expo-router"
+import { PropsWithChildren, createContext, useContext, useEffect } from "react"
 import { Pressable, Text } from "react-native"
+import { Entities } from "server/src/prisma"
 import { Button } from "../components/button"
+import { trpc } from "../lib/trpc"
 
 type UserContextValue = {
     user: Omit<Entities["User"], "createdAt">

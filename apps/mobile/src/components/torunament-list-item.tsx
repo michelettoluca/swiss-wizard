@@ -1,10 +1,9 @@
 import { PropsWithChildren } from "react"
 import { View } from "react-native"
-import { BASE, XS, XXS } from "../styles/size"
 import { AMBER, GRAY, WHITE } from "../styles/color"
+import { BASE, XS, XXL, XXS } from "../styles/size"
 import { Avatar } from "./avatar"
 import { Text } from "./text"
-import { Badge } from "./badge"
 
 type ActivityItemProps = {
     name: string
@@ -24,7 +23,7 @@ export function TournamentListItem({ date, name, rank }: ActivityItemProps) {
                 borderRadius: XS
             }}
         >
-            <Avatar color={AMBER[200]} />
+            <Avatar size={XXL} color={AMBER[200]} />
             <View
                 style={{
                     display: "flex",

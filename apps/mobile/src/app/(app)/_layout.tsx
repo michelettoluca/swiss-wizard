@@ -1,10 +1,9 @@
-import { Link, Slot, Stack, usePathname, useRouter, useSegments } from "expo-router"
+import { Slot, usePathname, useRouter } from "expo-router"
+import { icons } from "lucide-react-native"
+import { Pressable, ScrollView, View } from "react-native"
 import { UserProvider } from "../../contexts/user"
-import { Pressable, ScrollView, Text, View } from "react-native"
-import { L, XL, XXL, XXXL } from "../../styles/size"
 import { GRAY, WHITE } from "../../styles/color"
-import { LayoutGrid, icons } from "lucide-react-native"
-import { ReactNode } from "react"
+import { L, XXXL } from "../../styles/size"
 
 export default function AppLayout() {
     return (
@@ -35,19 +34,19 @@ function Navbar() {
                 gap: 1
             }}
         >
-            <NavItem href={"/home"} icon={"LayoutGrid"} />
-            <NavItem href={"/uno"} icon={"CirclePlus"} />
-            <NavItem href={"/due"} icon={"UserRound"} />
+            <NavbarItem href={"/home"} icon={"LayoutGrid"} />
+            <NavbarItem href={"/join-host"} icon={"CirclePlus"} />
+            <NavbarItem href={"/profile"} icon={"UserRound"} />
         </View>
     )
 }
 
-type NavItemProps = {
+type NavbarItemProps = {
     href: string
     icon: keyof typeof icons
 }
 
-function NavItem({ href, icon }: NavItemProps) {
+function NavbarItem({ href, icon }: NavbarItemProps) {
     const pathname = usePathname()
 
     const router = useRouter()

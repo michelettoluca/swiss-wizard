@@ -1,14 +1,16 @@
-import { View } from "react-native"
-import { BLUE, GRAY, WHITE } from "../../styles/color"
-import { L, BASE, XXS, XS, M } from "../../styles/size"
-import { Avatar } from "../../components/avatar"
-import { Text } from "../../components/text"
-import { Button } from "../../components/button"
-import { Section } from "../../components/section"
-import { useUser } from "../../contexts/user"
+import { Handshake } from "lucide-react-native"
 import { Fragment } from "react"
+import { View } from "react-native"
+import { Avatar } from "../../components/avatar"
 import { Badge, BadgeTheme } from "../../components/badge"
+import { Button } from "../../components/button"
 import { List } from "../../components/list"
+import { Section } from "../../components/section"
+import { Separator } from "../../components/separator"
+import { Text } from "../../components/text"
+import { useUser } from "../../contexts/user"
+import { BLUE, GRAY, WHITE } from "../../styles/color"
+import { BASE, L, M, XS, XXL, XXS, XXXS } from "../../styles/size"
 
 const ACTIVITIES = [
     {
@@ -65,7 +67,7 @@ export default function () {
                     gap: XXS
                 }}
             >
-                <Avatar color={BLUE[400]} />
+                <Avatar size={XXL} color={BLUE[400]} />
                 <View>
                     <Text size="s">Welcome</Text>
                     <Text weight="semibold" color={GRAY[900]}>
@@ -73,6 +75,7 @@ export default function () {
                     </Text>
                 </View>
             </View>
+            <TournamentPreviews />
             <Section name="Match history">
                 <List>
                     {ACTIVITIES.map((a, i) => (
@@ -86,13 +89,13 @@ export default function () {
                     {ACTIVITIES.map((a, i) => (
                         <Fragment key={a.opponent.lastName}>
                             <Standing {...a} rank={i + 1} />
-                            <Separator />
+                            <Separator color={GRAY[100]} />
                         </Fragment>
                     ))}
                     {ACTIVITIES.map((a, i) => (
                         <Fragment key={a.opponent.firstName}>
                             <Standing {...a} rank={i + 1} />
-                            <Separator />
+                            <Separator color={GRAY[100]} />
                         </Fragment>
                     ))}
                 </List>
@@ -108,12 +111,6 @@ export default function () {
             </View>
         </View>
     )
-}
-
-type SeparatorProps = {}
-
-function Separator({}: SeparatorProps) {
-    return <View style={{ height: 1, backgroundColor: GRAY[100] }}></View>
 }
 
 type PlayerResultProps = {
@@ -238,6 +235,73 @@ function Standing({ player, rank, omw, gw, ogw, score }: StandingProps) {
                 </View>
             </View>
             <Text>{score}</Text>
+        </View>
+    )
+}
+
+function TournamentPreviews() {
+    return (
+        <View
+            style={{
+                display: "flex",
+                padding: XXXS,
+                backgroundColor: WHITE,
+                shadowColor: "#000",
+                shadowOffset: {
+                    width: 0,
+                    height: 2
+                },
+                borderRadius: XS,
+                shadowOpacity: 0.25,
+                shadowRadius: 3.84,
+
+                elevation: 3
+            }}
+        >
+            <View
+                style={{
+                    display: "flex",
+                    gap: BASE,
+                    backgroundColor: BLUE[50],
+                    borderRadius: XXS,
+                    padding: BASE,
+                    minHeight: 256
+                }}
+            >
+                <View
+                    style={{
+                        display: "flex",
+                        flexDirection: "row",
+                        gap: XXS
+                    }}
+                >
+                    <Handshake size={24} stroke={GRAY[900]} />
+                    <Text weight="semibold" color={GRAY[900]}>
+                        Match ended
+                    </Text>
+                </View>
+                <View>
+                    <Text color={GRAY[900]}>
+                        <Text weight="semibold" color={GRAY[900]}>
+                            Round 4
+                        </Text>{" "}
+                        has begun,{"\n"}your opponent is
+                    </Text>
+                    <Text size="l" weight="bold" color={GRAY[900]}>
+                        Salvatore Aranzulla
+                    </Text>
+                    <Text color={GRAY[900]}>
+                        playing at{" "}
+                        <Text weight="semibold" color={GRAY[900]}>
+                            table
+                        </Text>{" "}
+                        number
+                    </Text>
+                    <Text size="l" weight="bold" color={GRAY[900]}>
+                        12
+                    </Text>
+                </View>
+            </View>
         </View>
     )
 }

@@ -1,9 +1,9 @@
+import { useFonts } from "expo-font"
 import { Slot } from "expo-router"
-import { TrpcProvider } from "../contexts/trpc"
-import { AuthProvider } from "../contexts/auth"
 import { View } from "react-native"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
-import { useFonts } from "expo-font"
+import { AuthProvider } from "../contexts/auth"
+import { TrpcProvider } from "../contexts/trpc"
 
 export const FONTS = {
     "Inter Thin": require("../../assets/fonts/Inter-Thin.ttf"),
