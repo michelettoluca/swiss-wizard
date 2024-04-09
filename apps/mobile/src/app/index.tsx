@@ -6,7 +6,7 @@ import { Pressable, View } from "react-native"
 import { Text } from "../components/text"
 import { useWarmUpBrowser } from "../hooks/use-warm-up-browser"
 import { GRAY } from "../styles/color"
-import { BASE, L, XS, XXL } from "../styles/size"
+import { BASE, L, S, XL, XS, XXL } from "../styles/size"
 import { GoogleG } from "../svgs/google-g"
 
 SplashScreen.preventAutoHideAsync()
@@ -53,7 +53,7 @@ export default function () {
             }}
         >
             <View style={{ alignItems: "center", padding: L }}>
-                <Text color={GRAY[800]} size="xl" weight="bold">
+                <Text color={GRAY[800]} size={XL} weight="bold">
                     Swiss Wizard
                 </Text>
                 <Text align="center">Grande sottotitolo, importantissimo e su più righe con punto.</Text>
@@ -75,7 +75,7 @@ export default function () {
                     onPress={() => authenticate()}
                 >
                     <GoogleG width={24} height={24} />
-                    <Text size="s" color={GRAY[600]}>
+                    <Text size={S} color={GRAY[600]}>
                         Sign in with Google
                     </Text>
                 </Pressable>

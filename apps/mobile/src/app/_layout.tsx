@@ -4,6 +4,7 @@ import { View } from "react-native"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
 import { AuthProvider } from "../contexts/auth"
 import { TrpcProvider } from "../contexts/trpc"
+import { GRAY } from "../styles/color"
 
 export const FONTS = {
     "Inter Thin": require("../../assets/fonts/Inter-Thin.ttf"),
@@ -35,7 +36,8 @@ export default function () {
                         paddingTop: insets.top,
                         paddingLeft: insets.left,
                         paddingBottom: insets.bottom,
-                        paddingRight: insets.right
+                        paddingRight: insets.right,
+                        backgroundColor: GRAY[100]
                     }}
                 >
                     <Slot />
