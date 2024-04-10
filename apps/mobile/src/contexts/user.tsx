@@ -1,4 +1,4 @@
-import { useAuth } from "@clerk/clerk-expo"
+import { useAuth, useUser as useClerkUser } from "@clerk/clerk-expo"
 import { Redirect, SplashScreen } from "expo-router"
 import { PropsWithChildren, createContext, useContext, useEffect } from "react"
 import { Pressable, Text } from "react-native"
@@ -8,6 +8,7 @@ import { trpc } from "../lib/trpc"
 
 type UserContextValue = {
     user: Omit<Entities["User"], "createdAt">
+    clerkUser: ReturnType<typeof useClerkUser>["user"]
     signOut: () => void
 }
 
@@ -15,6 +16,7 @@ const User = createContext<UserContextValue>({} as UserContextValue)
 
 export function UserProvider({ children }: PropsWithChildren) {
     const { userId: accountId, isSignedIn, signOut, isLoaded } = useAuth()
+    const { user: clerkUser } = useClerkUser()
     const utils = trpc.useUtils()
 
     const { data: user, isLoading } = trpc.user.pollUser.useQuery(
@@ -48,6 +50,7 @@ export function UserProvider({ children }: PropsWithChildren) {
         <User.Provider
             value={{
                 user,
+                clerkUser,
                 signOut: async () => {
                     await utils.user.pollUser.invalidate({ accountId })
                     await signOut()
