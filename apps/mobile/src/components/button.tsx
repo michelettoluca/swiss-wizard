@@ -1,6 +1,6 @@
 import { View } from "lucide-react-native"
 import { ReactNode } from "react"
-import { ColorValue, Pressable, PressableProps, Text, TextProps, ViewStyle } from "react-native"
+import { ColorValue, StyleSheet, TouchableOpacity, TouchableOpacityProps, ViewStyle } from "react-native"
 import { BLUE } from "../styles/color"
 import { L, M, S, XL, XS, XXS } from "../styles/size"
 
@@ -10,8 +10,7 @@ type ButtonProps = {
     size?: Size
     backgroundColor?: ColorValue
     icon?: ReactNode
-} & Omit<PressableProps, "style"> &
-    Pick<TextProps, "style">
+} & TouchableOpacityProps
 
 const pressableSize: Record<Size, ViewStyle> = {
     s: {
@@ -25,7 +24,7 @@ const pressableSize: Record<Size, ViewStyle> = {
         borderRadius: XS
     },
     l: {
-        paddingVertical: L,
+        paddingVertical: M,
         paddingHorizontal: XL,
         borderRadius: XXS
     }
@@ -45,21 +44,18 @@ const iconMargin: Record<Size, ViewStyle> = {
 
 export function Button({ size, backgroundColor, icon, children, style, ...props }: ButtonProps) {
     return (
-        // Hack terrificante
-        <Text style={style}>
-            <Pressable
-                style={({ pressed }) => ({
+        <TouchableOpacity
+            style={StyleSheet.flatten([
+                {
                     ...pressableSize[size ?? "m"],
-                    backgroundColor: backgroundColor ?? BLUE[500],
-                    opacity: pressed ? 0.8 : 1
-                })}
-                {...props}
-            >
-                <>
-                    {icon && <View style={{ ...iconMargin[size ?? "m"] }}>{icon}</View>}
-                    {children}
-                </>
-            </Pressable>
-        </Text>
+                    backgroundColor: backgroundColor ?? BLUE[500]
+                },
+                style
+            ])}
+            {...props}
+        >
+            {icon && <View style={{ ...iconMargin[size ?? "m"] }}>{icon}</View>}
+            {children}
+        </TouchableOpacity>
     )
 }
