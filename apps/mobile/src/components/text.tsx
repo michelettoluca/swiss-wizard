@@ -12,7 +12,7 @@ type TextStyleProps = {
     align?: Align
 }
 
-type TextProps = TextStyleProps & Omit<NativeTextProps, "style">
+type TextProps = TextStyleProps & NativeTextProps
 
 const weightStyles: Record<Weight, TextStyle> = {
     regular: {
@@ -43,18 +43,20 @@ const $align: Record<Align, TextStyle> = {
 
 const defaultColor: ColorValue = GRAY[600]
 
-export function Text({ color, size, weight, align, children, ...props }: TextProps) {
-    const style = StyleSheet.flatten([
-        $align[align ?? "left"],
-        {
-            fontSize: size
-        },
-        weightStyles[weight ?? "regular"],
-        { color: color ?? defaultColor }
-    ])
-
+export function Text({ color, size, weight, align, children, style, ...props }: TextProps) {
     return (
-        <NativeText style={style} {...props}>
+        <NativeText
+            style={StyleSheet.flatten([
+                $align[align ?? "left"],
+                {
+                    fontSize: size
+                },
+                weightStyles[weight ?? "regular"],
+                { color: color ?? defaultColor },
+                style
+            ])}
+            {...props}
+        >
             {children}
         </NativeText>
     )
