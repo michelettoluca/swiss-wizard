@@ -1,7 +1,7 @@
-import { useRef } from "react"
-import { Pressable, PressableProps, StyleSheet, TextInput } from "react-native"
+import React, { useEffect, useRef } from "react"
+import { Keyboard, Pressable, PressableProps, StyleSheet, TextInput, View } from "react-native"
 import { GRAY, WHITE } from "../styles/color"
-import { M, XS, XXXL } from "../styles/size"
+import { M, XS, XXXL, XXXS } from "../styles/size"
 import { Text } from "./text"
 
 type InputProps = {
@@ -14,6 +14,22 @@ type InputProps = {
 
 export function Input({ label, placeholder, value, onChange, style }: InputProps) {
     const inputRef = useRef<TextInput>(null)
+
+    useEffect(() => {
+        const listener = Keyboard.addListener("keyboardDidHide", () => blur())
+
+        return () => listener.remove()
+    }, [])
+
+    function blur() {
+        const { current: ref } = inputRef
+
+        if (!ref) {
+            return
+        }
+
+        ref.blur()
+    }
 
     function focus() {
         const { current: ref } = inputRef
@@ -36,7 +52,7 @@ export function Input({ label, placeholder, value, onChange, style }: InputProps
                     borderRadius: XS,
                     paddingHorizontal: M,
                     height: XXXL,
-                    flex: 1
+                    gap: XXXS
                 },
                 style
             ])}
@@ -45,15 +61,25 @@ export function Input({ label, placeholder, value, onChange, style }: InputProps
             <Text size={XS} color={GRAY[600]}>
                 {label}
             </Text>
-            <TextInput
-                ref={inputRef}
-                style={{ color: GRAY[900] }}
-                placeholder={placeholder ?? ""}
-                placeholderTextColor={GRAY[400]}
-                cursorColor={GRAY[600]}
-                value={value}
-                onChangeText={onChange}
-            />
+            <View
+                style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    alignItems: "center",
+                    justifyContent: "space-between"
+                }}
+            >
+                <TextInput
+                    ref={inputRef}
+                    style={{ color: GRAY[900], padding: 0, height: M }}
+                    placeholder={placeholder ?? ""}
+                    placeholderTextColor={GRAY[400]}
+                    cursorColor={GRAY[600]}
+                    value={value}
+                    onChangeText={onChange}
+                />
+                <Text>min</Text>
+            </View>
         </Pressable>
     )
 }

@@ -9,7 +9,7 @@ import { GRAY } from "../styles/color"
 import { BASE, L, S, XL, XS, XXL } from "../styles/size"
 import { GoogleG } from "../svgs/google-g"
 
-SplashScreen.preventAutoHideAsync()
+// SplashScreen.preventAutoHideAsync()
 
 export default function () {
     useWarmUpBrowser()
@@ -39,7 +39,7 @@ export default function () {
     }
 
     if (isSignedIn) {
-        return <Redirect href="/(app)" />
+        return <Redirect href="/(app)/home" />
     }
 
     return (

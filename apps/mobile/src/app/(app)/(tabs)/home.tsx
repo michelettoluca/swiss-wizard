@@ -1,16 +1,17 @@
 import { Handshake } from "lucide-react-native"
-import { Fragment } from "react"
+import { Fragment, useState } from "react"
 import { ScrollView, View } from "react-native"
-import { Avatar } from "../../components/avatar"
-import { Badge, BadgeTheme } from "../../components/badge"
-import { Button } from "../../components/button"
-import { List } from "../../components/list"
-import { Section } from "../../components/section"
-import { Separator } from "../../components/separator"
-import { Text } from "../../components/text"
-import { useUser } from "../../contexts/user"
-import { BLUE, GRAY, WHITE } from "../../styles/color"
-import { BASE, L, M, S, XS, XXL, XXS, XXXL, XXXS } from "../../styles/size"
+import { Avatar } from "../../../components/avatar"
+import { Badge, BadgeTheme } from "../../../components/badge"
+import { Button } from "../../../components/button"
+import { Input } from "../../../components/input"
+import { List } from "../../../components/list"
+import { Section } from "../../../components/section"
+import { Separator } from "../../../components/separator"
+import { Text } from "../../../components/text"
+import { UserProvider, useUser } from "../../../contexts/user"
+import { BLUE, GRAY, WHITE } from "../../../styles/color"
+import { BASE, L, M, S, XL, XS, XXL, XXS, XXXS } from "../../../styles/size"
 
 const ACTIVITIES = [
     {
@@ -55,57 +56,71 @@ const ACTIVITIES = [
 ] as const
 
 export default function () {
-    const { user, signOut } = useUser()
+    const [a, setA] = useState<string>("")
+    const { clerkUser, signOut } = useUser()
 
     return (
-        <ScrollView style={{ backgroundColor: GRAY[100], marginBottom: XXXL }}>
-            <View style={{ display: "flex", gap: L, padding: BASE }}>
-                <View
-                    style={{
-                        display: "flex",
-                        flexDirection: "row",
-                        alignItems: "center",
-                        gap: XXS
-                    }}
-                >
-                    <Avatar size={XXL} color={BLUE[400]} />
-                    <View>
-                        <Text size={S}>Welcome</Text>
-                        <Text weight="semibold" color={GRAY[900]}>
-                            {user.username!}
-                        </Text>
+        <UserProvider>
+            <ScrollView style={{ backgroundColor: GRAY[100] }}>
+                {/* <Select /> */}
+                <View style={{ display: "flex", gap: L, padding: BASE }}>
+                    <View
+                        style={{
+                            display: "flex",
+                            flexDirection: "row",
+                            alignItems: "center",
+                            gap: XXS
+                        }}
+                    >
+                        <Avatar size={XXL} color={BLUE[400]} />
+                        <View>
+                            <Text size={S}>Welcome</Text>
+                            <Text weight="semibold" size={BASE} color={GRAY[900]}>
+                                {clerkUser?.firstName} {clerkUser?.lastName}
+                            </Text>
+                        </View>
+                    </View>
+                    <View
+                        style={{
+                            flex: 1,
+                            display: "flex",
+                            flexDirection: "row",
+                            gap: XS
+                        }}
+                    >
+                        <Input label="Name" placeholder="Name" value={a} onChange={setA} />
+                    </View>
+                    <TournamentPreviews />
+                    <Section name="Match history">
+                        <List>
+                            {ACTIVITIES.map((a, i) => (
+                                <PlayerResult key={i} {...a} />
+                            ))}
+                        </List>
+                    </Section>
+                    <Section name="Standing" action={{ name: "Show all", onPress: () => console.log("Palle") }}>
+                        <List type="compact">
+                            {ACTIVITIES.map((a, i) => (
+                                <Fragment key={a.opponent.lastName}>
+                                    <Standing {...a} rank={i + 1} />
+                                    <Separator color={GRAY[100]} />
+                                </Fragment>
+                            ))}
+                        </List>
+                    </Section>
+                    <View
+                        style={{
+                            display: "flex",
+                            alignItems: "flex-end"
+                        }}
+                    >
+                        <Button onPress={() => signOut()}>
+                            <Text color={WHITE}>Log out</Text>
+                        </Button>
                     </View>
                 </View>
-                <TournamentPreviews />
-                <Section name="Match history">
-                    <List>
-                        {ACTIVITIES.map((a, i) => (
-                            <PlayerResult key={i} {...a} />
-                        ))}
-                    </List>
-                </Section>
-                <Section name="Standing" action={{ name: "Show all", onPress: () => console.log("Palle") }}>
-                    <List type="compact">
-                        {ACTIVITIES.map((a, i) => (
-                            <Fragment key={a.opponent.lastName}>
-                                <Standing {...a} rank={i + 1} />
-                                <Separator color={GRAY[100]} />
-                            </Fragment>
-                        ))}
-                    </List>
-                </Section>
-                <View
-                    style={{
-                        display: "flex",
-                        alignItems: "flex-end"
-                    }}
-                >
-                    <Button onPress={() => signOut()}>
-                        <Text color={WHITE}>Log out</Text>
-                    </Button>
-                </View>
-            </View>
-        </ScrollView>
+            </ScrollView>
+        </UserProvider>
     )
 }
 
@@ -250,7 +265,6 @@ function TournamentPreviews() {
                 borderRadius: XS,
                 shadowOpacity: 0.25,
                 shadowRadius: 3.84,
-
                 elevation: 3
             }}
         >
@@ -281,10 +295,10 @@ function TournamentPreviews() {
                         <Text weight="semibold" color={GRAY[900]}>
                             Round 4
                         </Text>{" "}
-                        has begun,{"\n"}your opponent is
+                        has begun, your opponent is
                     </Text>
-                    <Text size={L} weight="bold" color={GRAY[900]}>
-                        Salvatore Aranzulla
+                    <Text numberOfLines={2} size={XL} weight="bold" color={GRAY[900]}>
+                        Francesco Raso Stoia Micheletto
                     </Text>
                     <Text color={GRAY[900]}>
                         playing at{" "}
@@ -293,7 +307,7 @@ function TournamentPreviews() {
                         </Text>{" "}
                         number
                     </Text>
-                    <Text size={L} weight="bold" color={GRAY[900]}>
+                    <Text size={XL} weight="bold" color={GRAY[900]}>
                         12
                     </Text>
                 </View>

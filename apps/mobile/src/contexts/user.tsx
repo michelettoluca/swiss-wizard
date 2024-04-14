@@ -1,6 +1,5 @@
 import { useAuth, useUser as useClerkUser } from "@clerk/clerk-expo"
-import { Redirect, SplashScreen } from "expo-router"
-import { PropsWithChildren, createContext, useContext, useEffect } from "react"
+import { PropsWithChildren, createContext, useContext } from "react"
 import { Pressable, Text } from "react-native"
 import { Entities } from "server/src/prisma"
 import { Button } from "../components/button"
@@ -15,7 +14,7 @@ type UserContextValue = {
 const User = createContext<UserContextValue>({} as UserContextValue)
 
 export function UserProvider({ children }: PropsWithChildren) {
-    const { userId: accountId, isSignedIn, signOut, isLoaded } = useAuth()
+    const { userId: accountId, signOut } = useAuth()
     const { user: clerkUser } = useClerkUser()
     const utils = trpc.useUtils()
 
@@ -24,19 +23,13 @@ export function UserProvider({ children }: PropsWithChildren) {
         { enabled: Boolean(accountId), staleTime: Infinity }
     )
 
-    useEffect(() => {
-        if (isLoaded && user) {
-            SplashScreen.hideAsync()
-        }
-    }, [isLoaded, user])
+    // useEffect(() => {
+    //     if (user) {
+    //         // SplashScreen.hideAsync()
+    //     }
+    // }, [user])
 
-    if (!isLoaded) {
-        return <Text>@user-context.tsx / Loading useAuth</Text>
-    }
-
-    if (!isSignedIn) {
-        return <Redirect href="/" />
-    }
+    // console.log(user)
 
     if (isLoading) {
         return <Text>@user-context.tsx / Loading user</Text>
@@ -52,7 +45,7 @@ export function UserProvider({ children }: PropsWithChildren) {
                 user,
                 clerkUser,
                 signOut: async () => {
-                    await utils.user.pollUser.invalidate({ accountId })
+                    await utils.user.pollUser.invalidate({ accountId: accountId! })
                     await signOut()
                 }
             }}
