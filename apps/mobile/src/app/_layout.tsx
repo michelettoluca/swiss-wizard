@@ -1,6 +1,8 @@
+import { BottomSheetModalProvider } from "@gorhom/bottom-sheet"
 import { useFonts } from "expo-font"
 import { Slot } from "expo-router"
 import { View } from "react-native"
+import { GestureHandlerRootView } from "react-native-gesture-handler"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
 import { AuthProvider } from "../contexts/auth"
 import { TrpcProvider } from "../contexts/trpc"
@@ -28,21 +30,25 @@ export default function () {
     }
 
     return (
-        <AuthProvider>
-            <TrpcProvider>
-                <View
-                    style={{
-                        flex: 1,
-                        paddingTop: insets.top,
-                        paddingLeft: insets.left,
-                        paddingBottom: insets.bottom,
-                        paddingRight: insets.right,
-                        backgroundColor: GRAY[100]
-                    }}
-                >
-                    <Slot />
-                </View>
-            </TrpcProvider>
-        </AuthProvider>
+        <GestureHandlerRootView style={{ flex: 1 }}>
+            <BottomSheetModalProvider>
+                <AuthProvider>
+                    <TrpcProvider>
+                        <View
+                            style={{
+                                flex: 1,
+                                paddingTop: insets.top,
+                                paddingLeft: insets.left,
+                                paddingBottom: insets.bottom,
+                                paddingRight: insets.right,
+                                backgroundColor: GRAY[100]
+                            }}
+                        >
+                            <Slot />
+                        </View>
+                    </TrpcProvider>
+                </AuthProvider>
+            </BottomSheetModalProvider>
+        </GestureHandlerRootView>
     )
 }
