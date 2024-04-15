@@ -1,9 +1,11 @@
 import { BottomSheetModal, BottomSheetView } from "@gorhom/bottom-sheet"
-import { useRef } from "react"
+import { Fragment, useRef } from "react"
 import { Keyboard, Pressable, StyleSheet } from "react-native"
+import { ScrollView } from "react-native-gesture-handler"
 import Animated, { FadeIn, FadeOut } from "react-native-reanimated"
 import { GRAY, WHITE } from "../styles/color"
-import { M, XS, XXXL, XXXS } from "../styles/size"
+import { BASE, M, XS, XXXL, XXXS } from "../styles/size"
+import { Separator } from "./separator"
 import { Text } from "./text"
 
 type SelectProps<T> = {
@@ -53,7 +55,7 @@ export function Select<T>({ label, placeholder, value, onChange, options }: Sele
                 <Text size={XS} color={GRAY[600]}>
                     {label}
                 </Text>
-                <Text>{selected?.label ?? placeholder}</Text>
+                <Text color={selected ? GRAY[900] : GRAY[400]}>{selected?.label ?? placeholder}</Text>
             </Pressable>
             <BottomSheetModal
                 ref={bottomSheetModalRef}
@@ -82,23 +84,36 @@ export function Select<T>({ label, placeholder, value, onChange, options }: Sele
                         flex: 1
                     }}
                 >
-                    {options.map((option, i) => (
-                        <Pressable
-                            key={JSON.stringify(option.value)}
-                            style={{
-                                height: XXXL,
-                                alignItems: "center",
-                                justifyContent: "center",
-                                backgroundColor: selectedIndex === i ? GRAY[100] : undefined
-                            }}
-                            onPress={() => {
-                                closeModal()
-                                onChange(option.value)
-                            }}
-                        >
-                            <Text>{option.label}</Text>
-                        </Pressable>
-                    ))}
+                    <Text
+                        align="center"
+                        color={GRAY[900]}
+                        weight="medium"
+                        size={BASE}
+                        style={{ paddingVertical: BASE, borderBottomColor: GRAY[100], borderBottomWidth: 1 }}
+                    >
+                        {label}
+                    </Text>
+                    <ScrollView>
+                        {options.map((option, i) => (
+                            <Fragment key={JSON.stringify(option.value)}>
+                                <Pressable
+                                    style={{
+                                        height: XXXL,
+                                        alignItems: "center",
+                                        justifyContent: "center",
+                                        backgroundColor: selectedIndex === i ? GRAY[100] : undefined
+                                    }}
+                                    onPress={() => {
+                                        closeModal()
+                                        onChange(option.value)
+                                    }}
+                                >
+                                    <Text>{option.label}</Text>
+                                </Pressable>
+                                <Separator color={GRAY[100]} />
+                            </Fragment>
+                        ))}
+                    </ScrollView>
                 </BottomSheetView>
             </BottomSheetModal>
         </>
