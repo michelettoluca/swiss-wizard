@@ -4,7 +4,6 @@ import { ScrollView, View } from "react-native"
 import { Avatar } from "../../../components/avatar"
 import { Badge, BadgeTheme } from "../../../components/badge"
 import { Button } from "../../../components/button"
-import { Input } from "../../../components/input"
 import { List } from "../../../components/list"
 import { Section } from "../../../components/section"
 import { Separator } from "../../../components/separator"
@@ -62,7 +61,6 @@ export default function () {
     return (
         <UserProvider>
             <ScrollView style={{ backgroundColor: GRAY[100] }}>
-                {/* <Select /> */}
                 <View style={{ display: "flex", gap: L, padding: BASE }}>
                     <View
                         style={{
@@ -79,16 +77,6 @@ export default function () {
                                 {clerkUser?.firstName} {clerkUser?.lastName}
                             </Text>
                         </View>
-                    </View>
-                    <View
-                        style={{
-                            flex: 1,
-                            display: "flex",
-                            flexDirection: "row",
-                            gap: XS
-                        }}
-                    >
-                        <Input label="Name" placeholder="Name" value={a} onChange={setA} />
                     </View>
                     <TournamentPreviews />
                     <Section name="Match history">
@@ -298,7 +286,7 @@ function TournamentPreviews() {
                         has begun, your opponent is
                     </Text>
                     <Text numberOfLines={2} size={XL} weight="bold" color={GRAY[900]}>
-                        Francesco Raso Stoia Micheletto
+                        Francesco Raso Stoia
                     </Text>
                     <Text color={GRAY[900]}>
                         playing at{" "}

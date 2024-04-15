@@ -80,7 +80,7 @@ export function Input({ label, placeholder, value, onChange, suffix, keyboardTyp
                     onChangeText={onChange}
                     keyboardType={keyboardType}
                 />
-                <Text>{suffix}</Text>
+                <Text color={GRAY[400]}>{suffix}</Text>
             </View>
         </Pressable>
     )
