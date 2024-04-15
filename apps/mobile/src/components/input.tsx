@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react"
-import { Keyboard, Pressable, PressableProps, StyleSheet, TextInput, View } from "react-native"
+import { Keyboard, Pressable, PressableProps, StyleSheet, TextInput, TextInputProps, View } from "react-native"
 import { GRAY, WHITE } from "../styles/color"
 import { M, XS, XXXL, XXXS } from "../styles/size"
 import { Text } from "./text"
@@ -10,9 +10,11 @@ type InputProps = {
     value: string
     onChange: (value: string) => void
     style?: PressableProps["style"]
+    suffix?: string
+    keyboardType?: TextInputProps["keyboardType"]
 }
 
-export function Input({ label, placeholder, value, onChange, style }: InputProps) {
+export function Input({ label, placeholder, value, onChange, suffix, keyboardType, style }: InputProps) {
     const inputRef = useRef<TextInput>(null)
 
     useEffect(() => {
@@ -65,8 +67,7 @@ export function Input({ label, placeholder, value, onChange, style }: InputProps
                 style={{
                     display: "flex",
                     flexDirection: "row",
-                    alignItems: "center",
-                    justifyContent: "space-between"
+                    alignItems: "center"
                 }}
             >
                 <TextInput
@@ -77,8 +78,9 @@ export function Input({ label, placeholder, value, onChange, style }: InputProps
                     cursorColor={GRAY[600]}
                     value={value}
                     onChangeText={onChange}
+                    keyboardType={keyboardType}
                 />
-                <Text>min</Text>
+                <Text>{suffix}</Text>
             </View>
         </Pressable>
     )
