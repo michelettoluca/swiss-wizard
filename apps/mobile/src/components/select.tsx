@@ -1,12 +1,12 @@
 import { BottomSheetModal, BottomSheetView } from "@gorhom/bottom-sheet"
 import { Fragment, useRef } from "react"
-import { Keyboard, Pressable, StyleSheet } from "react-native"
+import { Keyboard, Pressable, StyleSheet, Text } from "react-native"
 import { ScrollView } from "react-native-gesture-handler"
 import Animated, { FadeIn, FadeOut } from "react-native-reanimated"
-import { GRAY, WHITE } from "../styles/color"
+import { Palette } from "../styles/palette"
 import { BASE, M, XS, XXXL, XXXS } from "../styles/size"
+import { Inter, Typography } from "../styles/typography"
 import { Separator } from "./separator"
-import { Text } from "./text"
 
 type SelectProps<T> = {
     label: string
@@ -43,7 +43,7 @@ export function Select<T>({ label, placeholder, value, onChange, options }: Sele
                         display: "flex",
                         flexDirection: "column",
                         justifyContent: "center",
-                        backgroundColor: WHITE,
+                        backgroundColor: Palette.white,
                         borderRadius: XS,
                         paddingHorizontal: M,
                         height: XXXL,
@@ -52,10 +52,10 @@ export function Select<T>({ label, placeholder, value, onChange, options }: Sele
                 ])}
                 onPress={handlePresentModalPress}
             >
-                <Text size={XS} color={GRAY[600]}>
-                    {label}
+                <Text style={Typography.label}>{label}</Text>
+                <Text style={{ ...Typography.body, color: selected ? Palette.gray[900] : Palette.gray[400] }}>
+                    {selected?.label ?? placeholder}
                 </Text>
-                <Text color={selected ? GRAY[900] : GRAY[400]}>{selected?.label ?? placeholder}</Text>
             </Pressable>
             <BottomSheetModal
                 ref={bottomSheetModalRef}
@@ -85,11 +85,15 @@ export function Select<T>({ label, placeholder, value, onChange, options }: Sele
                     }}
                 >
                     <Text
-                        align="center"
-                        color={GRAY[900]}
-                        weight="medium"
-                        size={BASE}
-                        style={{ paddingVertical: BASE, borderBottomColor: GRAY[100], borderBottomWidth: 1 }}
+                        style={{
+                            fontFamily: Inter.medium,
+                            fontSize: BASE,
+                            textAlign: "center",
+                            color: Palette.gray[900],
+                            paddingVertical: BASE,
+                            borderBottomColor: Palette.gray[100],
+                            borderBottomWidth: 1
+                        }}
                     >
                         {label}
                     </Text>
@@ -101,16 +105,16 @@ export function Select<T>({ label, placeholder, value, onChange, options }: Sele
                                         height: XXXL,
                                         alignItems: "center",
                                         justifyContent: "center",
-                                        backgroundColor: selectedIndex === i ? GRAY[100] : undefined
+                                        backgroundColor: selectedIndex === i ? Palette.gray[100] : undefined
                                     }}
                                     onPress={() => {
                                         closeModal()
                                         onChange(option.value)
                                     }}
                                 >
-                                    <Text>{option.label}</Text>
+                                    <Text style={Typography.body}>{option.label}</Text>
                                 </Pressable>
-                                <Separator color={GRAY[100]} />
+                                <Separator color={Palette.gray[100]} />
                             </Fragment>
                         ))}
                     </ScrollView>

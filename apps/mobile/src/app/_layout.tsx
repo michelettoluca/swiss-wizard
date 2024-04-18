@@ -6,7 +6,7 @@ import { GestureHandlerRootView } from "react-native-gesture-handler"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
 import { AuthProvider } from "../contexts/auth"
 import { TrpcProvider } from "../contexts/trpc"
-import { GRAY } from "../styles/color"
+import { Palette } from "../styles/palette"
 
 export const FONTS = {
     "Inter Thin": require("../../assets/fonts/Inter-Thin.ttf"),
@@ -41,7 +41,7 @@ export default function () {
                                 paddingLeft: insets.left,
                                 paddingBottom: insets.bottom,
                                 paddingRight: insets.right,
-                                backgroundColor: GRAY[100]
+                                backgroundColor: Palette.gray[100]
                             }}
                         >
                             <Slot />

@@ -1,8 +1,8 @@
 import React, { useEffect, useRef } from "react"
-import { Keyboard, Pressable, PressableProps, StyleSheet, TextInput, TextInputProps, View } from "react-native"
-import { GRAY, WHITE } from "../styles/color"
+import { Keyboard, Pressable, PressableProps, StyleSheet, Text, TextInput, TextInputProps, View } from "react-native"
+import { Palette } from "../styles/palette"
 import { M, XS, XXXL, XXXS } from "../styles/size"
-import { Text } from "./text"
+import { Typography } from "../styles/typography"
 
 type InputProps = {
     label: string
@@ -50,7 +50,7 @@ export function Input({ label, placeholder, value, onChange, suffix, keyboardTyp
                     display: "flex",
                     flexDirection: "column",
                     justifyContent: "center",
-                    backgroundColor: WHITE,
+                    backgroundColor: Palette.white,
                     borderRadius: XS,
                     paddingHorizontal: M,
                     height: XXXL,
@@ -60,9 +60,7 @@ export function Input({ label, placeholder, value, onChange, suffix, keyboardTyp
             ])}
             onPress={focus}
         >
-            <Text size={XS} color={GRAY[600]}>
-                {label}
-            </Text>
+            <Text style={Typography.label}>{label}</Text>
             <View
                 style={{
                     display: "flex",
@@ -72,15 +70,15 @@ export function Input({ label, placeholder, value, onChange, suffix, keyboardTyp
             >
                 <TextInput
                     ref={inputRef}
-                    style={{ color: GRAY[900], padding: 0, height: M }}
+                    style={{ color: Palette.gray[900], padding: 0, height: M }}
                     placeholder={placeholder ?? ""}
-                    placeholderTextColor={GRAY[400]}
-                    cursorColor={GRAY[600]}
+                    placeholderTextColor={Palette.gray[400]}
+                    cursorColor={Palette.gray[600]}
                     value={value}
                     onChangeText={onChange}
                     keyboardType={keyboardType}
                 />
-                <Text color={GRAY[400]}>{suffix}</Text>
+                <Text style={{ ...Typography.body, color: Palette.gray[400] }}>{suffix}</Text>
             </View>
         </Pressable>
     )

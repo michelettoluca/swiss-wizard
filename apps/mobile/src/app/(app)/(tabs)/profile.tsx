@@ -1,77 +1,88 @@
 import { PropsWithChildren } from "react"
-import { ScrollView, View } from "react-native"
+import { ScrollView, Text, TextStyle, View } from "react-native"
 import { Avatar } from "../../../components/avatar"
 import { List } from "../../../components/list"
 import { Section } from "../../../components/section"
 import { Separator } from "../../../components/separator"
-import { Text } from "../../../components/text"
 import { useUser } from "../../../contexts/user"
-import { EMERALD, GRAY, WHITE } from "../../../styles/color"
+import { Palette } from "../../../styles/palette"
 import { BASE, L, M, XXL } from "../../../styles/size"
+import { Inter, Typography } from "../../../styles/typography"
+
+const aa: TextStyle = {
+    ...Typography.body,
+    color: Palette.gray[900]
+}
 
 export default function () {
     const { user, clerkUser } = useUser()
 
     return (
-        <ScrollView style={{ backgroundColor: GRAY[100] }}>
+        <ScrollView style={{ backgroundColor: Palette.gray[100] }}>
             <View style={{ display: "flex", gap: L, padding: BASE, paddingTop: XXL }}>
                 <View style={{ display: "flex", alignItems: "center", gap: BASE, margin: "auto" }}>
-                    <Avatar size={128} color={EMERALD[200]} />
-                    <Text color={GRAY[900]} weight="semibold" size={L}>
+                    <Avatar size={128} color={Palette.emerald[200]} />
+                    <Text
+                        style={{
+                            fontFamily: Inter.semiBold,
+                            fontSize: L,
+                            color: Palette.gray[900]
+                        }}
+                    >
                         {clerkUser?.firstName} {clerkUser?.lastName}
                     </Text>
                 </View>
                 <List type={"compact"}>
                     <ListItem>
-                        <Text>Username</Text>
-                        <Text color={GRAY[900]}>{user?.username}</Text>
+                        <Text style={Typography.body}>Username</Text>
+                        <Text style={aa}>{user?.username}</Text>
                     </ListItem>
-                    <Separator color={GRAY[100]} />
+                    <Separator color={Palette.gray[100]} />
                     <ListItem>
-                        <Text>???</Text>
-                        <Text color={GRAY[900]}>???</Text>
+                        <Text style={Typography.body}>???</Text>
+                        <Text style={aa}>???</Text>
                     </ListItem>
-                    <Separator color={GRAY[100]} />
+                    <Separator color={Palette.gray[100]} />
                     <ListItem>
-                        <Text>???</Text>
-                        <Text color={GRAY[900]}>???</Text>
+                        <Text style={Typography.body}>???</Text>
+                        <Text style={aa}>???</Text>
                     </ListItem>
                 </List>
                 <Section name="Stats">
                     <List type={"compact"}>
                         <ListItem>
-                            <Text>???</Text>
-                            <Text color={GRAY[900]}>???</Text>
+                            <Text style={Typography.body}>???</Text>
+                            <Text style={aa}>???</Text>
                         </ListItem>
-                        <Separator color={GRAY[100]} />
+                        <Separator color={Palette.gray[100]} />
                         <ListItem>
-                            <Text>???</Text>
-                            <Text color={GRAY[900]}>???</Text>
+                            <Text style={Typography.body}>???</Text>
+                            <Text style={aa}>???</Text>
                         </ListItem>
-                        <Separator color={GRAY[100]} />
+                        <Text style={aa}>???</Text>
                         <ListItem>
-                            <Text>???</Text>
-                            <Text color={GRAY[900]}>???</Text>
+                            <Text style={Typography.body}>???</Text>
+                            <Text style={aa}>???</Text>
                         </ListItem>
-                        <Separator color={GRAY[100]} />
+                        <Separator color={Palette.gray[100]} />
                         <ListItem>
-                            <Text>???</Text>
-                            <Text color={GRAY[900]}>???</Text>
+                            <Text style={Typography.body}>???</Text>
+                            <Text style={aa}>???</Text>
                         </ListItem>
-                        <Separator color={GRAY[100]} />
+                        <Separator color={Palette.gray[100]} />
                         <ListItem>
-                            <Text>???</Text>
-                            <Text color={GRAY[900]}>???</Text>
-                        </ListItem>
-                        <ListItem>
-                            <Text>???</Text>
-                            <Text color={GRAY[900]}>???</Text>
+                            <Text style={Typography.body}>???</Text>
+                            <Text style={aa}>???</Text>
                         </ListItem>
                         <ListItem>
-                            <Text>???</Text>
-                            <Text color={GRAY[900]}>???</Text>
+                            <Text style={Typography.body}>???</Text>
+                            <Text style={aa}>???</Text>
                         </ListItem>
-                        <Separator color={GRAY[100]} />
+                        <ListItem>
+                            <Text style={Typography.body}>???</Text>
+                            <Text style={aa}>???</Text>
+                        </ListItem>
+                        <Separator color={Palette.gray[100]} />
                     </List>
                 </Section>
             </View>
@@ -89,7 +100,7 @@ function ListItem({ children }: PropsWithChildren) {
                 justifyContent: "space-between",
                 padding: BASE,
                 paddingRight: M,
-                backgroundColor: WHITE
+                backgroundColor: Palette.white
             }}
         >
             {children}

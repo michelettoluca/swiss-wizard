@@ -2,11 +2,11 @@ import { useAuth, useOAuth } from "@clerk/clerk-expo"
 import * as AuthSession from "expo-auth-session"
 import { Redirect, SplashScreen } from "expo-router"
 import { useEffect } from "react"
-import { Pressable, View } from "react-native"
-import { Text } from "../components/text"
+import { Pressable, Text, View } from "react-native"
 import { useWarmUpBrowser } from "../hooks/use-warm-up-browser"
-import { GRAY } from "../styles/color"
-import { BASE, L, S, XL, XS, XXL } from "../styles/size"
+import { Palette } from "../styles/palette"
+import { BASE, L, XL, XS, XXL } from "../styles/size"
+import { Inter, Typography } from "../styles/typography"
 import { GoogleG } from "../svgs/google-g"
 
 // SplashScreen.preventAutoHideAsync()
@@ -53,10 +53,18 @@ export default function () {
             }}
         >
             <View style={{ alignItems: "center", padding: L }}>
-                <Text color={GRAY[800]} size={XL} weight="bold">
+                <Text
+                    style={{
+                        color: Palette.gray[900],
+                        fontFamily: Inter.bold,
+                        fontSize: XL
+                    }}
+                >
                     Swiss Wizard
                 </Text>
-                <Text align="center">Grande sottotitolo, importantissimo e su più righe con punto.</Text>
+                <Text style={{ textAlign: "center" }}>
+                    Grande sottotitolo, importantissimo e su più righe con punto.
+                </Text>
             </View>
             <View style={{ alignSelf: "stretch", borderRadius: 1000, overflow: "hidden" }}>
                 <Pressable
@@ -67,7 +75,7 @@ export default function () {
                         justifyContent: "center",
                         gap: XS,
                         paddingVertical: 16,
-                        borderColor: GRAY[300],
+                        borderColor: Palette.gray[300],
                         borderWidth: 1,
                         borderRadius: 1000
                     }}
@@ -75,9 +83,7 @@ export default function () {
                     onPress={() => authenticate()}
                 >
                     <GoogleG width={24} height={24} />
-                    <Text size={S} color={GRAY[600]}>
-                        Sign in with Google
-                    </Text>
+                    <Text style={Typography.body}>Sign in with Google</Text>
                 </Pressable>
             </View>
         </View>

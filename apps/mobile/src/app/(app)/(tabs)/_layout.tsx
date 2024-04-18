@@ -1,14 +1,14 @@
 import { Tabs } from "expo-router"
 import { LayoutGrid, PlusCircle, UserRound } from "lucide-react-native"
 import React from "react"
-import { BLUE } from "../../../styles/color"
+import { Palette } from "../../../styles/palette"
 import { L, XXXL } from "../../../styles/size"
 
 export default function TabLayout() {
     return (
         <Tabs
             screenOptions={{
-                tabBarActiveTintColor: BLUE[500],
+                tabBarActiveTintColor: Palette.blue[500],
                 tabBarHideOnKeyboard: true,
                 tabBarStyle: {
                     shadowRadius: 0,

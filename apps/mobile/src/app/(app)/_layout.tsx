@@ -1,8 +1,8 @@
 import { useAuth } from "@clerk/clerk-expo"
 import { Redirect, Stack } from "expo-router"
-import { View } from "react-native"
-import { Text } from "../../components/text"
+import { Text, View } from "react-native"
 import { UserProvider } from "../../contexts/user"
+import { Typography } from "../../styles/typography"
 
 export default function () {
     const { isLoaded, isSignedIn } = useAuth()
@@ -10,7 +10,7 @@ export default function () {
     if (!isLoaded) {
         return (
             <View>
-                <Text>Loading...</Text>
+                <Text style={Typography.body}>Loading...</Text>
             </View>
         )
     }
@@ -39,7 +39,7 @@ export default function () {
 //                 height: XXXL,
 //                 paddingHorizontal: L,
 //                 backgroundColor: WHITE,
-//                 borderTopColor: GRAY[100],
+//                 borderTopColor: Palette.gray[100],
 //                 borderTopWidth: 1,
 //                 gap: 1
 //             }}
@@ -70,7 +70,7 @@ export default function () {
 
 //     return (
 //         <Pressable onPress={navigate} style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-//             <Icon height={24} width={24} stroke={isActive ? GRAY[900] : GRAY[400]} />
+//             <Icon height={24} width={24} stroke={isActive ? Palette.gray[900] : Palette.gray[400]} />
 //         </Pressable>
 //     )
 // }

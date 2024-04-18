@@ -1,9 +1,9 @@
 import { PropsWithChildren } from "react"
-import { View } from "react-native"
-import { AMBER, GRAY, WHITE } from "../styles/color"
+import { Text, View } from "react-native"
+import { Palette } from "../styles/palette"
 import { BASE, S, XS, XXL, XXS } from "../styles/size"
+import { Inter, Typography } from "../styles/typography"
 import { Avatar } from "./avatar"
-import { Text } from "./text"
 
 type ActivityItemProps = {
     name: string
@@ -19,11 +19,11 @@ export function TournamentListItem({ date, name, rank }: ActivityItemProps) {
                 flexDirection: "row",
                 gap: XS,
                 padding: BASE,
-                backgroundColor: WHITE,
+                backgroundColor: Palette.white,
                 borderRadius: XS
             }}
         >
-            <Avatar size={XXL} color={AMBER[200]} />
+            <Avatar size={XXL} color={Palette.amber[200]} />
             <View
                 style={{
                     display: "flex",
@@ -33,10 +33,21 @@ export function TournamentListItem({ date, name, rank }: ActivityItemProps) {
                 }}
             >
                 <View style={{ display: "flex", gap: XXS }}>
-                    <Text weight="medium" color={GRAY[900]}>
+                    <Text
+                        style={{
+                            fontFamily: Inter.medium,
+                            fontSize: S,
+                            color: Palette.gray[900]
+                        }}
+                    >
                         {name}
                     </Text>
-                    <Text size={S} color={GRAY[400]}>
+                    <Text
+                        style={{
+                            ...Typography.body,
+                            color: Palette.gray[900]
+                        }}
+                    >
                         {date}
                     </Text>
                 </View>

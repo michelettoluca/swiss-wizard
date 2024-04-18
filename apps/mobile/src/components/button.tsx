@@ -1,7 +1,7 @@
 import { View } from "lucide-react-native"
 import { ReactNode } from "react"
 import { ColorValue, StyleSheet, TouchableOpacity, TouchableOpacityProps, ViewStyle } from "react-native"
-import { BLUE } from "../styles/color"
+import { Palette } from "../styles/palette"
 import { L, M, S, XL, XS, XXS } from "../styles/size"
 
 type Size = "s" | "m" | "l"
@@ -48,7 +48,7 @@ export function Button({ size, backgroundColor, icon, children, style, ...props 
             style={StyleSheet.flatten([
                 {
                     ...pressableSize[size ?? "m"],
-                    backgroundColor: backgroundColor ?? BLUE[500]
+                    backgroundColor: backgroundColor ?? Palette.blue[500]
                 },
                 style
             ])}
