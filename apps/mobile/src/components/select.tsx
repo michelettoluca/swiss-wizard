@@ -32,7 +32,7 @@ export function Select<T>({ label, placeholder, value, onChange, options }: Sele
         bottomSheetModalRef.current?.present()
     }
     function closeModal() {
-        bottomSheetModalRef.current?.close({ duration: 75 })
+        bottomSheetModalRef.current?.close({ duration: 150 })
     }
 
     return (
@@ -61,8 +61,8 @@ export function Select<T>({ label, placeholder, value, onChange, options }: Sele
                 ref={bottomSheetModalRef}
                 backdropComponent={() => (
                     <Animated.View
-                        entering={FadeIn.duration(75)}
-                        exiting={FadeOut.duration(75)}
+                        entering={FadeIn.duration(150)}
+                        exiting={FadeOut.duration(150)}
                         style={{
                             ...StyleSheet.absoluteFillObject,
                             backgroundColor: "rgba(0, 0, 0, 0.25)"
