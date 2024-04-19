@@ -60,7 +60,9 @@ model Tournament {
   owner   User @relation(fields: [ownerId], references: [id])
 
   name          String
-  description   String
+  format        String
+  timeLimit     Int              @default(55)
+  roundLimit    Int?
   status        TournamentStatus @default(OPEN)
   registrations Registration[]
   rounds        Round[]
