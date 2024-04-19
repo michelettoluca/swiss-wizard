@@ -1,6 +1,7 @@
 import { BottomSheetModal, BottomSheetView } from "@gorhom/bottom-sheet"
+import { ChevronsUpDown } from "lucide-react-native"
 import { Fragment, useRef } from "react"
-import { Keyboard, Pressable, StyleSheet, Text } from "react-native"
+import { Keyboard, Pressable, StyleSheet, Text, View } from "react-native"
 import { ScrollView } from "react-native-gesture-handler"
 import Animated, { FadeIn, FadeOut } from "react-native-reanimated"
 import { Palette } from "../styles/palette"
@@ -40,8 +41,9 @@ export function Select<T>({ label, placeholder, value, onChange, options }: Sele
             <Pressable
                 style={StyleSheet.flatten([
                     {
-                        flexDirection: "column",
-                        justifyContent: "center",
+                        flexDirection: "row",
+                        justifyContent: "space-between",
+                        alignItems: "center",
                         backgroundColor: Palette.white,
                         borderRadius: XS,
                         paddingHorizontal: M,
@@ -51,10 +53,19 @@ export function Select<T>({ label, placeholder, value, onChange, options }: Sele
                 ])}
                 onPress={handlePresentModalPress}
             >
-                <Text style={Typography.label}>{label}</Text>
-                <Text style={[Typography.body, { color: selected ? Palette.gray[900] : Palette.gray[400] }]}>
-                    {selected?.label ?? placeholder}
-                </Text>
+                <View
+                    style={{
+                        flexDirection: "column",
+                        justifyContent: "center"
+                    }}
+                >
+                    <Text style={Typography.label}>{label}</Text>
+                    <Text style={[Typography.body, { color: selected ? Palette.gray[900] : Palette.gray[400] }]}>
+                        {selected?.label ?? placeholder}
+                    </Text>
+                </View>
+
+                <ChevronsUpDown size={M} stroke={Palette.gray[400]} />
             </Pressable>
             <BottomSheetModal
                 ref={bottomSheetModalRef}
@@ -62,10 +73,12 @@ export function Select<T>({ label, placeholder, value, onChange, options }: Sele
                     <Animated.View
                         entering={FadeIn.duration(150)}
                         exiting={FadeOut.duration(150)}
-                        style={{
-                            ...StyleSheet.absoluteFillObject,
-                            backgroundColor: "rgba(0, 0, 0, 0.25)"
-                        }}
+                        style={[
+                            StyleSheet.absoluteFillObject,
+                            {
+                                backgroundColor: "rgba(0, 0, 0, 0.25)"
+                            }
+                        ]}
                     >
                         <Pressable style={{ flex: 1 }} onPress={closeModal} />
                     </Animated.View>
