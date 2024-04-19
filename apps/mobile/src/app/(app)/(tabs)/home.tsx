@@ -60,10 +60,9 @@ export default function () {
     return (
         <UserProvider>
             <ScrollView style={{ backgroundColor: Palette.gray[100] }}>
-                <View style={{ display: "flex", gap: L, padding: BASE }}>
+                <View style={{ gap: L, padding: BASE }}>
                     <View
                         style={{
-                            display: "flex",
                             flexDirection: "row",
                             alignItems: "center",
                             gap: XXS
@@ -97,16 +96,17 @@ export default function () {
                     </Section>
                     <View
                         style={{
-                            display: "flex",
                             alignItems: "flex-end"
                         }}
                     >
                         <Button onPress={() => signOut()}>
                             <Text
-                                style={{
-                                    ...Typography.body,
-                                    color: Palette.white
-                                }}
+                                style={[
+                                    Typography.body,
+                                    {
+                                        color: Palette.white
+                                    }
+                                ]}
                             >
                                 Log out
                             </Text>
@@ -148,7 +148,6 @@ function PlayerResult({ opponent, wins, losses, omw, gw, ogw }: PlayerResultProp
     return (
         <View
             style={{
-                display: "flex",
                 flexDirection: "row",
                 alignItems: "center",
                 justifyContent: "space-between",
@@ -160,13 +159,11 @@ function PlayerResult({ opponent, wins, losses, omw, gw, ogw }: PlayerResultProp
         >
             <View
                 style={{
-                    display: "flex",
                     gap: XXS
                 }}
             >
                 <View
                     style={{
-                        display: "flex",
                         flexDirection: "row",
                         alignItems: "center",
                         gap: XXS
@@ -179,7 +176,6 @@ function PlayerResult({ opponent, wins, losses, omw, gw, ogw }: PlayerResultProp
                 </View>
                 <View
                     style={{
-                        display: "flex",
                         flexDirection: "row",
                         alignItems: "center",
                         gap: XXS
@@ -190,9 +186,9 @@ function PlayerResult({ opponent, wins, losses, omw, gw, ogw }: PlayerResultProp
                     <Badge theme="gray">OGW {ogw.toFixed(2)}</Badge>
                 </View>
             </View>
-            <View style={{ display: "flex", flexDirection: "row" }}>
+            <View style={{ flexDirection: "row" }}>
                 <Text style={Typography.body}>{wins}</Text>
-                <Text style={{ ...Typography.body, color: Palette.gray[400] }}> - </Text>
+                <Text style={[Typography.body, { color: Palette.gray[400] }]}> - </Text>
                 <Text style={Typography.body}>{losses}</Text>
             </View>
         </View>
@@ -215,7 +211,6 @@ function Standing({ player, rank, omw, gw, ogw, score }: StandingProps) {
     return (
         <View
             style={{
-                display: "flex",
                 flexDirection: "row",
                 justifyContent: "space-between",
                 alignItems: "center",
@@ -224,8 +219,8 @@ function Standing({ player, rank, omw, gw, ogw, score }: StandingProps) {
                 backgroundColor: Palette.white
             }}
         >
-            <View style={{ display: "flex", gap: XXS }}>
-                <View style={{ display: "flex", flexDirection: "row", gap: XXS }}>
+            <View style={{ gap: XXS }}>
+                <View style={{ flexDirection: "row", gap: XXS }}>
                     <View>
                         <Text style={Typography.body}>{rank}.</Text>
                     </View>
@@ -233,7 +228,7 @@ function Standing({ player, rank, omw, gw, ogw, score }: StandingProps) {
                         {player.firstName} {player.lastName}
                     </Text>
                 </View>
-                <View style={{ display: "flex", flexDirection: "row", gap: XXS }}>
+                <View style={{ flexDirection: "row", gap: XXS }}>
                     <Badge theme="gray">OMW {omw.toFixed(2)}</Badge>
                     <Badge theme="gray">GW {gw.toFixed(2)}</Badge>
                     <Badge theme="gray">OGW {ogw.toFixed(2)}</Badge>
@@ -246,17 +241,17 @@ function Standing({ player, rank, omw, gw, ogw, score }: StandingProps) {
 
 const semiBoldBody: TextStyle = {
     ...Typography.body,
-    fontFamily: Inter.semiBold
+    fontFamily: Inter.semiBold,
+    color: Palette.gray[900]
 }
 
 function TournamentPreviews() {
     return (
         <View
             style={{
-                display: "flex",
                 padding: XXXS,
                 backgroundColor: Palette.white,
-                shadowColor: "#000",
+                shadowColor: Palette.black,
                 shadowOffset: {
                     width: 0,
                     height: 2
@@ -269,7 +264,6 @@ function TournamentPreviews() {
         >
             <View
                 style={{
-                    display: "flex",
                     gap: BASE,
                     backgroundColor: Palette.blue[50],
                     borderRadius: XXS,
@@ -279,19 +273,15 @@ function TournamentPreviews() {
             >
                 <View
                     style={{
-                        display: "flex",
                         flexDirection: "row",
                         gap: XXS
                     }}
                 >
                     <Handshake size={24} stroke={Palette.gray[900]} />
-                    <Text style={semiBoldBody}>Match ended</Text>
+                    <Text style={semiBoldBody}>Round 4</Text>
                 </View>
                 <View>
-                    <Text style={Typography.body}>
-                        <Text style={{ ...semiBoldBody, color: Palette.gray[600] }}>Round 4</Text> has begun, your
-                        opponent is
-                    </Text>
+                    <Text style={[Typography.body, { color: Palette.gray[900] }]}>Your opponent is</Text>
                     <Text
                         style={{
                             fontFamily: Inter.bold,
@@ -300,10 +290,10 @@ function TournamentPreviews() {
                         }}
                         numberOfLines={2}
                     >
-                        Francesco Raso Stoia
+                        Francesco Raso
                     </Text>
-                    <Text style={Typography.body}>
-                        playing at <Text style={{ ...semiBoldBody, color: Palette.gray[900] }}>table</Text> number
+                    <Text style={[Typography.body, { color: Palette.gray[900] }]}>
+                        playing at <Text style={semiBoldBody}>table</Text> number
                     </Text>
                     <Text
                         style={{

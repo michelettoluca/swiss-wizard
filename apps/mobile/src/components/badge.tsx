@@ -28,7 +28,6 @@ export function Badge({ theme, children }: BadgeProps) {
     return (
         <View
             style={{
-                display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
                 minWidth: XL,

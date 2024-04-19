@@ -15,7 +15,6 @@ export function TournamentListItem({ date, name, rank }: ActivityItemProps) {
     return (
         <View
             style={{
-                display: "flex",
                 flexDirection: "row",
                 gap: XS,
                 padding: BASE,
@@ -26,13 +25,12 @@ export function TournamentListItem({ date, name, rank }: ActivityItemProps) {
             <Avatar size={XXL} color={Palette.amber[200]} />
             <View
                 style={{
-                    display: "flex",
                     flexDirection: "row",
                     justifyContent: "space-between",
                     flexGrow: 1
                 }}
             >
-                <View style={{ display: "flex", gap: XXS }}>
+                <View style={{ gap: XXS }}>
                     <Text
                         style={{
                             fontFamily: Inter.medium,
@@ -43,10 +41,12 @@ export function TournamentListItem({ date, name, rank }: ActivityItemProps) {
                         {name}
                     </Text>
                     <Text
-                        style={{
-                            ...Typography.body,
-                            color: Palette.gray[900]
-                        }}
+                        style={[
+                            Typography.body,
+                            {
+                                color: Palette.gray[900]
+                            }
+                        ]}
                     >
                         {date}
                     </Text>

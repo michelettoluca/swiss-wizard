@@ -40,7 +40,6 @@ export function Select<T>({ label, placeholder, value, onChange, options }: Sele
             <Pressable
                 style={StyleSheet.flatten([
                     {
-                        display: "flex",
                         flexDirection: "column",
                         justifyContent: "center",
                         backgroundColor: Palette.white,
@@ -53,7 +52,7 @@ export function Select<T>({ label, placeholder, value, onChange, options }: Sele
                 onPress={handlePresentModalPress}
             >
                 <Text style={Typography.label}>{label}</Text>
-                <Text style={{ ...Typography.body, color: selected ? Palette.gray[900] : Palette.gray[400] }}>
+                <Text style={[Typography.body, { color: selected ? Palette.gray[900] : Palette.gray[400] }]}>
                     {selected?.label ?? placeholder}
                 </Text>
             </Pressable>

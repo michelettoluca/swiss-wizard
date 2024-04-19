@@ -11,7 +11,6 @@ export function List({ type, direction, children }: ListProps) {
     return (
         <View
             style={{
-                display: "flex",
                 flexDirection: direction,
                 gap: type === "compact" ? undefined : XXS,
                 borderRadius: type === "compact" ? XS : undefined,

@@ -18,7 +18,6 @@ export function Section({ name, action, children }: SectionProps) {
         <View>
             <View
                 style={{
-                    display: "flex",
                     flexDirection: "row",
                     justifyContent: "space-between",
                     alignItems: "baseline",
@@ -36,7 +35,7 @@ export function Section({ name, action, children }: SectionProps) {
                 </Text>
                 {action && (
                     <Pressable
-                        style={{ display: "flex", flexDirection: "row", alignItems: "center", gap: XXXS }}
+                        style={{ flexDirection: "row", alignItems: "center", gap: XXXS }}
                         onPress={action.onPress}
                     >
                         <Text

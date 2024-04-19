@@ -47,7 +47,6 @@ export function Input({ label, placeholder, value, onChange, suffix, keyboardTyp
         <Pressable
             style={StyleSheet.flatten([
                 {
-                    display: "flex",
                     flexDirection: "column",
                     justifyContent: "center",
                     backgroundColor: Palette.white,
@@ -63,7 +62,6 @@ export function Input({ label, placeholder, value, onChange, suffix, keyboardTyp
             <Text style={Typography.label}>{label}</Text>
             <View
                 style={{
-                    display: "flex",
                     flexDirection: "row",
                     alignItems: "center"
                 }}
@@ -78,7 +76,7 @@ export function Input({ label, placeholder, value, onChange, suffix, keyboardTyp
                     onChangeText={onChange}
                     keyboardType={keyboardType}
                 />
-                <Text style={{ ...Typography.body, color: Palette.gray[400] }}>{suffix}</Text>
+                <Text style={[Typography.body, { color: Palette.gray[400] }]}>{suffix}</Text>
             </View>
         </Pressable>
     )

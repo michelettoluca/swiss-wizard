@@ -30,7 +30,7 @@ export default function () {
 //     return (
 //         <View
 //             style={{
-//                 display: "flex",
+//
 //                 flexDirection: "row",
 //                 position: "absolute",
 //                 bottom: 0,

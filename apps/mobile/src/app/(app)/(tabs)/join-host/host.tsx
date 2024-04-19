@@ -1,99 +1,157 @@
+import { Loader2 } from "lucide-react-native"
+import { useEffect } from "react"
 import { Controller, useForm } from "react-hook-form"
-import { Text, View } from "react-native"
+import { Dimensions, Text, View } from "react-native"
+import Animated, { Easing, useAnimatedStyle, useSharedValue, withRepeat, withTiming } from "react-native-reanimated"
+import { Entities } from "server/src/prisma"
 import { Button } from "../../../../components/button"
+import { Header } from "../../../../components/header"
 import { Input } from "../../../../components/input"
 import { Select } from "../../../../components/select"
+import { trpc } from "../../../../lib/trpc"
 import { Palette } from "../../../../styles/palette"
-import { BASE, XS } from "../../../../styles/size"
+import { BASE, M, XL, XS, XXS, XXXL } from "../../../../styles/size"
 import { Inter, Typography } from "../../../../styles/typography"
 
+const { height } = Dimensions.get("window")
+
+const AnimatedLoader = Animated.createAnimatedComponent(Loader2)
+
+type FormValue = Partial<Pick<Entities["Tournament"], "name" | "format" | "roundLimit" | "timeLimit">>
+
 export default function () {
-    const {
-        control,
-        handleSubmit,
-        formState: { errors },
-        getValues
-    } = useForm<{
-        firstName: string
-        lastName: string
-        timeLimit: number
-        numeroACaso: number
-    }>({
-        defaultValues: {
-            firstName: "",
-            lastName: ""
-        }
-    })
+    const { isLoading, mutate } = trpc.user.completeRegistration.useMutation({})
+    const rotate = useSharedValue(0)
+
+    useEffect(() => {
+        rotate.value = withRepeat(withTiming(360, { duration: 1250, easing: Easing.linear }), -1, false)
+    }, [])
+
+    const style = useAnimatedStyle(() => ({
+        transform: [
+            {
+                rotate: `${rotate.value}deg`
+            }
+        ]
+    }))
+
+    const { control, handleSubmit, formState, watch } = useForm<FormValue>()
+
+    async function createTournament(form: FormValue) {
+        mutate({ id: 3, username: "asd" })
+    }
 
     return (
         <View
             style={{
-                flex: 1,
-                justifyContent: "space-between",
                 backgroundColor: Palette.gray[100],
-                padding: BASE
+                padding: BASE,
+                height: height - XXXL,
+                gap: XL
             }}
         >
-            <View style={{ gap: XS }}>
-                <Text>{JSON.stringify(getValues(), null, 3)}</Text>
-                <Controller
-                    control={control}
-                    name="firstName"
-                    render={({ field: { onChange, onBlur, value } }) => (
-                        <Input label="Name" placeholder="Name" value={value} onChange={onChange} />
-                    )}
-                />
-                <Controller
-                    control={control}
-                    name="timeLimit"
-                    rules={{
-                        min: 3
-                    }}
-                    render={({ field: { onChange, value, disabled } }) => (
-                        <Input
-                            label="Time limit"
-                            placeholder="55"
-                            keyboardType="decimal-pad"
-                            suffix="min"
-                            value={`${value ?? ""}`}
-                            onChange={(v) => onChange(v?.length ? Number(v) : null)}
+            <Header title="Host" />
+            <View
+                style={{
+                    flex: 1,
+                    justifyContent: "space-between"
+                }}
+            >
+                <View style={{ gap: XS }}>
+                    <Controller
+                        control={control}
+                        name="name"
+                        rules={{
+                            required: true
+                        }}
+                        render={({ field: { onChange, value } }) => (
+                            <Input label="Name" placeholder="Name" value={value ?? ""} onChange={onChange} />
+                        )}
+                    />
+                    <View style={{ flexDirection: "row", gap: XS }}>
+                        <Controller
+                            control={control}
+                            name="roundLimit"
+                            rules={{
+                                min: 0
+                            }}
+                            render={({ field: { onChange, value, disabled } }) => (
+                                <Input
+                                    style={{ flexGrow: 1 }}
+                                    label="Round limit"
+                                    placeholder="Auto"
+                                    keyboardType="decimal-pad"
+                                    value={`${value ?? ""}`}
+                                    onChange={(v) => onChange(v.length ? Number(v) : null)}
+                                />
+                            )}
                         />
-                    )}
-                />
-                <Controller
-                    control={control}
-                    name="numeroACaso"
-                    render={({ field: { onChange, value } }) => (
-                        <Select
-                            label="Format"
-                            value={value}
-                            onChange={onChange}
-                            options={[
-                                { label: "One", value: 1 },
-                                { label: "Two", value: 2 },
-                                { label: "Three", value: 3 },
-                                { label: "Four", value: 4 },
-                                { label: "Five", value: 5 },
-                                { label: "Six", value: 6 },
-                                { label: "Seven", value: 7 },
-                                { label: "Eight", value: 8 },
-                                { label: "Nine", value: 9 },
-                                { label: "Ten", value: 10 },
-                                { label: "Eleven", value: 11 },
-                                { label: "Twelve", value: 12 }
-                            ]}
-                            placeholder="Format"
+                        <Controller
+                            control={control}
+                            name="timeLimit"
+                            rules={{
+                                min: 0
+                            }}
+                            render={({ field: { onChange, value, disabled } }) => (
+                                <Input
+                                    style={{ flexGrow: 1 }}
+                                    label="Time limit"
+                                    placeholder="55"
+                                    keyboardType="decimal-pad"
+                                    suffix="min"
+                                    value={`${value ?? ""}`}
+                                    onChange={(v) => onChange(v.length ? Number(v) : null)}
+                                />
+                            )}
                         />
-                    )}
-                />
-            </View>
-            <Button onPress={handleSubmit(console.log)}>
-                <Text
-                    style={{ ...Typography.body, fontFamily: Inter.medium, color: Palette.white, textAlign: "center" }}
+                    </View>
+                    <Controller
+                        control={control}
+                        name="format"
+                        rules={{
+                            required: true
+                        }}
+                        render={({ field: { onChange, value } }) => (
+                            <Select
+                                label="Format"
+                                value={value}
+                                onChange={onChange}
+                                options={[
+                                    { label: "Pauper", value: "PAUPER" },
+                                    { label: "Modern", value: "MODERN" },
+                                    { label: "Standard", value: "STANDARD" },
+                                    { label: "Draft", value: "DRAFT" },
+                                    { label: "Sealed", value: "SEALED" },
+                                    { label: "Commander", value: "COMMANDER" }
+                                ]}
+                                placeholder="Format"
+                            />
+                        )}
+                    />
+                </View>
+                <Button
+                    size="l"
+                    disabled={!formState.isValid}
+                    style={{ flexDirection: "row", justifyContent: "center", gap: XXS }}
+                    onPress={handleSubmit(createTournament)}
                 >
-                    Submit
-                </Text>
-            </Button>
+                    {isLoading && (
+                        <AnimatedLoader size={20} stroke={Palette.white} style={[{ height: M, width: M }, style]} />
+                    )}
+                    <Text
+                        style={[
+                            Typography.body,
+                            {
+                                fontFamily: Inter.medium,
+                                color: Palette.white,
+                                textAlign: "center"
+                            }
+                        ]}
+                    >
+                        {isLoading ? "Creating..." : "Create"}
+                    </Text>
+                </Button>
+            </View>
         </View>
     )
 }

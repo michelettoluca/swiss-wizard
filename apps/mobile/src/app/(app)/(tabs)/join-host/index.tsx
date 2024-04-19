@@ -1,10 +1,10 @@
 import { usePathname, useRouter } from "expo-router"
 import { Plus } from "lucide-react-native"
 import { useState } from "react"
-import { Text, TextInput, View } from "react-native"
+import { StyleSheet, Text, TextInput, View } from "react-native"
 import { Button } from "../../../../components/button"
 import { Palette } from "../../../../styles/palette"
-import { BASE, M, XL, XXXS } from "../../../../styles/size"
+import { BASE, M, XL, XXL, XXS, XXXS } from "../../../../styles/size"
 import { Typography } from "../../../../styles/typography"
 
 export default function () {
@@ -21,29 +21,49 @@ export default function () {
             >
                 <View
                     style={{
-                        display: "flex",
                         flexDirection: "row",
                         alignItems: "center",
                         gap: XXXS
                     }}
                 >
                     <Plus size={M} stroke={Palette.white} />
-                    <Text style={{ ...Typography.body, color: Palette.white }}>Host</Text>
+                    <Text style={[Typography.body, { color: Palette.white }]}>Host</Text>
                 </View>
             </Button>
-            <TextInput
-                placeholder="Code"
-                placeholderTextColor={Palette.gray[400]}
-                cursorColor={Palette.gray[600]}
-                maxLength={7}
-                style={{
-                    fontFamily: "Inter SemiBold",
-                    fontSize: XL,
-                    textAlign: "center"
-                }}
-                value={code}
-                onChangeText={setCode}
-            />
+            <View style={{ gap: XXS, paddingTop: XXL }}>
+                <View style={{ position: "relative" }}>
+                    <TextInput
+                        cursorColor={Palette.gray[600]}
+                        maxLength={7}
+                        style={{
+                            fontFamily: "Inter SemiBold",
+                            fontSize: XL,
+                            textAlign: "center"
+                        }}
+                        autoCorrect={false}
+                        value={code}
+                        onChangeText={setCode}
+                    />
+                    {!code.length && (
+                        <Text
+                            style={{
+                                ...StyleSheet.absoluteFillObject,
+                                pointerEvents: "none",
+                                fontFamily: "Inter SemiBold",
+                                fontSize: XL,
+                                textAlign: "center",
+                                color: Palette.gray[400],
+                                zIndex: -1
+                            }}
+                        >
+                            Code
+                        </Text>
+                    )}
+                </View>
+                <Text style={[Typography.label, { textAlign: "center", color: Palette.gray[400] }]}>
+                    Insert the code above to join a tournament
+                </Text>
+            </View>
         </View>
     )
 }

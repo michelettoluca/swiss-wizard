@@ -9,18 +9,20 @@ import { Palette } from "../../../styles/palette"
 import { BASE, L, M, XXL } from "../../../styles/size"
 import { Inter, Typography } from "../../../styles/typography"
 
-const aa: TextStyle = {
-    ...Typography.body,
-    color: Palette.gray[900]
-}
+const aa: TextStyle[] = [
+    Typography.body,
+    {
+        color: Palette.gray[900]
+    }
+]
 
 export default function () {
     const { user, clerkUser } = useUser()
 
     return (
         <ScrollView style={{ backgroundColor: Palette.gray[100] }}>
-            <View style={{ display: "flex", gap: L, padding: BASE, paddingTop: XXL }}>
-                <View style={{ display: "flex", alignItems: "center", gap: BASE, margin: "auto" }}>
+            <View style={{ gap: L, padding: BASE, paddingTop: XXL }}>
+                <View style={{ alignItems: "center", gap: BASE, margin: "auto" }}>
                     <Avatar size={128} color={Palette.emerald[200]} />
                     <Text
                         style={{
@@ -94,7 +96,6 @@ function ListItem({ children }: PropsWithChildren) {
     return (
         <View
             style={{
-                display: "flex",
                 flex: 1,
                 flexDirection: "row",
                 justifyContent: "space-between",
