@@ -1,3 +1,4 @@
+import { useRouter } from "expo-router"
 import { Loader2 } from "lucide-react-native"
 import { useEffect } from "react"
 import { Controller, useForm } from "react-hook-form"
@@ -17,10 +18,11 @@ const { height } = Dimensions.get("window")
 
 const AnimatedLoader = Animated.createAnimatedComponent(Loader2)
 
-type FormValue = Partial<Pick<Entities["Tournament"], "name" | "format" | "roundLimit" | "timeLimit">>
+type FormValue = Pick<Entities["Tournament"], "name" | "format" | "roundLimit" | "timeLimit">
 
 export default function () {
-    const { isLoading, mutate } = trpc.user.completeRegistration.useMutation({})
+    const router = useRouter()
+    const { isLoading, mutateAsync } = trpc.tournament.createTournament.useMutation()
     const rotate = useSharedValue(0)
 
     useEffect(() => {
@@ -35,10 +37,12 @@ export default function () {
         ]
     }))
 
-    const { control, handleSubmit, formState, watch } = useForm<FormValue>()
+    const { control, handleSubmit, formState, getValues, watch } = useForm<FormValue>()
 
     async function createTournament(form: FormValue) {
-        mutate({ id: 3, username: "asd" })
+        const tournament = await mutateAsync(getValues())
+
+        router.replace(`/(app)/home/torunament/${tournament.id}`)
     }
 
     return (

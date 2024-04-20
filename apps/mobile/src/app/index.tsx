@@ -69,7 +69,6 @@ export default function () {
             <View style={{ alignSelf: "stretch", borderRadius: 1000, overflow: "hidden" }}>
                 <Pressable
                     style={{
-                        display: "flex",
                         flexDirection: "row",
                         alignItems: "center",
                         justifyContent: "center",
