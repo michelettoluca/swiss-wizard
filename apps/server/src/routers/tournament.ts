@@ -3,7 +3,7 @@ import { z } from "zod"
 import { prisma } from "../prisma"
 import { loggedProcedure, router } from "../trpc"
 
-const createTournament = loggedProcedure
+const create = loggedProcedure
     .input(
         z.object({
             name: z.string().min(4),
@@ -34,6 +34,35 @@ const createTournament = loggedProcedure
         return tournament
     })
 
+const findById = loggedProcedure
+    .input(
+        z.object({
+            id: z.number()
+        })
+    )
+    .query(async ({ input }) => {
+        return await prisma.tournament.findUnique({
+            where: {
+                id: input.id
+            }
+        })
+    })
+
+const findHosted = loggedProcedure
+    .input(
+        z.object({
+            id: z.number()
+        })
+    )
+    .query(async ({ input }) => {
+        return await prisma.tournament.findMany({
+            where: {
+                ownerId: input.id
+            }
+        })
+    })
 export const tournamentRouter = router({
-    createTournament
+    create,
+    findById,
+    findHosted
 })
