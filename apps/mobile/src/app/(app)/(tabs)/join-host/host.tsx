@@ -22,7 +22,7 @@ type FormValue = Pick<Entities["Tournament"], "name" | "format" | "roundLimit" |
 
 export default function () {
     const router = useRouter()
-    const { isLoading, mutateAsync } = trpc.tournament.createTournament.useMutation()
+    const { isLoading, mutateAsync } = trpc.tournament.create.useMutation()
     const rotate = useSharedValue(0)
 
     useEffect(() => {
