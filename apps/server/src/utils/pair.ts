@@ -1,198 +1,211 @@
-// import { User } from "@prisma/client"
+import { User } from "@prisma/client"
 
-// export const BYE: Readonly<Standing> = {
-//     player: {
-//         id: "BYE",
-//         user: {
-//             id: "BYE",
-//             name: "BYE"
-//         },
-//         matches: []
-//     },
-//     matches: {
-//         wins: 0,
-//         draws: 0,
-//         losses: 0
-//     },
-//     games: {
-//         wins: 0,
-//         draws: 0,
-//         losses: 0
-//     },
-//     byes: 0,
-//     opponents: [],
-//     score: 0,
-//     ogw: 0,
-//     omw: 0,
-//     gw: 0
-// }
+type Standing = {
+    playerId: number
+    matches: {
+        wins: number
+        draws: number
+        losses: number
+    }
+    games: {
+        wins: number
+        draws: number
+        losses: number
+    }
+    byes: number
+    opponents: []
+    score: number
+    ogw: number
+    omw: number
+    gw: number
+}
 
-// export function calculateSummaries(players: User[]): Record<User["id"], Summary> {
-//     const summaries: Record<Player["id"], Summary> = {}
+export const BYE: Readonly<Standing> = {
+    playerId: -1,
+    matches: {
+        wins: 0,
+        draws: 0,
+        losses: 0
+    },
+    games: {
+        wins: 0,
+        draws: 0,
+        losses: 0
+    },
+    byes: 0,
+    opponents: [],
+    score: 0,
+    ogw: 0,
+    omw: 0,
+    gw: 0
+}
 
-//     for (const player of players) {
-//         const summary: Summary = {
-//             player,
-//             score: 0,
-//             matches: {
-//                 wins: 0,
-//                 losses: 0,
-//                 draws: 0
-//             },
-//             games: {
-//                 wins: 0,
-//                 losses: 0,
-//                 draws: 0
-//             },
-//             byes: 0,
-//             opponents: []
-//         }
+export function calculateSummaries(players: User[]): Record<User["id"], Summary> {
+    const summaries: Record<Player["id"], Summary> = {}
 
-//         for (const match of player.matches) {
-//             let playerAScore: number
-//             let playerBScore: number
-//             let opponent: Player
+    for (const player of players) {
+        const summary: Summary = {
+            player,
+            score: 0,
+            matches: {
+                wins: 0,
+                losses: 0,
+                draws: 0
+            },
+            games: {
+                wins: 0,
+                losses: 0,
+                draws: 0
+            },
+            byes: 0,
+            opponents: []
+        }
 
-//             if (match.playerA.id === player.id) {
-//                 playerAScore = match.playerAScore
-//                 playerBScore = match.playerBScore
-//                 opponent = match.playerB
-//             } else {
-//                 playerAScore = match.playerBScore
-//                 playerBScore = match.playerAScore
-//                 opponent = match.playerA
-//             }
+        for (const match of player.matches) {
+            let playerAScore: number
+            let playerBScore: number
+            let opponent: Player
 
-//             summary.games.wins += playerAScore
-//             summary.games.losses += playerBScore
-//             summary.games.draws += playerAScore === playerBScore ? 1 : 0
+            if (match.playerA.id === player.id) {
+                playerAScore = match.playerAScore
+                playerBScore = match.playerBScore
+                opponent = match.playerB
+            } else {
+                playerAScore = match.playerBScore
+                playerBScore = match.playerAScore
+                opponent = match.playerA
+            }
 
-//             summary.matches.wins += playerAScore > playerBScore ? 1 : 0
-//             summary.matches.losses += playerAScore < playerBScore ? 1 : 0
-//             summary.matches.draws += playerAScore == playerBScore ? 1 : 0
+            summary.games.wins += playerAScore
+            summary.games.losses += playerBScore
+            summary.games.draws += playerAScore === playerBScore ? 1 : 0
 
-//             if (match.playerB.id === uuid.NIL) {
-//                 summary.byes += 1
-//             } else {
-//                 summary.opponents.push(opponent)
-//             }
-//         }
+            summary.matches.wins += playerAScore > playerBScore ? 1 : 0
+            summary.matches.losses += playerAScore < playerBScore ? 1 : 0
+            summary.matches.draws += playerAScore == playerBScore ? 1 : 0
 
-//         summaries[player.id] = summary
-//     }
+            if (match.playerB.id === uuid.NIL) {
+                summary.byes += 1
+            } else {
+                summary.opponents.push(opponent)
+            }
+        }
 
-//     return summaries
-// }
+        summaries[player.id] = summary
+    }
 
-// const MIN_OGW = 1 / 3
+    return summaries
+}
 
-// export function calculateStandings(summaries: Record<Player["id"], Summary>): Standing[] {
-//     // const _players: Player[] = []
-//     // const _summaries = calculateSummaries(_players)
-//     const standings: Standing[] = []
+const MIN_OGW = 1 / 3
 
-//     for (const summary of Object.values(summaries)) {
-//         const standing: Standing = {
-//             ...summary,
-//             omw: 0,
-//             ogw: 0,
-//             gw: 0
-//         }
+export function calculateStandings(summaries: Record<Player["id"], Summary>): Standing[] {
+    // const _players: Player[] = []
+    // const _summaries = calculateSummaries(_players)
+    const standings: Standing[] = []
 
-//         for (const opponent of summary.opponents) {
-//             const opponentSummary = summaries[opponent.id]
+    for (const summary of Object.values(summaries)) {
+        const standing: Standing = {
+            ...summary,
+            omw: 0,
+            ogw: 0,
+            gw: 0
+        }
 
-//             const opponentTotalMatchesPlayed =
-//                 opponentSummary.matches.wins + opponentSummary.matches.losses + opponentSummary.matches.draws
+        for (const opponent of summary.opponents) {
+            const opponentSummary = summaries[opponent.id]
 
-//             const omw = opponentSummary.matches.wins / opponentTotalMatchesPlayed
+            const opponentTotalMatchesPlayed =
+                opponentSummary.matches.wins + opponentSummary.matches.losses + opponentSummary.matches.draws
 
-//             standing.omw += Math.min(omw, MIN_OGW)
+            const omw = opponentSummary.matches.wins / opponentTotalMatchesPlayed
 
-//             const opponentTotalGamesPlayed =
-//                 opponentSummary.games.wins + opponentSummary.games.losses + opponentSummary.games.draws
+            standing.omw += Math.min(omw, MIN_OGW)
 
-//             standing.ogw = opponentSummary.games.wins / opponentTotalGamesPlayed
-//         }
+            const opponentTotalGamesPlayed =
+                opponentSummary.games.wins + opponentSummary.games.losses + opponentSummary.games.draws
 
-//         const opponentCount = summary.opponents.length
+            standing.ogw = opponentSummary.games.wins / opponentTotalGamesPlayed
+        }
 
-//         standing.omw /= opponentCount
-//         standing.ogw /= opponentCount
+        const opponentCount = summary.opponents.length
 
-//         const totalGamesPlayed = summary.games.wins + summary.games.losses + summary.games.draws
+        standing.omw /= opponentCount
+        standing.ogw /= opponentCount
 
-//         standing.ogw = summary.games.wins / totalGamesPlayed
-//         standing.gw = opponentCount
+        const totalGamesPlayed = summary.games.wins + summary.games.losses + summary.games.draws
 
-//         standings.push(standing)
-//     }
+        standing.ogw = summary.games.wins / totalGamesPlayed
+        standing.gw = opponentCount
 
-//     return standings.sort((a, b) => b.score - a.score || b.omw - a.omw || b.gw - a.gw || b.ogw - a.ogw)
-// }
+        standings.push(standing)
+    }
 
-// export function randomizeStandings(standings: Standing[]): Standing[] {
-//     standings = [...standings]
+    return standings.sort((a, b) => b.score - a.score || b.omw - a.omw || b.gw - a.gw || b.ogw - a.ogw)
+}
 
-//     let groupStart = 0
+export function randomizeStandings(standings: Standing[]): Standing[] {
+    standings = [...standings]
 
-//     for (let i = 0; i < standings.length; i++) {
-//         if (standings[groupStart].score !== standings[i].score || i === standings.length - 1) {
-//             const group = standings.slice(groupStart, i + 1)
+    let groupStart = 0
 
-//             const randomized = randomize(group)
-//             standings.splice(groupStart, i - groupStart + 1, ...randomized) // ??? Don't remebmer this
+    for (let i = 0; i < standings.length; i++) {
+        if (standings[groupStart].score !== standings[i].score || i === standings.length - 1) {
+            const group = standings.slice(groupStart, i + 1)
 
-//             groupStart = i
-//         }
-//     }
+            const randomized = randomize(group)
+            standings.splice(groupStart, i - groupStart + 1, ...randomized) // ??? Don't remebmer this
 
-//     return standings
-// }
+            groupStart = i
+        }
+    }
 
-// export function pair(standings: Standing[]) {
-//     const randomizedStandings = randomizeStandings(standings)
+    return standings
+}
 
-//     if (randomizedStandings.length % 2 == 1) {
-//         randomizedStandings.push(BYE)
-//     }
+export function pair(standings: Standing[]) {
+    const randomizedStandings = randomizeStandings(standings)
 
-//     const matches: Match[] = []
+    if (randomizedStandings.length % 2 == 1) {
+        randomizedStandings.push(BYE)
+    }
 
-//     while (randomizedStandings.length) {
-//         const playerA = randomizedStandings.shift()!.player
+    const matches: Match[] = []
 
-//         const playerB = findOpponent(playerA, randomizedStandings)
+    while (randomizedStandings.length) {
+        const playerA = randomizedStandings.shift()!.player
 
-//         // Remove matched player
-//         const playerBIndex = randomizedStandings.findIndex((s) => s.player.id === playerB.id)
-//         randomizedStandings.splice(playerBIndex, 1)
+        const playerB = findOpponent(playerA, randomizedStandings)
 
-//         matches.push({
-//             playerA,
-//             playerB,
-//             playerAScore: playerB.id === uuid.NIL ? 2 : 0,
-//             playerBScore: 0
-//         })
-//     }
+        // Remove matched player
+        const playerBIndex = randomizedStandings.findIndex((s) => s.player.id === playerB.id)
+        randomizedStandings.splice(playerBIndex, 1)
 
-//     return matches
-// }
+        matches.push({
+            playerA,
+            playerB,
+            playerAScore: playerB.id === uuid.NIL ? 2 : 0,
+            playerBScore: 0
+        })
+    }
 
-// // This assumes the standings are already randomized and `player` is removed from the standings
-// export function findOpponent(player: Player, standings: Standing[]): Player {
-//     for (let i = 0; i < standings.length; i++) {
-//         const opponent = standings[i].player
+    return matches
+}
 
-//         if (!playedOnce(player, opponent)) {
-//             return opponent
-//         }
-//     }
+// This assumes the standings are already randomized and `player` is removed from the standings
+export function findOpponent(player: Player, standings: Standing[]): Player {
+    for (let i = 0; i < standings.length; i++) {
+        const opponent = standings[i].player
 
-//     // If played all opponents pick at random
-//     return pickRandom(standings).player
-// }
+        if (!playedOnce(player, opponent)) {
+            return opponent
+        }
+    }
 
-// export function playedOnce(playerA: Player, playerB: Player): boolean {
-//     return playerA.matches.some((p) => p.playerA.id === playerB.id || p.playerB.id === playerB.id)
-// }
+    // If played all opponents pick at random
+    return pickRandom(standings).player
+}
+
+export function playedOnce(playerA: Player, playerB: Player): boolean {
+    return playerA.matches.some((p) => p.playerA.id === playerB.id || p.playerB.id === playerB.id)
+}
