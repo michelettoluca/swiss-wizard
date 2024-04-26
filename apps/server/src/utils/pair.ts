@@ -1,6 +1,6 @@
 import { User } from "@prisma/client"
 
-type Standing = {
+type Summary = {
     playerId: number
     matches: {
         wins: number
@@ -15,10 +15,13 @@ type Standing = {
     byes: number
     opponents: []
     score: number
+}
+
+type Standing = {
     ogw: number
     omw: number
     gw: number
-}
+} & Summary
 
 export const BYE: Readonly<Standing> = {
     playerId: -1,
@@ -41,11 +44,11 @@ export const BYE: Readonly<Standing> = {
 }
 
 export function calculateSummaries(players: User[]): Record<User["id"], Summary> {
-    const summaries: Record<Player["id"], Summary> = {}
+    const summaries: Record<User["id"], Summary> = {}
 
     for (const player of players) {
         const summary: Summary = {
-            player,
+            playerId: player.id,
             score: 0,
             matches: {
                 wins: 0,
@@ -64,7 +67,7 @@ export function calculateSummaries(players: User[]): Record<User["id"], Summary>
         for (const match of player.matches) {
             let playerAScore: number
             let playerBScore: number
-            let opponent: Player
+            let opponent: User
 
             if (match.playerA.id === player.id) {
                 playerAScore = match.playerAScore
