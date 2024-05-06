@@ -1,4 +1,5 @@
 import { User } from "@prisma/client"
+import { prisma } from "../prisma"
 
 type Summary = {
     playerId: number
@@ -42,6 +43,16 @@ export const BYE: Readonly<Standing> = {
     omw: 0,
     gw: 0
 }
+
+const users = prisma.user.findMany({
+    include: {
+        registrations: {
+            where: {
+                tournamentId: 1
+            }
+        }
+    }
+})
 
 export function calculateSummaries(players: User[]): Record<User["id"], Summary> {
     const summaries: Record<User["id"], Summary> = {}
