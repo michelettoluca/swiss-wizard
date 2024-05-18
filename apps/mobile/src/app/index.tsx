@@ -39,7 +39,7 @@ export default function () {
     }
 
     if (isSignedIn) {
-        return <Redirect href="/(app)/home" />
+        return <Redirect href="/(app)" />
     }
 
     return (

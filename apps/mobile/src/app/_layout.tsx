@@ -3,7 +3,6 @@ import { useFonts } from "expo-font"
 import { Slot } from "expo-router"
 import { View } from "react-native"
 import { GestureHandlerRootView } from "react-native-gesture-handler"
-import { useSafeAreaInsets } from "react-native-safe-area-context"
 import { AuthProvider } from "../contexts/auth"
 import { TrpcProvider } from "../contexts/trpc"
 import { Palette } from "../styles/palette"
@@ -21,8 +20,6 @@ export const FONTS = {
 } as const
 
 export default function () {
-    const insets = useSafeAreaInsets()
-
     const [fontsLoaded, fontError] = useFonts(FONTS)
 
     if (!fontsLoaded && !fontError) {
@@ -37,10 +34,6 @@ export default function () {
                         <View
                             style={{
                                 flex: 1,
-                                paddingTop: insets.top,
-                                paddingLeft: insets.left,
-                                paddingBottom: insets.bottom,
-                                paddingRight: insets.right,
                                 backgroundColor: Palette.gray[100]
                             }}
                         >
