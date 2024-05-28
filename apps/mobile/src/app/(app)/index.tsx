@@ -1,13 +1,15 @@
 import { Link } from "expo-router"
-import { ArrowUpRight, Hourglass, MoreVertical } from "lucide-react-native"
-import { Pressable, ScrollView, Text, TextStyle, View } from "react-native"
-import Animated from "react-native-reanimated"
+import { ArrowUpRight, ChevronLeft, ChevronRight, Hourglass, MoreVertical } from "lucide-react-native"
+import { Children, PropsWithChildren, useEffect, useRef, useState } from "react"
+import { Dimensions, Pressable, PressableProps, ScrollView, StyleSheet, Text, TextStyle, View } from "react-native"
+import Animated, { useSharedValue, withSpring } from "react-native-reanimated"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
 import { Entities } from "server/src/prisma"
 import { Avatar } from "../../components/avatar"
 import { Badge } from "../../components/badge"
 import { Button } from "../../components/button"
 import { List } from "../../components/list"
+import { PlayerResult } from "../../components/result"
 import { Section } from "../../components/section"
 import { UserProvider, useUser } from "../../contexts/user"
 import { trpc } from "../../lib/trpc"
@@ -26,6 +28,7 @@ export default function () {
     return (
         <UserProvider>
             <ScrollView
+                showsVerticalScrollIndicator={false}
                 style={{
                     backgroundColor: Palette.gray[100],
                     paddingTop: insets.top,
@@ -34,7 +37,7 @@ export default function () {
                     paddingRight: insets.right
                 }}
             >
-                <View style={{ gap: L, padding: BASE }}>
+                <View style={{ gap: L, padding: 12 }}>
                     <View
                         style={{
                             flexDirection: "row",
@@ -74,7 +77,15 @@ export default function () {
                     <Section name="Standing" action={{ name: "Show all", onPress: () => console.log("Palle") }}>
                         <List>
                             {hostedTournaments?.map((tournament) => (
-                                <HostedTournament key={tournament.id} tournament={tournament} />
+                                <PlayerResult
+                                    key={tournament.id}
+                                    gw={1}
+                                    ogw={1}
+                                    omw={1}
+                                    losses={Math.random() > 0.5 ? 1 : 0}
+                                    wins={Math.random() > 0.5 ? 1 : 0}
+                                    opponent={{ firstName: "Luca", lastName: "Micheletto" }}
+                                />
                             ))}
                         </List>
                     </Section>
@@ -198,30 +209,55 @@ const semiBoldBody: TextStyle = {
 }
 
 function TournamentPreviewContainer() {
+    const screen = Dimensions.get("screen")
+    const width = screen.width - 12 * 2 - 2 * 4
+    const marginRight = 4
+
+    const offset = useSharedValue(4)
+
+    const [selectedSection, setSelectedSection] = useState<"joined" | "hosted">("joined")
+
+    useEffect(() => {
+        if (selectedSection === "joined") {
+            offset.value = withSpring(4, {
+                damping: 100,
+                stiffness: 250
+            })
+        } else if (selectedSection === "hosted") {
+            offset.value = withSpring(4 + (screen.width - 12 * 2 - 4 * 2 - 4 * 2) / 2, {
+                damping: 100,
+                stiffness: 250
+            })
+        }
+    }, [selectedSection])
+
     return (
         <View
             style={{
                 gap: XXXS,
-                padding: XXXS,
                 backgroundColor: Palette.white,
                 shadowColor: Palette.black,
                 shadowOffset: {
                     width: 0,
                     height: 2
                 },
+                borderWidth: XXXS,
+                borderColor: Palette.white,
                 shadowOpacity: 1,
                 shadowRadius: 10,
                 borderRadius: XS,
-                elevation: 3
+                elevation: 1,
+                overflow: "hidden"
             }}
         >
-            <Link href="/t" asChild>
-                <Pressable>
-                    <Animated.View sharedTransitionTag="PALLE">
-                        <TournamentPreview />
-                    </Animated.View>
-                </Pressable>
-            </Link>
+            {selectedSection === "joined" && <TournamentPreview style={{ width }} />}
+            {selectedSection === "hosted" && (
+                <Pallini offset={width + marginRight}>
+                    <TournamentPreview style={{ marginRight, width }} />
+                    <TournamentPreview style={{ marginRight, width }} />
+                    <TournamentPreview style={{ marginRight, width }} />
+                </Pallini>
+            )}
             <View
                 style={{
                     flexDirection: "row",
@@ -231,14 +267,25 @@ function TournamentPreviewContainer() {
                     borderRadius: XXS
                 }}
             >
+                <Animated.View
+                    style={{
+                        position: "absolute",
+                        left: offset,
+                        top: 4,
+                        bottom: 4,
+                        width: (screen.width - 12 * 2 - 4 * 2 - 4 * 2) / 2,
+                        backgroundColor: Palette.white,
+                        borderRadius: XXS
+                    }}
+                />
                 <Pressable
                     style={{
                         flex: 1,
                         alignItems: "center",
-                        backgroundColor: Palette.white,
                         padding: XXS,
                         borderRadius: XXS
                     }}
+                    onPress={() => setSelectedSection("joined")}
                 >
                     <Text
                         style={[
@@ -246,7 +293,7 @@ function TournamentPreviewContainer() {
                             {
                                 fontSize: S,
                                 fontFamily: Inter.regular,
-                                color: Palette.gray[600],
+                                color: Palette.gray[selectedSection === "joined" ? 600 : 400],
                                 letterSpacing: 0.2
                             }
                         ]}
@@ -261,6 +308,7 @@ function TournamentPreviewContainer() {
                         padding: XXS,
                         borderRadius: XXS
                     }}
+                    onPress={() => setSelectedSection("hosted")}
                 >
                     <Text
                         style={[
@@ -268,7 +316,7 @@ function TournamentPreviewContainer() {
                             {
                                 fontSize: S,
                                 fontFamily: Inter.regular,
-                                color: Palette.gray[400],
+                                color: Palette.gray[selectedSection === "hosted" ? 600 : 400],
                                 letterSpacing: 0.2
                             }
                         ]}
@@ -287,10 +335,11 @@ export function TournamentPreview({ style }: any) {
             style={[
                 {
                     backgroundColor: Palette.blue[100],
-                    borderRadius: XXS,
                     padding: BASE,
+                    borderRightColor: Palette.blue[200],
                     gap: S,
-                    minHeight: 256
+                    minHeight: 256,
+                    borderRadius: XXS
                 },
                 style
             ]}
@@ -345,6 +394,112 @@ export function TournamentPreview({ style }: any) {
                     12
                 </Text>
             </View>
+        </View>
+    )
+}
+
+type PalliniProps = {
+    offset: number
+} & PropsWithChildren
+
+function NavButton({ style, ...props }: PressableProps) {
+    return (
+        <Pressable
+            style={StyleSheet.flatten([
+                {
+                    position: "absolute",
+                    top: "50%",
+                    transform: [
+                        {
+                            translateY: -16
+                        }
+                    ],
+                    height: 32,
+                    width: 32,
+                    backgroundColor: Palette.white,
+                    borderRadius: 32,
+                    alignItems: "center",
+                    justifyContent: "center",
+                    zIndex: 10,
+                    opacity: 0.8
+                },
+                style
+            ])}
+            {...props}
+        />
+    )
+}
+
+function Pallini({ children, offset }: PalliniProps) {
+    const scrollViewRef = useRef<ScrollView>(null)
+    const [pageIndex, setPageIndex] = useState<number>(0)
+
+    useEffect(() => {
+        scrollViewRef.current?.scrollTo({ x: offset * pageIndex })
+    }, [pageIndex])
+
+    const childrenCount = Children.count(children)
+
+    return (
+        <View
+            style={{
+                borderRadius: 8,
+                overflow: "hidden"
+            }}
+        >
+            {pageIndex > 0 && (
+                <NavButton
+                    style={{
+                        left: 8
+                    }}
+                    onPress={() => setPageIndex(Math.max(pageIndex - 1, 0))}
+                >
+                    <ChevronLeft size={20} stroke={Palette.gray[500]} />
+                </NavButton>
+            )}
+            {pageIndex < childrenCount - 1 && (
+                <NavButton
+                    style={{
+                        right: 8
+                    }}
+                    onPress={() => setPageIndex(Math.min(pageIndex + 1, childrenCount - 1))}
+                >
+                    <ChevronRight size={20} stroke={Palette.gray[500]} />
+                </NavButton>
+            )}
+            <View
+                style={{
+                    position: "absolute",
+                    flexDirection: "row",
+                    bottom: 8,
+                    gap: 8,
+                    left: "50%",
+                    transform: [{ translateX: -Children.count(children) * 8 }],
+                    borderBlockColor: "red",
+                    zIndex: 10
+                }}
+            >
+                {Children.map(children, (_, i) => (
+                    <View
+                        style={{
+                            height: 8,
+                            width: 8,
+                            borderRadius: 8,
+                            backgroundColor: Palette.white,
+                            opacity: i === pageIndex ? 1 : 0.3
+                        }}
+                    />
+                ))}
+            </View>
+            <ScrollView
+                ref={scrollViewRef}
+                scrollEnabled={false}
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                nestedScrollEnabled={false}
+            >
+                {children}
+            </ScrollView>
         </View>
     )
 }

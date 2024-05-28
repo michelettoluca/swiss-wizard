@@ -1,12 +1,15 @@
+import { useLocalSearchParams, usePathname, useRouter } from "expo-router"
+import { Fragment } from "react"
 import { ScrollView, Text, View } from "react-native"
-import { TournamentPreview } from "."
-import { Badge, BadgeTheme } from "../../components/badge"
-import { List } from "../../components/list"
-import { Section } from "../../components/section"
-import { Separator } from "../../components/separator"
-import { Palette } from "../../styles/palette"
-import { BASE, L, M, S, XS, XXS, XXXS } from "../../styles/size"
-import { Inter, Typography } from "../../styles/typography"
+import { TournamentPreview } from "../../."
+import { Badge } from "../../../../components/badge"
+import { List } from "../../../../components/list"
+import { PlayerResult } from "../../../../components/result"
+import { Section } from "../../../../components/section"
+import { Separator } from "../../../../components/separator"
+import { Palette } from "../../../../styles/palette"
+import { BASE, L, M, S, XXS, XXXS } from "../../../../styles/size"
+import { Inter, Typography } from "../../../../styles/typography"
 
 const ACTIVITIES = [
     {
@@ -51,6 +54,10 @@ const ACTIVITIES = [
 ] as const
 
 export default function () {
+    const { id } = useLocalSearchParams()
+    const router = useRouter()
+    const pathname = usePathname()
+
     return (
         <ScrollView>
             <TournamentPreview
@@ -160,10 +167,16 @@ export default function () {
                         ))}
                     </List>
                 </Section>
-                <Section name="Standings">
+                <Section
+                    name="Standings"
+                    action={{
+                        name: "Show all",
+                        onPress: () => router.push(`${pathname}/standings`)
+                    }}
+                >
                     <List type="compact">
                         {ACTIVITIES.map((a, i) => (
-                            <>
+                            <Fragment key={a.player.firstName}>
                                 <View
                                     style={{
                                         flexDirection: "row",
@@ -207,88 +220,11 @@ export default function () {
                                     </View>
                                 </View>
                                 <Separator color={Palette.gray[100]} />
-                            </>
+                            </Fragment>
                         ))}
                     </List>
                 </Section>
             </View>
         </ScrollView>
-    )
-}
-
-type PlayerResultProps = {
-    opponent: {
-        firstName: string
-        lastName: string
-    }
-    wins: number
-    losses: number
-    omw: number
-    gw: number
-    ogw: number
-}
-
-function PlayerResult({ opponent, wins, losses, omw, gw, ogw }: PlayerResultProps) {
-    let badgeTheme: BadgeTheme
-    let badgeContent: string
-
-    if (wins > losses) {
-        badgeTheme = "emerald"
-        badgeContent = "W"
-    } else if (wins < losses) {
-        badgeTheme = "red"
-        badgeContent = "L"
-    } else {
-        badgeTheme = "amber"
-        badgeContent = "D"
-    }
-
-    return (
-        <View
-            style={{
-                flexDirection: "row",
-                alignItems: "center",
-                justifyContent: "space-between",
-                padding: BASE,
-                paddingRight: M,
-                backgroundColor: Palette.white,
-                borderRadius: XS
-            }}
-        >
-            <View
-                style={{
-                    gap: XXXS
-                }}
-            >
-                <View
-                    style={{
-                        flexDirection: "row",
-                        alignItems: "center",
-                        gap: XXS
-                    }}
-                >
-                    <Badge theme={badgeTheme}>{badgeContent}</Badge>
-                    <Text style={Typography.body}>
-                        {opponent.firstName} {opponent.lastName}
-                    </Text>
-                </View>
-                <View
-                    style={{
-                        flexDirection: "row",
-                        alignItems: "center",
-                        gap: XXS
-                    }}
-                >
-                    <Badge theme="gray">OMW {omw.toFixed(2)}</Badge>
-                    <Badge theme="gray">GW {gw.toFixed(2)}</Badge>
-                    <Badge theme="gray">OGW {ogw.toFixed(2)}</Badge>
-                </View>
-            </View>
-            <View style={{ flexDirection: "row", alignItems: "baseline" }}>
-                <Text style={[Typography.body, { fontSize: BASE }]}>{wins}</Text>
-                <Text style={[Typography.body, { color: Palette.gray[400] }]}> - </Text>
-                <Text style={[Typography.body, { fontSize: BASE }]}>{losses}</Text>
-            </View>
-        </View>
     )
 }
