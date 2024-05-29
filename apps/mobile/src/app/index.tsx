@@ -5,7 +5,7 @@ import { useEffect } from "react"
 import { Pressable, Text, View } from "react-native"
 import { useWarmUpBrowser } from "../hooks/use-warm-up-browser"
 import { Palette } from "../styles/palette"
-import { BASE, L, XL, XS, XXL } from "../styles/size"
+import { Size } from "../styles/size"
 import { Inter, Typography } from "../styles/typography"
 import { GoogleG } from "../svgs/google-g"
 
@@ -48,16 +48,16 @@ export default function () {
                 flex: 1,
                 justifyContent: "center",
                 alignItems: "center",
-                padding: BASE,
-                gap: XXL
+                padding: Size.BASE,
+                gap: Size.XXL
             }}
         >
-            <View style={{ alignItems: "center", padding: L }}>
+            <View style={{ alignItems: "center", padding: Size.L }}>
                 <Text
                     style={{
                         color: Palette.gray[900],
                         fontFamily: Inter.bold,
-                        fontSize: XL
+                        fontSize: Size.XL
                     }}
                 >
                     Swiss Wizard
@@ -72,7 +72,7 @@ export default function () {
                         flexDirection: "row",
                         alignItems: "center",
                         justifyContent: "center",
-                        gap: XS,
+                        gap: Size.XS,
                         paddingVertical: 16,
                         borderColor: Palette.gray[300],
                         borderWidth: 1,

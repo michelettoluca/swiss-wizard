@@ -1,6 +1,6 @@
 import { PropsWithChildren } from "react"
 import { View } from "react-native"
-import { XS, XXS } from "../styles/size"
+import { Size } from "../styles/size"
 
 type ListProps = {
     type?: "compact" | "default"
@@ -12,8 +12,8 @@ export function List({ type, direction, children }: ListProps) {
         <View
             style={{
                 flexDirection: direction,
-                gap: type === "compact" ? undefined : XXS,
-                borderRadius: type === "compact" ? XS : undefined,
+                gap: type === "compact" ? undefined : Size.XXS,
+                borderRadius: type === "compact" ? Size.XS : undefined,
                 overflow: type === "compact" ? "hidden" : undefined
             }}
         >

@@ -1,7 +1,7 @@
 import { ReactNode } from "react"
 import { ColorValue, StyleSheet, TouchableOpacity, TouchableOpacityProps, ViewStyle } from "react-native"
 import { Palette } from "../styles/palette"
-import { BASE, M, S, XS, XXS } from "../styles/size"
+import { Size } from "../styles/size"
 
 type Size = "s" | "m" | "l"
 
@@ -13,19 +13,19 @@ type ButtonProps = {
 
 const pressableSize: Record<Size, ViewStyle> = {
     s: {
-        paddingVertical: XXS,
-        paddingHorizontal: S,
-        borderRadius: S
+        paddingVertical: Size.XXS,
+        paddingHorizontal: Size.S,
+        borderRadius: Size.S
     },
     m: {
-        paddingVertical: XXS,
-        paddingHorizontal: M,
-        borderRadius: XS
+        paddingVertical: Size.XXS,
+        paddingHorizontal: Size.M,
+        borderRadius: Size.XS
     },
     l: {
-        paddingVertical: XS,
-        paddingHorizontal: BASE,
-        borderRadius: XXS
+        paddingVertical: Size.XS,
+        paddingHorizontal: Size.BASE,
+        borderRadius: Size.XXS
     }
 } as const
 

@@ -1,7 +1,7 @@
 import { PropsWithChildren } from "react"
 import { Text, View } from "react-native"
 import { Palette } from "../styles/palette"
-import { BASE, S, XS, XXL, XXS } from "../styles/size"
+import { Size } from "../styles/size"
 import { Inter, Typography } from "../styles/typography"
 import { Avatar } from "./avatar"
 
@@ -16,13 +16,13 @@ export function TournamentListItem({ date, name, rank }: ActivityItemProps) {
         <View
             style={{
                 flexDirection: "row",
-                gap: XS,
-                padding: BASE,
+                gap: Size.XS,
+                padding: Size.BASE,
                 backgroundColor: Palette.white,
-                borderRadius: XS
+                borderRadius: Size.XS
             }}
         >
-            <Avatar size={XXL} color={Palette.amber[200]} />
+            <Avatar size={Size.XXL} color={Palette.amber[200]} />
             <View
                 style={{
                     flexDirection: "row",
@@ -30,11 +30,11 @@ export function TournamentListItem({ date, name, rank }: ActivityItemProps) {
                     flexGrow: 1
                 }}
             >
-                <View style={{ gap: XXS }}>
+                <View style={{ gap: Size.XXS }}>
                     <Text
                         style={{
                             fontFamily: Inter.medium,
-                            fontSize: S,
+                            fontSize: Size.S,
                             color: Palette.gray[900]
                         }}
                     >

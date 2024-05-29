@@ -8,7 +8,7 @@ import { PlayerResult } from "../../../../components/result"
 import { Section } from "../../../../components/section"
 import { Separator } from "../../../../components/separator"
 import { Palette } from "../../../../styles/palette"
-import { BASE, L, M, S, XXS, XXXS } from "../../../../styles/size"
+import { Size } from "../../../../styles/size"
 import { Inter, Typography } from "../../../../styles/typography"
 
 const ACTIVITIES = [
@@ -81,7 +81,7 @@ export default function () {
                     <View style={{ flexDirection: "row", alignItems: "baseline" }}>
                         <Text
                             style={{
-                                fontSize: L,
+                                fontSize: Size.L,
                                 fontFamily: Inter.medium,
                                 color: Palette.gray[900]
                             }}
@@ -102,7 +102,7 @@ export default function () {
                     <View style={{ flexDirection: "row", alignItems: "baseline" }}>
                         <Text
                             style={{
-                                fontSize: L,
+                                fontSize: Size.L,
                                 fontFamily: Inter.medium,
                                 color: Palette.gray[900]
                             }}
@@ -111,7 +111,7 @@ export default function () {
                         </Text>
                         <Text
                             style={{
-                                fontSize: S,
+                                fontSize: Size.S,
                                 fontFamily: Inter.regular,
                                 color: Palette.gray[400]
                             }}
@@ -132,7 +132,7 @@ export default function () {
                     <View style={{ flexDirection: "row", alignItems: "baseline" }}>
                         <Text
                             style={{
-                                fontSize: L,
+                                fontSize: Size.L,
                                 fontFamily: Inter.medium,
                                 color: Palette.gray[900]
                             }}
@@ -141,7 +141,7 @@ export default function () {
                         </Text>
                         <Text
                             style={{
-                                fontSize: S,
+                                fontSize: Size.S,
                                 fontFamily: Inter.regular,
                                 color: Palette.gray[400]
                             }}
@@ -159,7 +159,7 @@ export default function () {
                     </Text>
                 </View>
             </View>
-            <View style={{ padding: BASE, gap: L }}>
+            <View style={{ padding: Size.BASE, gap: Size.L }}>
                 <Section name="Match history">
                     <List>
                         {ACTIVITIES.map((a, i) => (
@@ -182,21 +182,21 @@ export default function () {
                                         flexDirection: "row",
                                         alignItems: "center",
                                         justifyContent: "space-between",
-                                        padding: BASE,
-                                        paddingRight: M,
+                                        padding: Size.BASE,
+                                        paddingRight: Size.M,
                                         backgroundColor: Palette.white
                                     }}
                                 >
                                     <View
                                         style={{
-                                            gap: XXXS
+                                            gap: Size.XXXS
                                         }}
                                     >
                                         <View
                                             style={{
                                                 flexDirection: "row",
                                                 alignItems: "center",
-                                                gap: XXS
+                                                gap: Size.XXS
                                             }}
                                         >
                                             <Text style={Typography.body}>
@@ -207,7 +207,7 @@ export default function () {
                                             style={{
                                                 flexDirection: "row",
                                                 alignItems: "center",
-                                                gap: XXS
+                                                gap: Size.XXS
                                             }}
                                         >
                                             <Badge theme="gray">OMW {a.omw.toFixed(2)}</Badge>
@@ -216,7 +216,7 @@ export default function () {
                                         </View>
                                     </View>
                                     <View style={{ flexDirection: "row", alignItems: "baseline" }}>
-                                        <Text style={[Typography.body, { fontSize: BASE }]}>{a.score}</Text>
+                                        <Text style={[Typography.body, { fontSize: Size.BASE }]}>{a.score}</Text>
                                     </View>
                                 </View>
                                 <Separator color={Palette.gray[100]} />

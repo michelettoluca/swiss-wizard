@@ -2,7 +2,7 @@ import { ChevronRight } from "lucide-react-native"
 import { PropsWithChildren } from "react"
 import { Pressable, Text, View } from "react-native"
 import { Palette } from "../styles/palette"
-import { M, S, XS, XXXS } from "../styles/size"
+import { Size } from "../styles/size"
 import { Inter } from "../styles/typography"
 
 type SectionProps = {
@@ -21,13 +21,13 @@ export function Section({ name, action, children }: SectionProps) {
                     flexDirection: "row",
                     justifyContent: "space-between",
                     alignItems: "baseline",
-                    marginBottom: XS
+                    marginBottom: Size.XS
                 }}
             >
                 <Text
                     style={{
                         fontFamily: Inter.semiBold,
-                        fontSize: M,
+                        fontSize: Size.M,
                         color: Palette.gray[900]
                     }}
                 >
@@ -35,13 +35,13 @@ export function Section({ name, action, children }: SectionProps) {
                 </Text>
                 {action && (
                     <Pressable
-                        style={{ flexDirection: "row", alignItems: "center", gap: XXXS }}
+                        style={{ flexDirection: "row", alignItems: "center", gap: Size.XXXS }}
                         onPress={action.onPress}
                     >
                         <Text
                             style={{
                                 fontFamily: Inter.medium,
-                                fontSize: S,
+                                fontSize: Size.S,
                                 color: Palette.blue[500]
                             }}
                         >

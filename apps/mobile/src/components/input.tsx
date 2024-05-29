@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react"
 import { Keyboard, Pressable, PressableProps, StyleSheet, Text, TextInput, TextInputProps, View } from "react-native"
 import { Palette } from "../styles/palette"
-import { M, XS, XXXL, XXXS } from "../styles/size"
+import { Size } from "../styles/size"
 import { Typography } from "../styles/typography"
 
 type InputProps = {
@@ -50,10 +50,10 @@ export function Input({ label, placeholder, value, onChange, suffix, keyboardTyp
                     flexDirection: "column",
                     justifyContent: "center",
                     backgroundColor: Palette.white,
-                    borderRadius: XS,
-                    paddingHorizontal: M,
-                    height: XXXL,
-                    gap: XXXS
+                    borderRadius: Size.XS,
+                    paddingHorizontal: Size.M,
+                    height: Size.XXXL,
+                    gap: Size.XXXS
                 },
                 style
             ])}
@@ -68,7 +68,7 @@ export function Input({ label, placeholder, value, onChange, suffix, keyboardTyp
             >
                 <TextInput
                     ref={inputRef}
-                    style={{ color: Palette.gray[900], padding: 0, height: M }}
+                    style={{ color: Palette.gray[900], padding: 0, height: Size.M }}
                     placeholder={placeholder ?? ""}
                     placeholderTextColor={Palette.gray[400]}
                     cursorColor={Palette.gray[600]}

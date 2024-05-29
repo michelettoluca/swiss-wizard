@@ -1,7 +1,7 @@
 import { PropsWithChildren } from "react"
 import { Text, View } from "react-native"
 import { Palette } from "../styles/palette"
-import { XL, XS, XXS, XXXS } from "../styles/size"
+import { Size } from "../styles/size"
 import { Inter } from "../styles/typography"
 
 export type BadgeTheme = "red" | "amber" | "emerald" | "gray"
@@ -30,9 +30,9 @@ export function Badge({ theme, children }: BadgeProps) {
             style={{
                 alignItems: "center",
                 justifyContent: "center",
-                minWidth: XL,
-                borderRadius: XXXS,
-                paddingHorizontal: XXS,
+                minWidth: Size.XL,
+                borderRadius: Size.XXXS,
+                paddingHorizontal: Size.XXS,
                 paddingVertical: 1,
                 backgroundColor: backgroundColor[theme]
             }}
@@ -40,7 +40,7 @@ export function Badge({ theme, children }: BadgeProps) {
             <Text
                 style={{
                     fontFamily: Inter.regular,
-                    fontSize: XS,
+                    fontSize: Size.XS,
                     color: textColor[theme]
                 }}
             >

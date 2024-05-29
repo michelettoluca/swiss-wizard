@@ -1,4 +1,5 @@
-import { ColorValue, View } from "react-native"
+import { ColorValue, Image } from "react-native"
+import { useUser } from "../contexts/user"
 
 type AvatarProps = {
     size: number
@@ -7,14 +8,16 @@ type AvatarProps = {
 }
 
 export function Avatar({ size, color }: AvatarProps) {
+    const { clerkUser } = useUser()
     return (
-        <View
+        <Image
             style={{
                 borderRadius: Number.MAX_SAFE_INTEGER,
                 backgroundColor: color,
                 height: size,
                 width: size
             }}
+            source={{ uri: clerkUser?.imageUrl }}
         />
     )
 }

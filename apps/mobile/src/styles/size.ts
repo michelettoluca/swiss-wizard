@@ -1,10 +1,12 @@
-export const XXXS = 4
-export const XXS = 8
-export const XS = 12
-export const S = 14
-export const BASE = 16
-export const M = 20
-export const L = 24
-export const XL = 32
-export const XXL = 48
-export const XXXL = 64
+export const Size = {
+    XXXS: 4,
+    XXS: 8,
+    XS: 12,
+    S: 14,
+    BASE: 16,
+    M: 20,
+    L: 24,
+    XL: 32,
+    XXL: 48,
+    XXXL: 64
+} as const

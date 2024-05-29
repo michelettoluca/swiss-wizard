@@ -5,7 +5,7 @@ import { Keyboard, Pressable, StyleSheet, Text, View } from "react-native"
 import { ScrollView } from "react-native-gesture-handler"
 import Animated, { FadeIn, FadeOut } from "react-native-reanimated"
 import { Palette } from "../styles/palette"
-import { BASE, M, XS, XXXL, XXXS } from "../styles/size"
+import { Size } from "../styles/size"
 import { Inter, Typography } from "../styles/typography"
 import { Separator } from "./separator"
 
@@ -45,10 +45,10 @@ export function Select<T>({ label, placeholder, value, onChange, options }: Sele
                         justifyContent: "space-between",
                         alignItems: "center",
                         backgroundColor: Palette.white,
-                        borderRadius: XS,
-                        paddingHorizontal: M,
-                        height: XXXL,
-                        gap: XXXS
+                        borderRadius: Size.XS,
+                        paddingHorizontal: Size.M,
+                        height: Size.XXXL,
+                        gap: Size.XXXS
                     }
                 ])}
                 onPress={handlePresentModalPress}
@@ -65,7 +65,7 @@ export function Select<T>({ label, placeholder, value, onChange, options }: Sele
                     </Text>
                 </View>
 
-                <ChevronsUpDown size={M} stroke={Palette.gray[400]} />
+                <ChevronsUpDown size={Size.M} stroke={Palette.gray[400]} />
             </Pressable>
             <BottomSheetModal
                 ref={bottomSheetModalRef}
@@ -99,10 +99,10 @@ export function Select<T>({ label, placeholder, value, onChange, options }: Sele
                     <Text
                         style={{
                             fontFamily: Inter.medium,
-                            fontSize: BASE,
+                            fontSize: Size.BASE,
                             textAlign: "center",
                             color: Palette.gray[900],
-                            paddingVertical: BASE,
+                            paddingVertical: Size.BASE,
                             borderBottomColor: Palette.gray[100],
                             borderBottomWidth: 1
                         }}
@@ -114,7 +114,7 @@ export function Select<T>({ label, placeholder, value, onChange, options }: Sele
                             <Fragment key={JSON.stringify(option.value)}>
                                 <Pressable
                                     style={{
-                                        height: XXXL,
+                                        height: Size.XXXL,
                                         alignItems: "center",
                                         justifyContent: "center",
                                         backgroundColor: selectedIndex === i ? Palette.gray[100] : undefined

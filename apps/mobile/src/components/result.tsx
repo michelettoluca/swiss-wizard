@@ -1,6 +1,6 @@
 import { Text, View } from "react-native"
 import { Palette } from "../styles/palette"
-import { BASE, M, XS, XXS, XXXS } from "../styles/size"
+import { Size } from "../styles/size"
 import { Typography } from "../styles/typography"
 import { Badge, BadgeTheme } from "./badge"
 
@@ -37,22 +37,22 @@ export function PlayerResult({ opponent, wins, losses, omw, gw, ogw }: PlayerRes
                 flexDirection: "row",
                 alignItems: "center",
                 justifyContent: "space-between",
-                padding: BASE,
-                paddingRight: M,
+                padding: Size.BASE,
+                paddingRight: Size.M,
                 backgroundColor: Palette.white,
-                borderRadius: XS
+                borderRadius: Size.XS
             }}
         >
             <View
                 style={{
-                    gap: XXXS
+                    gap: Size.XXXS
                 }}
             >
                 <View
                     style={{
                         flexDirection: "row",
                         alignItems: "center",
-                        gap: XXS
+                        gap: Size.XXS
                     }}
                 >
                     <Badge theme={badgeTheme}>{badgeContent}</Badge>
@@ -64,7 +64,7 @@ export function PlayerResult({ opponent, wins, losses, omw, gw, ogw }: PlayerRes
                     style={{
                         flexDirection: "row",
                         alignItems: "center",
-                        gap: XXS
+                        gap: Size.XXS
                     }}
                 >
                     <Badge theme="gray">OMW {omw.toFixed(2)}</Badge>
@@ -73,9 +73,9 @@ export function PlayerResult({ opponent, wins, losses, omw, gw, ogw }: PlayerRes
                 </View>
             </View>
             <View style={{ flexDirection: "row", alignItems: "baseline" }}>
-                <Text style={[Typography.body, { fontSize: BASE }]}>{wins}</Text>
+                <Text style={[Typography.body, { fontSize: Size.BASE }]}>{wins}</Text>
                 <Text style={[Typography.body, { color: Palette.gray[400] }]}> - </Text>
-                <Text style={[Typography.body, { fontSize: BASE }]}>{losses}</Text>
+                <Text style={[Typography.body, { fontSize: Size.BASE }]}>{losses}</Text>
             </View>
         </View>
     )
