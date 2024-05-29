@@ -2,7 +2,7 @@ import { useRouter } from "expo-router"
 import { ArrowLeft } from "lucide-react-native"
 import { Text, View } from "react-native"
 import { Palette } from "../styles/palette"
-import { XXL, XXS } from "../styles/size"
+import { Size } from "../styles/size"
 import { Inter, Typography } from "../styles/typography"
 
 type HeaderProps = {
@@ -17,12 +17,12 @@ export function Header({ title }: HeaderProps) {
                 flexDirection: "row",
                 justifyContent: "center",
                 alignItems: "center",
-                height: XXL
+                height: Size.XXL
             }}
         >
             <ArrowLeft
                 onPress={() => router.back()}
-                hitSlop={{ top: XXS, right: XXS, bottom: XXS, left: XXS }}
+                hitSlop={{ top: Size.XXS, right: Size.XXS, bottom: Size.XXS, left: Size.XXS }}
                 style={{ position: "absolute", left: 0 }}
                 stroke={Palette.gray[600]}
             />
