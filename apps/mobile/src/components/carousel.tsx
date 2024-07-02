@@ -1,15 +1,16 @@
 import { ChevronLeft, ChevronRight } from "lucide-react-native"
-import { Children, PropsWithChildren, useEffect, useRef, useState } from "react"
+import { Children, useEffect, useRef, useState } from "react"
 import { Pressable, PressableProps, StyleSheet, View } from "react-native"
 import { ScrollView } from "react-native-gesture-handler"
+import { ViewProps } from "react-native-svg/lib/typescript/fabric/utils"
 import { Palette } from "../styles/palette"
 import { Size } from "../styles/size"
 
 type CarouselProps = {
     offset: number
-} & PropsWithChildren
+} & ViewProps
 
-export function Carousel({ children, offset }: CarouselProps) {
+export function Carousel({ style, children, offset }: CarouselProps) {
     const scrollViewRef = useRef<ScrollView>(null)
     const [pageIndex, setPageIndex] = useState<number>(0)
 
@@ -21,10 +22,13 @@ export function Carousel({ children, offset }: CarouselProps) {
 
     return (
         <View
-            style={{
-                borderRadius: Size.XXS,
-                overflow: "hidden"
-            }}
+            style={StyleSheet.flatten([
+                style,
+                {
+                    borderRadius: Size.XXS,
+                    overflow: "hidden"
+                }
+            ])}
         >
             {pageIndex > 0 && (
                 <NavButton

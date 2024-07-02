@@ -1,7 +1,7 @@
 import { BottomSheetModal, BottomSheetView } from "@gorhom/bottom-sheet"
 import { ChevronsUpDown } from "lucide-react-native"
 import { Fragment, useRef } from "react"
-import { Keyboard, Pressable, StyleSheet, Text, View } from "react-native"
+import { Keyboard, Pressable, PressableProps, StyleSheet, Text, View } from "react-native"
 import { ScrollView } from "react-native-gesture-handler"
 import Animated, { FadeIn, FadeOut } from "react-native-reanimated"
 import { Palette } from "../styles/palette"
@@ -12,9 +12,11 @@ import { Separator } from "./separator"
 type SelectProps<T> = {
     label: string
     placeholder: string
+    suffix?: string
     value: T
     onChange: (value: T) => void
     options: Option<T>[]
+    style?: PressableProps["style"]
 }
 
 type Option<T> = {
@@ -22,7 +24,7 @@ type Option<T> = {
     value: T
 }
 
-export function Select<T>({ label, placeholder, value, onChange, options }: SelectProps<T>) {
+export function Select<T>({ label, placeholder, suffix, value, onChange, options, style }: SelectProps<T>) {
     const bottomSheetModalRef = useRef<BottomSheetModal>(null)
 
     const selected = options.find((option) => JSON.stringify(option.value) === JSON.stringify(value))
@@ -49,7 +51,8 @@ export function Select<T>({ label, placeholder, value, onChange, options }: Sele
                         paddingHorizontal: Size.M,
                         height: Size.XXXL,
                         gap: Size.XXXS
-                    }
+                    },
+                    style
                 ])}
                 onPress={handlePresentModalPress}
             >
@@ -61,7 +64,8 @@ export function Select<T>({ label, placeholder, value, onChange, options }: Sele
                 >
                     <Text style={Typography.label}>{label}</Text>
                     <Text style={[Typography.body, { color: selected ? Palette.gray[900] : Palette.gray[400] }]}>
-                        {selected?.label ?? placeholder}
+                        {selected?.label ?? placeholder}{" "}
+                        {selected && suffix && <Text style={{ color: Palette.gray[400] }}>{suffix}</Text>}
                     </Text>
                 </View>
 

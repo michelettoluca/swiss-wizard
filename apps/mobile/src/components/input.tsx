@@ -63,7 +63,8 @@ export function Input({ label, placeholder, value, onChange, suffix, keyboardTyp
             <View
                 style={{
                     flexDirection: "row",
-                    alignItems: "center"
+                    alignItems: "center",
+                    gap: Size.XXXS
                 }}
             >
                 <TextInput

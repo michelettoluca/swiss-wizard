@@ -1,9 +1,10 @@
 import { Link } from "expo-router"
 import { ArrowUpRight, Hourglass, MoreVertical } from "lucide-react-native"
 import { useEffect, useState } from "react"
-import { Dimensions, Pressable, ScrollView, Text, TextStyle, View } from "react-native"
+import { Dimensions, Pressable, ScrollView, StyleSheet, Text, TextStyle, View } from "react-native"
 import Animated, { useSharedValue, withSpring } from "react-native-reanimated"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
+import { ViewProps } from "react-native-svg/lib/typescript/fabric/utils"
 import { Entities } from "server/src/prisma"
 import { Avatar } from "../../components/avatar"
 import { Badge } from "../../components/badge"
@@ -74,7 +75,7 @@ export default function () {
                     </Pressable>
                 </View>
 
-                <JoinedHosted />
+                <OngoingTournaments />
 
                 <Section name="Standing" action={{ name: "Show all", onPress: () => console.log("Palle") }}>
                     <List>
@@ -209,7 +210,7 @@ const semiBoldBody: TextStyle = {
     color: Palette.blue[900]
 }
 
-function JoinedHosted() {
+function OngoingTournaments() {
     const screen = Dimensions.get("screen")
     const width = screen.width - 12 * 2 - 2 * 4
     const marginRight = 4
@@ -251,17 +252,17 @@ function JoinedHosted() {
             }}
         >
             {selectedSection === "joined" && (
-                <Link href={"/tournament/id"} asChild>
+                <Link href={"/tournament/create"} asChild>
                     <Pressable>
-                        <TournamentPreview style={{ width }} />
+                        <TournamentPreview style={{ width, borderRadius: Size.XXS, minHeight: 256 }} />
                     </Pressable>
                 </Link>
             )}
             {selectedSection === "hosted" && (
-                <Carousel offset={width + marginRight}>
-                    <TournamentPreview style={{ marginRight, width }} />
-                    <TournamentPreview style={{ marginRight, width }} />
-                    <TournamentPreview style={{ marginRight, width }} />
+                <Carousel offset={width + marginRight} style={{ minHeight: 256 }}>
+                    <TournamentPreview style={{ marginRight, width, borderRadius: Size.XXS }} />
+                    <TournamentPreview style={{ marginRight, width, borderRadius: Size.XXS }} />
+                    <TournamentPreview style={{ marginRight, width, borderRadius: Size.XXS }} />
                 </Carousel>
             )}
             <View
@@ -279,7 +280,7 @@ function JoinedHosted() {
                         left: offset,
                         top: 4,
                         bottom: 4,
-                        width: (screen.width - 12 * 2 - 4 * 2 - 4 * 2) / 2,
+                        width: (screen.width - Size.XS * 2 - Size.XXXS * 2 - Size.XXXS * 2) / 2,
                         backgroundColor: Palette.white,
                         borderRadius: Size.XXS
                     }}
@@ -335,20 +336,18 @@ function JoinedHosted() {
     )
 }
 
-export function TournamentPreview({ style }: any) {
+export function TournamentPreview({ style }: ViewProps) {
     return (
         <View
-            style={[
+            style={StyleSheet.flatten([
                 {
                     backgroundColor: Palette.blue[100],
                     padding: Size.BASE,
                     borderRightColor: Palette.blue[200],
-                    gap: Size.S,
-                    minHeight: 256,
-                    borderRadius: Size.XXS
+                    gap: Size.S
                 },
                 style
-            ]}
+            ])}
         >
             <View
                 style={{
