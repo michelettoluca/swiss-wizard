@@ -57,7 +57,7 @@ export function Carousel({ style, children, offset }: CarouselProps) {
                     bottom: Size.XXS,
                     gap: Size.XXS,
                     left: "50%",
-                    transform: [{ translateX: -Children.count(children) * Size.XXS }],
+                    transform: [{ translateX: -childrenCount * Size.XXS }],
                     borderBlockColor: "red",
                     zIndex: 10
                 }}
