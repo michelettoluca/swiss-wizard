@@ -62,176 +62,172 @@ export default function () {
     // const { data: torunament } = trpc.tournament.findById.useQuery({ id: Number(id) }, { enabled: !!id })
 
     return (
-        <>
-            <Header title={"Tappa #1"} />
-
-            <ScrollView showsVerticalScrollIndicator={false}>
-                <TournamentPreview
-                    style={{
-                        paddingHorizontal: Size.L,
-                        paddingTop: Size.XL,
-                        paddingBottom: Size.XL
-                    }}
-                />
-                <View
-                    style={{
-                        flexDirection: "row",
-                        height: 80,
-                        marginHorizontal: Size.XS,
-                        borderRadius: Size.XS,
-                        backgroundColor: Palette.white,
-                        marginTop: -Size.L
-                    }}
-                >
-                    <View style={{ flex: 1, flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
-                        <View style={{ flexDirection: "row", alignItems: "baseline" }}>
-                            <Text
-                                style={{
-                                    fontSize: Size.L,
-                                    fontFamily: Inter.medium,
-                                    color: Palette.gray[900]
-                                }}
-                            >
-                                24
-                            </Text>
-                        </View>
+        <ScrollView showsVerticalScrollIndicator={false} stickyHeaderIndices={[0]}>
+            <Header backgroundColor={Palette.blue[100]} color={Palette.blue[900]} title={"Tappa #1"} />
+            <TournamentPreview
+                style={{
+                    paddingHorizontal: Size.L,
+                    paddingBottom: Size.XXXL
+                }}
+            />
+            <View
+                style={{
+                    flexDirection: "row",
+                    height: 80,
+                    marginHorizontal: Size.XS,
+                    borderRadius: Size.XS,
+                    backgroundColor: Palette.white,
+                    marginTop: -Size.L
+                }}
+            >
+                <View style={{ flex: 1, flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
+                    <View style={{ flexDirection: "row", alignItems: "baseline" }}>
                         <Text
                             style={{
-                                fontFamily: Inter.regular,
+                                fontSize: Size.L,
+                                fontFamily: Inter.medium,
                                 color: Palette.gray[900]
                             }}
                         >
-                            Points
+                            24
                         </Text>
                     </View>
-                    <View style={{ flex: 1, flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
-                        <View style={{ flexDirection: "row", alignItems: "baseline" }}>
-                            <Text
-                                style={{
-                                    fontSize: Size.L,
-                                    fontFamily: Inter.medium,
-                                    color: Palette.gray[900]
-                                }}
-                            >
-                                2
-                            </Text>
-                            <Text
-                                style={{
-                                    fontSize: Size.S,
-                                    fontFamily: Inter.regular,
-                                    color: Palette.gray[400]
-                                }}
-                            >
-                                /64
-                            </Text>
-                        </View>
-                        <Text
-                            style={{
-                                fontFamily: Inter.regular,
-                                color: Palette.gray[900]
-                            }}
-                        >
-                            Rank
-                        </Text>
-                    </View>
-                    <View style={{ flex: 1, flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
-                        <View style={{ flexDirection: "row", alignItems: "baseline" }}>
-                            <Text
-                                style={{
-                                    fontSize: Size.L,
-                                    fontFamily: Inter.medium,
-                                    color: Palette.gray[900]
-                                }}
-                            >
-                                3
-                            </Text>
-                            <Text
-                                style={{
-                                    fontSize: Size.S,
-                                    fontFamily: Inter.regular,
-                                    color: Palette.gray[400]
-                                }}
-                            >
-                                /9
-                            </Text>
-                        </View>
-                        <Text
-                            style={{
-                                fontFamily: Inter.regular,
-                                color: Palette.gray[900]
-                            }}
-                        >
-                            Round
-                        </Text>
-                    </View>
-                </View>
-                <View style={{ padding: Size.XS, gap: Size.L }}>
-                    <Section name="Match history">
-                        <List>
-                            {ACTIVITIES.map((a, i) => (
-                                <PlayerResult key={i} {...a} />
-                            ))}
-                        </List>
-                    </Section>
-                    <Section
-                        name="Standings"
-                        action={{
-                            name: "Show all",
-                            onPress: () => router.push(`${pathname}/standings`)
+                    <Text
+                        style={{
+                            fontFamily: Inter.regular,
+                            color: Palette.gray[900]
                         }}
                     >
-                        <List type="compact">
-                            {ACTIVITIES.map((a, i) => (
-                                <Fragment key={a.player.firstName}>
+                        Points
+                    </Text>
+                </View>
+                <View style={{ flex: 1, flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
+                    <View style={{ flexDirection: "row", alignItems: "baseline" }}>
+                        <Text
+                            style={{
+                                fontSize: Size.L,
+                                fontFamily: Inter.medium,
+                                color: Palette.gray[900]
+                            }}
+                        >
+                            2
+                        </Text>
+                        <Text
+                            style={{
+                                fontSize: Size.S,
+                                fontFamily: Inter.regular,
+                                color: Palette.gray[400]
+                            }}
+                        >
+                            /64
+                        </Text>
+                    </View>
+                    <Text
+                        style={{
+                            fontFamily: Inter.regular,
+                            color: Palette.gray[900]
+                        }}
+                    >
+                        Rank
+                    </Text>
+                </View>
+                <View style={{ flex: 1, flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
+                    <View style={{ flexDirection: "row", alignItems: "baseline" }}>
+                        <Text
+                            style={{
+                                fontSize: Size.L,
+                                fontFamily: Inter.medium,
+                                color: Palette.gray[900]
+                            }}
+                        >
+                            3
+                        </Text>
+                        <Text
+                            style={{
+                                fontSize: Size.S,
+                                fontFamily: Inter.regular,
+                                color: Palette.gray[400]
+                            }}
+                        >
+                            /9
+                        </Text>
+                    </View>
+                    <Text
+                        style={{
+                            fontFamily: Inter.regular,
+                            color: Palette.gray[900]
+                        }}
+                    >
+                        Round
+                    </Text>
+                </View>
+            </View>
+            <View style={{ padding: Size.XS, gap: Size.L }}>
+                <Section name="Match history">
+                    <List>
+                        {ACTIVITIES.map((a, i) => (
+                            <PlayerResult key={i} {...a} />
+                        ))}
+                    </List>
+                </Section>
+                <Section
+                    name="Standings"
+                    action={{
+                        name: "Show all",
+                        onPress: () => router.push(`${pathname}/standings`)
+                    }}
+                >
+                    <List type="compact">
+                        {ACTIVITIES.map((a, i) => (
+                            <Fragment key={a.player.firstName}>
+                                <View
+                                    style={{
+                                        flexDirection: "row",
+                                        alignItems: "center",
+                                        justifyContent: "space-between",
+                                        padding: Size.BASE,
+                                        paddingRight: Size.M,
+                                        backgroundColor: Palette.white
+                                    }}
+                                >
                                     <View
                                         style={{
-                                            flexDirection: "row",
-                                            alignItems: "center",
-                                            justifyContent: "space-between",
-                                            padding: Size.BASE,
-                                            paddingRight: Size.M,
-                                            backgroundColor: Palette.white
+                                            gap: Size.XXXS
                                         }}
                                     >
                                         <View
                                             style={{
-                                                gap: Size.XXXS
+                                                flexDirection: "row",
+                                                alignItems: "center",
+                                                gap: Size.XXS
                                             }}
                                         >
-                                            <View
-                                                style={{
-                                                    flexDirection: "row",
-                                                    alignItems: "center",
-                                                    gap: Size.XXS
-                                                }}
-                                            >
-                                                <Text style={Typography.body}>
-                                                    {i + 1}. {a.opponent.firstName} {a.opponent.lastName}
-                                                </Text>
-                                            </View>
-                                            <View
-                                                style={{
-                                                    flexDirection: "row",
-                                                    alignItems: "center",
-                                                    gap: Size.XXS
-                                                }}
-                                            >
-                                                <Badge theme="gray">OMW {a.omw.toFixed(2)}</Badge>
-                                                <Badge theme="gray">GW {a.gw.toFixed(2)}</Badge>
-                                                <Badge theme="gray">OGW {a.ogw.toFixed(2)}</Badge>
-                                            </View>
+                                            <Text style={Typography.body}>
+                                                {i + 1}. {a.opponent.firstName} {a.opponent.lastName}
+                                            </Text>
                                         </View>
-                                        <View style={{ flexDirection: "row", alignItems: "baseline" }}>
-                                            <Text style={[Typography.body, { fontSize: Size.BASE }]}>{a.score}</Text>
+                                        <View
+                                            style={{
+                                                flexDirection: "row",
+                                                alignItems: "center",
+                                                gap: Size.XXS
+                                            }}
+                                        >
+                                            <Badge theme="gray">OMW {a.omw.toFixed(2)}</Badge>
+                                            <Badge theme="gray">GW {a.gw.toFixed(2)}</Badge>
+                                            <Badge theme="gray">OGW {a.ogw.toFixed(2)}</Badge>
                                         </View>
                                     </View>
-                                    <Separator color={Palette.gray[100]} />
-                                </Fragment>
-                            ))}
-                        </List>
-                    </Section>
-                </View>
-            </ScrollView>
-        </>
+                                    <View style={{ flexDirection: "row", alignItems: "baseline" }}>
+                                        <Text style={[Typography.body, { fontSize: Size.BASE }]}>{a.score}</Text>
+                                    </View>
+                                </View>
+                                <Separator color={Palette.gray[100]} />
+                            </Fragment>
+                        ))}
+                    </List>
+                </Section>
+            </View>
+        </ScrollView>
     )
 }

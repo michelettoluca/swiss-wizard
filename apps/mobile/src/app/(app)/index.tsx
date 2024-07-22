@@ -1,4 +1,4 @@
-import { Link } from "expo-router"
+import { Link, router, useRouter } from "expo-router"
 import { ArrowUpRight, Hourglass, MoreVertical } from "lucide-react-native"
 import { useEffect, useState } from "react"
 import { Dimensions, Pressable, ScrollView, StyleSheet, Text, TextStyle, View } from "react-native"
@@ -70,6 +70,7 @@ export default function () {
                             width: 40,
                             borderRadius: Size.XS
                         }}
+                        onPress={() => router.push("/tournament/create")}
                     >
                         <MoreVertical stroke={Palette.gray[900]} size={20} />
                     </Pressable>
@@ -215,7 +216,7 @@ function OngoingTournaments() {
     const width = screen.width - 12 * 2 - 2 * 4
     const marginRight = 4
 
-    const offset = useSharedValue(4)
+    const offset = useSharedValue(14)
 
     const [selectedSection, setSelectedSection] = useState<"joined" | "hosted">("joined")
 
@@ -252,11 +253,7 @@ function OngoingTournaments() {
             }}
         >
             {selectedSection === "joined" && (
-                <Link href={"/tournament/create"} asChild>
-                    <Pressable>
-                        <TournamentPreview style={{ width, borderRadius: Size.XXS, minHeight: 256 }} />
-                    </Pressable>
-                </Link>
+                <TournamentPreview href={"/tournament/123"} style={{ width, borderRadius: Size.XXS, minHeight: 256 }} />
             )}
             {selectedSection === "hosted" && (
                 <Carousel offset={width + marginRight} style={{ minHeight: 256 }}>
@@ -336,9 +333,21 @@ function OngoingTournaments() {
     )
 }
 
-export function TournamentPreview({ style }: ViewProps) {
+type TournamentPreviewProps = {
+    href?: string
+} & ViewProps
+
+export function TournamentPreview({ href, style }: TournamentPreviewProps) {
+    const router = useRouter()
+
+    function handlePress() {
+        if (href) {
+            router.push(href)
+        }
+    }
+
     return (
-        <View
+        <Pressable
             style={StyleSheet.flatten([
                 {
                     backgroundColor: Palette.blue[100],
@@ -348,6 +357,7 @@ export function TournamentPreview({ style }: ViewProps) {
                 },
                 style
             ])}
+            onPress={handlePress}
         >
             <View
                 style={{
@@ -367,7 +377,7 @@ export function TournamentPreview({ style }: ViewProps) {
                     <Hourglass size={24} stroke={Palette.blue[900]} />
                     <Text style={semiBoldBody}>43:20</Text>
                 </View>
-                <ArrowUpRight size={24} stroke={Palette.blue[900]} />
+                {href && <ArrowUpRight size={24} stroke={Palette.blue[900]} />}
             </View>
             <View style={{ gap: Size.XXS }}>
                 <Text style={[Typography.body, { color: Palette.blue[900], lineHeight: Size.BASE }]}>
@@ -399,6 +409,6 @@ export function TournamentPreview({ style }: ViewProps) {
                     12
                 </Text>
             </View>
-        </View>
+        </Pressable>
     )
 }

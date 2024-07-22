@@ -1,9 +1,11 @@
+import { MoreVertical } from "lucide-react-native"
 import { Controller, useForm } from "react-hook-form"
-import { View } from "react-native"
+import { Pressable, View } from "react-native"
+import { ScrollView } from "react-native-gesture-handler"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
+import { Header } from "../../../components/header"
 import { Input } from "../../../components/input"
 import { Paywall } from "../../../components/paywall"
-import { Select } from "../../../components/select"
 import { Palette } from "../../../styles/palette"
 import { Size } from "../../../styles/size"
 
@@ -12,16 +14,22 @@ export default function () {
     const { control, register } = useForm({})
 
     return (
-        <View
-            style={{
-                backgroundColor: Palette.gray[100],
-                paddingTop: insets.top,
-                paddingLeft: insets.left,
-                paddingBottom: insets.bottom,
-                paddingRight: insets.right
-            }}
-        >
+        <ScrollView showsVerticalScrollIndicator={false} stickyHeaderIndices={[0]}>
+            <Header title="Create tournament" />
             <View style={{ padding: Size.BASE, gap: Size.XS }}>
+                <Pressable
+                    style={{
+                        alignSelf: "flex-end",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        backgroundColor: Palette.white,
+                        height: 40,
+                        width: 40,
+                        borderRadius: Size.XS
+                    }}
+                >
+                    <MoreVertical stroke={Palette.gray[900]} size={20} />
+                </Pressable>
                 <Controller
                     control={control}
                     rules={{
@@ -33,27 +41,6 @@ export default function () {
                     name="name"
                 />
 
-                <Controller
-                    control={control}
-                    rules={{
-                        required: true
-                    }}
-                    render={({ field: { onChange, onBlur, value } }) => (
-                        <Select
-                            label="Format"
-                            placeholder="Format"
-                            onChange={onChange}
-                            value={value}
-                            options={[
-                                { label: "Pauper", value: "Pauper" },
-                                { label: "Modern", value: "Modern" },
-                                { label: "Standard", value: "Standard" },
-                                { label: "Legacy", value: "Legacy" }
-                            ]}
-                        />
-                    )}
-                    name="format"
-                />
                 <View style={{ flexDirection: "row", gap: Size.BASE }}>
                     <Controller
                         control={control}
@@ -86,6 +73,6 @@ export default function () {
                     </Paywall>
                 </View>
             </View>
-        </View>
+        </ScrollView>
     )
 }
