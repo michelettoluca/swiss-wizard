@@ -1,12 +1,9 @@
-import { MoreVertical } from "lucide-react-native"
 import { Controller, useForm } from "react-hook-form"
-import { Pressable, View } from "react-native"
+import { Text, View } from "react-native"
 import { ScrollView } from "react-native-gesture-handler"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
 import { Header } from "../../../components/header"
 import { Input } from "../../../components/input"
-import { Paywall } from "../../../components/paywall"
-import { Palette } from "../../../styles/palette"
 import { Size } from "../../../styles/size"
 
 export default function () {
@@ -15,21 +12,8 @@ export default function () {
 
     return (
         <ScrollView showsVerticalScrollIndicator={false} stickyHeaderIndices={[0]}>
-            <Header title="Create tournament" />
+            {/*<Header title="Create tournament" />*/}
             <View style={{ padding: Size.BASE, gap: Size.XS }}>
-                <Pressable
-                    style={{
-                        alignSelf: "flex-end",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        backgroundColor: Palette.white,
-                        height: 40,
-                        width: 40,
-                        borderRadius: Size.XS
-                    }}
-                >
-                    <MoreVertical stroke={Palette.gray[900]} size={20} />
-                </Pressable>
                 <Controller
                     control={control}
                     rules={{
@@ -59,18 +43,25 @@ export default function () {
                         )}
                         name="roundTime"
                     />
-                    <Paywall style={{ flex: 1, borderRadius: Size.S }}>
-                        <Controller
-                            control={control}
-                            rules={{
-                                required: true
-                            }}
-                            render={({ field: { onChange, onBlur, value } }) => (
-                                <Input label="Round limit" placeholder="4" onChange={onChange} value={value} />
-                            )}
-                            name="roundLimit"
-                        />
-                    </Paywall>
+                    <Controller
+                        control={control}
+                        rules={{
+                            required: true
+                        }}
+                        render={({ field: { onChange, onBlur, value } }) => (
+                            <Input
+                                label="Round limit"
+                                placeholder="4"
+                                onChange={onChange}
+                                value={value}
+                                style={{ flex: 1 }}
+                            />
+                        )}
+                        name="roundLimit"
+                    />
+                </View>
+                <View>
+                    <Text> OOO </Text>
                 </View>
             </View>
         </ScrollView>
