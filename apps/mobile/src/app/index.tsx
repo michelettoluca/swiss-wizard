@@ -17,8 +17,6 @@ export default function () {
     const { isSignedIn, isLoaded, userId } = useAuth()
     const { startOAuthFlow } = useOAuth({ strategy: "oauth_google" })
 
-    console.log({ isSignedIn, isLoaded, userId })
-
     useEffect(() => {
         if (isLoaded && !isSignedIn) {
             SplashScreen.hideAsync()

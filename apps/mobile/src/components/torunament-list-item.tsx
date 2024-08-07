@@ -1,4 +1,3 @@
-import { PropsWithChildren } from "react"
 import { Text, View } from "react-native"
 import { Palette } from "../styles/palette"
 import { Size } from "../styles/size"
@@ -9,7 +8,7 @@ type ActivityItemProps = {
     name: string
     rank: number
     date: string
-} & PropsWithChildren
+}
 
 export function TournamentListItem({ date, name, rank }: ActivityItemProps) {
     return (

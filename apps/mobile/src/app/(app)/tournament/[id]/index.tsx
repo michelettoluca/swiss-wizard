@@ -1,7 +1,6 @@
 import { useLocalSearchParams, usePathname, useRouter } from "expo-router"
 import { Fragment } from "react"
 import { ScrollView, Text, View } from "react-native"
-import { TournamentPreview } from "../../."
 import { Badge } from "../../../../components/badge"
 import { Header, useHeader } from "../../../../components/header"
 import { List } from "../../../../components/list"
@@ -11,6 +10,7 @@ import { Separator } from "../../../../components/separator"
 import { Palette } from "../../../../styles/palette"
 import { Size } from "../../../../styles/size"
 import { Inter, Typography } from "../../../../styles/typography"
+import { TournamentPreview } from "../../../../components/tournament-preview"
 
 const ACTIVITIES = [
     {

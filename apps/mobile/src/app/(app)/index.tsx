@@ -1,23 +1,23 @@
-import { Link, router, useRouter } from "expo-router"
-import { ArrowUpRight, Hourglass, MoreVertical } from "lucide-react-native"
+import { Link, router } from "expo-router"
+import { MoreVertical } from "lucide-react-native"
 import { useEffect, useState } from "react"
-import { Dimensions, Pressable, ScrollView, StyleSheet, Text, TextStyle, View } from "react-native"
+import { Dimensions, Pressable, ScrollView, Text, View } from "react-native"
 import Animated, { useSharedValue, withSpring } from "react-native-reanimated"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
-import { ViewProps } from "react-native-svg/lib/typescript/fabric/utils"
 import { Entities } from "server/src/prisma"
 import { Avatar } from "../../components/avatar"
 import { Badge } from "../../components/badge"
 import { Button } from "../../components/button"
 import { Carousel } from "../../components/carousel"
 import { List } from "../../components/list"
-import { PlayerResult } from "../../components/result"
 import { Section } from "../../components/section"
 import { useUser } from "../../contexts/user"
 import { trpc } from "../../lib/trpc"
 import { Palette } from "../../styles/palette"
 import { Size } from "../../styles/size"
 import { Inter, Typography } from "../../styles/typography"
+import { TournamentPreview } from "../../components/tournament-preview"
+import { TournamentListItem } from "../../components/torunament-list-item"
 
 export default function () {
     const insets = useSafeAreaInsets()
@@ -80,15 +80,12 @@ export default function () {
 
                 <Section name="Standing" action={{ name: "Show all", onPress: () => console.log("Palle") }}>
                     <List>
-                        {hostedTournaments?.map((tournament) => (
-                            <PlayerResult
-                                key={tournament.id}
-                                gw={1}
-                                ogw={1}
-                                omw={1}
-                                losses={Math.random() > 0.5 ? 1 : 0}
-                                wins={Math.random() > 0.5 ? 1 : 0}
-                                opponent={{ firstName: "Luca", lastName: "Micheletto" }}
+                        {hostedTournaments?.map((torunament, i) => (
+                            <TournamentListItem
+                                key={torunament.id}
+                                name={torunament.name}
+                                rank={i + 1}
+                                date={torunament.createdAt}
                             />
                         ))}
                     </List>
@@ -159,56 +156,6 @@ function HostedTournament({ tournament }: HostedTournamentProps) {
             </View>
         </Link>
     )
-}
-
-type StandingProps = {
-    player: {
-        firstName: string
-        lastName: string
-    }
-    score: number
-    rank: number
-    omw: number
-    gw: number
-    ogw: number
-}
-
-function Standing({ player, rank, omw, gw, ogw, score }: StandingProps) {
-    return (
-        <View
-            style={{
-                flexDirection: "row",
-                justifyContent: "space-between",
-                alignItems: "center",
-                padding: Size.BASE,
-                paddingRight: Size.M,
-                backgroundColor: Palette.white
-            }}
-        >
-            <View style={{ gap: Size.XXS }}>
-                <View style={{ flexDirection: "row", gap: Size.XXS }}>
-                    <View>
-                        <Text style={Typography.body}>{rank}.</Text>
-                    </View>
-                    <Text style={Typography.body}>
-                        {player.firstName} {player.lastName}
-                    </Text>
-                </View>
-                <View style={{ flexDirection: "row", gap: Size.XXS }}>
-                    <Badge theme="gray">OMW {omw.toFixed(2)}</Badge>
-                    <Badge theme="gray">GW {gw.toFixed(2)}</Badge>
-                    <Badge theme="gray">OGW {ogw.toFixed(2)}</Badge>
-                </View>
-            </View>
-            <Text style={Typography.body}>{score}</Text>
-        </View>
-    )
-}
-
-const semiBoldBody: TextStyle = {
-    ...Typography.body,
-    fontFamily: Inter.semiBold,
-    color: Palette.blue[900]
 }
 
 function OngoingTournaments() {
@@ -330,85 +277,5 @@ function OngoingTournaments() {
                 </Pressable>
             </View>
         </View>
-    )
-}
-
-type TournamentPreviewProps = {
-    href?: string
-} & ViewProps
-
-export function TournamentPreview({ href, style }: TournamentPreviewProps) {
-    const router = useRouter()
-
-    function handlePress() {
-        if (href) {
-            router.push(href)
-        }
-    }
-
-    return (
-        <Pressable
-            style={StyleSheet.flatten([
-                {
-                    backgroundColor: Palette.blue[100],
-                    padding: Size.BASE,
-                    borderRightColor: Palette.blue[200],
-                    gap: Size.S
-                },
-                style
-            ])}
-            onPress={handlePress}
-        >
-            <View
-                style={{
-                    flexDirection: "row",
-                    alignItems: "center",
-                    justifyContent: "space-between",
-                    gap: Size.XXXS
-                }}
-            >
-                <View
-                    style={{
-                        flexDirection: "row",
-                        alignItems: "center",
-                        gap: Size.XXXS
-                    }}
-                >
-                    <Hourglass size={24} stroke={Palette.blue[900]} />
-                    <Text style={semiBoldBody}>43:20</Text>
-                </View>
-                {href && <ArrowUpRight size={24} stroke={Palette.blue[900]} />}
-            </View>
-            <View style={{ gap: Size.XXS }}>
-                <Text style={[Typography.body, { color: Palette.blue[900], lineHeight: Size.BASE }]}>
-                    Round 4 is about to begin, {"\n"}your opponent is
-                </Text>
-                <Text
-                    style={{
-                        fontFamily: Inter.semiBold,
-                        fontSize: 30,
-                        lineHeight: 30,
-                        color: Palette.blue[900]
-                    }}
-                    adjustsFontSizeToFit={true}
-                    numberOfLines={2}
-                >
-                    Salvatore Aranzulla
-                </Text>
-                <Text style={[Typography.body, { color: Palette.blue[900], lineHeight: Size.BASE }]}>
-                    playing at <Text style={[semiBoldBody, { color: Palette.blue[900] }]}>table</Text> number
-                </Text>
-                <Text
-                    style={{
-                        fontFamily: Inter.semiBold,
-                        fontSize: 30,
-                        lineHeight: 30,
-                        color: Palette.blue[900]
-                    }}
-                >
-                    12
-                </Text>
-            </View>
-        </Pressable>
     )
 }
