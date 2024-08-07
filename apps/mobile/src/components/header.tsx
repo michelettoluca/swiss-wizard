@@ -1,6 +1,6 @@
 import { useRouter } from "expo-router"
 import { ArrowLeft, icons } from "lucide-react-native"
-import { Text, View, Animated } from "react-native"
+import { Text, Animated } from "react-native"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
 import { Palette } from "../styles/palette"
 import { Size } from "../styles/size"

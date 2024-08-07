@@ -11,34 +11,34 @@ import { GoogleG } from "../svgs/google-g"
 
 SplashScreen.preventAutoHideAsync()
 
-export default function() {
+export default function () {
     useWarmUpBrowser()
-    
-    const { isSignedIn, isLoaded,userId } = useAuth()
+
+    const { isSignedIn, isLoaded, userId } = useAuth()
     const { startOAuthFlow } = useOAuth({ strategy: "oauth_google" })
-    
-    console.log({isSignedIn, isLoaded, userId})
-    
+
+    console.log({ isSignedIn, isLoaded, userId })
+
     useEffect(() => {
         if (isLoaded && !isSignedIn) {
             SplashScreen.hideAsync()
         }
     }, [isLoaded, isSignedIn])
-    
+
     async function authenticate() {
         const { createdSessionId, setActive } = await startOAuthFlow({
             redirectUrl: AuthSession.makeRedirectUri({ path: "/" })
         })
-        
+
         if (createdSessionId) {
             await setActive?.({ session: createdSessionId })
         }
     }
-    
+
     if (isSignedIn) {
         return <Redirect href="/(app)" />
     }
-    
+
     return (
         <View
             style={{
@@ -59,10 +59,12 @@ export default function() {
                 >
                     Swiss Wizard
                 </Text>
-                <Text style={{
-                    textAlign: "center",
-                    fontFamily: Inter.regular
-                }}>
+                <Text
+                    style={{
+                        textAlign: "center",
+                        fontFamily: Inter.regular
+                    }}
+                >
                     Grande sottotitolo, importantissimo e su più righe con punto.
                 </Text>
             </View>
