@@ -9,39 +9,36 @@ import { Size } from "../styles/size"
 import { Inter, Typography } from "../styles/typography"
 import { GoogleG } from "../svgs/google-g"
 
-// SplashScreen.preventAutoHideAsync()
+SplashScreen.preventAutoHideAsync()
 
-export default function () {
+export default function() {
     useWarmUpBrowser()
-
-    const { isSignedIn, isLoaded } = useAuth()
+    
+    const { isSignedIn, isLoaded,userId } = useAuth()
     const { startOAuthFlow } = useOAuth({ strategy: "oauth_google" })
-
+    
+    console.log({isSignedIn, isLoaded, userId})
+    
     useEffect(() => {
         if (isLoaded && !isSignedIn) {
-            console.log("@app/index - SplashScreen.hideAsync()")
             SplashScreen.hideAsync()
         }
     }, [isLoaded, isSignedIn])
-
-    const authenticate = async () => {
+    
+    async function authenticate() {
         const { createdSessionId, setActive } = await startOAuthFlow({
             redirectUrl: AuthSession.makeRedirectUri({ path: "/" })
         })
-
+        
         if (createdSessionId) {
             await setActive?.({ session: createdSessionId })
         }
     }
-
-    if (!isLoaded) {
-        return <Text>@index.tsx / Lodaing auth</Text>
-    }
-
+    
     if (isSignedIn) {
         return <Redirect href="/(app)" />
     }
-
+    
     return (
         <View
             style={{
@@ -62,7 +59,10 @@ export default function () {
                 >
                     Swiss Wizard
                 </Text>
-                <Text style={{ textAlign: "center" }}>
+                <Text style={{
+                    textAlign: "center",
+                    fontFamily: Inter.regular
+                }}>
                     Grande sottotitolo, importantissimo e su più righe con punto.
                 </Text>
             </View>

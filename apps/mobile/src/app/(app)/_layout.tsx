@@ -1,24 +1,18 @@
 import { useAuth } from "@clerk/clerk-expo"
-import { Redirect, Stack } from "expo-router"
-import { Text, View } from "react-native"
+import { Redirect, SplashScreen, Stack } from "expo-router"
 import { UserProvider } from "../../contexts/user"
-import { Typography } from "../../styles/typography"
 
-export default function () {
+export default function() {
     const { isLoaded, isSignedIn } = useAuth()
-
+    
     if (!isLoaded) {
-        return (
-            <View>
-                <Text style={Typography.body}>Loading...</Text>
-            </View>
-        )
+        return null
     }
-
+    
     if (!isSignedIn) {
         return <Redirect href={"/"} />
     }
-
+    
     return (
         <UserProvider>
             <Stack screenOptions={{ headerShown: false }} />

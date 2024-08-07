@@ -1,9 +1,10 @@
 import { useAuth, useUser as useClerkUser } from "@clerk/clerk-expo"
-import { PropsWithChildren, createContext, useContext } from "react"
+import { PropsWithChildren, createContext, useContext, useEffect } from "react"
 import { Pressable, Text } from "react-native"
 import { Entities } from "server/src/prisma"
 import { Button } from "../components/button"
 import { trpc } from "../lib/trpc"
+import { SplashScreen } from "expo-router"
 
 type UserContextValue = {
     user: Omit<Entities["User"], "createdAt">
@@ -23,20 +24,14 @@ export function UserProvider({ children }: PropsWithChildren) {
         { enabled: Boolean(accountId), staleTime: Infinity }
     )
 
-    // useEffect(() => {
-    //     if (user) {
-    //         // SplashScreen.hideAsync()
-    //     }
-    // }, [user])
+    useEffect(() => {
+        if (user) {
+            SplashScreen.hideAsync()
+        }
+    }, [user])
 
-    // console.log(user)
-
-    if (isLoading) {
-        return <Text>@user-context.tsx / Loading user</Text>
-    }
-
-    if (!user) {
-        return <Text>@user-context.tsx / Error while creating the account</Text>
+    if (isLoading || !user) {
+        return null
     }
 
     return (

@@ -1,7 +1,9 @@
 import { ClerkProvider } from "@clerk/clerk-expo"
 import * as SecureStore from "expo-secure-store"
+import type { TokenCache } from "@clerk/clerk-expo/dist/cache"
+import { PropsWithChildren } from "react"
 
-const tokenCache = {
+const tokenCache: TokenCache = {
     async getToken(key: string) {
         try {
             return SecureStore.getItemAsync(key)
@@ -18,7 +20,7 @@ const tokenCache = {
     }
 }
 
-export function AuthProvider({ children }: React.PropsWithChildren) {
+export function AuthProvider({ children }: PropsWithChildren) {
     return (
         <ClerkProvider tokenCache={tokenCache} publishableKey={process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY!}>
             {children}

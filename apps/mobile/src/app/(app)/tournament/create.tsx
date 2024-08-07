@@ -2,7 +2,6 @@ import { Controller, useForm } from "react-hook-form"
 import { Text, View } from "react-native"
 import { ScrollView } from "react-native-gesture-handler"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
-import { Header } from "../../../components/header"
 import { Input } from "../../../components/input"
 import { Size } from "../../../styles/size"
 
