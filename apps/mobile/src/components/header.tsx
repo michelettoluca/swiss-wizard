@@ -1,11 +1,12 @@
 import { useRouter } from "expo-router"
 import { ArrowLeft, icons } from "lucide-react-native"
-import { Text, Animated } from "react-native"
+import { Text, Animated, NativeSyntheticEvent } from "react-native"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
 import { Palette } from "../styles/palette"
 import { Size } from "../styles/size"
 import { Inter, Typography } from "../styles/typography"
 import { Icon } from "./Icon"
+import { NativeScrollEvent } from "react-native/Libraries/Components/ScrollView/ScrollView"
 
 type HeaderProps = {
     title: string
@@ -28,7 +29,10 @@ export function useHeader() {
         outputRange: [0, -64 - top]
     })
 
-    return { translateY, scrollY, setScroll: (value: number) => scrollY.setValue(value) } as const
+    return {
+        translateY,
+        onScroll: (e: NativeSyntheticEvent<NativeScrollEvent>) => scrollY.setValue(e.nativeEvent.contentOffset.y)
+    }
 }
 
 export function Header({ title, backgroundColor, translateY, color, action }: HeaderProps) {

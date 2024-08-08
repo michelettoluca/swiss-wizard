@@ -59,7 +59,7 @@ export default function () {
     const router = useRouter()
     const pathname = usePathname()
 
-    const { translateY, scrollY, setScroll } = useHeader()
+    const { translateY, onScroll } = useHeader()
 
     // const { data: tournament } = trpc.tournament.findById.useQuery({ id: Number(id) }, { enabled: !!id })
 
@@ -71,7 +71,7 @@ export default function () {
                 title={"Tappa #1"}
                 translateY={translateY}
             />
-            <ScrollView showsVerticalScrollIndicator={false} onScroll={(e) => setScroll(e.nativeEvent.contentOffset.y)}>
+            <ScrollView showsVerticalScrollIndicator={false} onScroll={onScroll}>
                 <TournamentPreview
                     style={{
                         paddingHorizontal: Size.L,
