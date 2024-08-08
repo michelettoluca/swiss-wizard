@@ -1,6 +1,6 @@
 import { useLocalSearchParams, usePathname, useRouter } from "expo-router"
 import { Fragment } from "react"
-import { ScrollView, Text, View } from "react-native"
+import { ScrollView, Text, View, ScrollViewProps } from "react-native"
 import { Badge } from "../../../../components/badge"
 import { Header, useHeader } from "../../../../components/header"
 import { List } from "../../../../components/list"
