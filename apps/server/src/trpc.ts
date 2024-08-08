@@ -1,4 +1,4 @@
-import { TRPCError, initTRPC } from "@trpc/server"
+import { initTRPC, TRPCError } from "@trpc/server"
 import { Context } from "."
 import { Clerk } from "@clerk/clerk-sdk-node"
 

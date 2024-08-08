@@ -5,6 +5,7 @@ import { Typography } from "../styles/typography"
 import { Badge } from "./badge"
 import { List } from "./list"
 import { Separator } from "./separator"
+import { Fragment } from "react"
 
 type StandingProps = {
     player: {
@@ -53,8 +54,8 @@ function Standing({ player, rank, omw, gw, ogw, score }: StandingProps) {
 export function Standings({ standings }: { standings: any[] }) {
     return (
         <List type={"compact"}>
-            {standings.map((tournament, i) => (
-                <>
+            {[...standings, ...standings, ...standings, ...standings].map((tournament, i) => (
+                <Fragment key={i}>
                     <Standing
                         key={tournament.id}
                         gw={1}
@@ -62,10 +63,10 @@ export function Standings({ standings }: { standings: any[] }) {
                         omw={1}
                         player={{ firstName: tournament.name, lastName: "Cognome" }}
                         rank={i + 1}
-                        score={i * 3}
+                        score={i * 4}
                     />
-                    {i < standings.length - 1 && <Separator key={"_" + tournament.id} color={Palette.gray["100"]} />}
-                </>
+                    {i < standings.length * 3 - 1 && <Separator color={Palette.gray["100"]} />}
+                </Fragment>
             ))}
         </List>
     )

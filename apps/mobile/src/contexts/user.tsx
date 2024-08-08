@@ -1,5 +1,5 @@
 import { useAuth, useUser as useClerkUser } from "@clerk/clerk-expo"
-import { PropsWithChildren, createContext, useContext, useEffect } from "react"
+import { createContext, PropsWithChildren, useContext, useEffect } from "react"
 import { Pressable, Text } from "react-native"
 import { Entities } from "server/src/prisma"
 import { Button } from "../components/button"

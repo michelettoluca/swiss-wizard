@@ -1,24 +1,22 @@
 import { Controller, useForm } from "react-hook-form"
 import { Text, View } from "react-native"
-import { ScrollView } from "react-native-gesture-handler"
-import { useSafeAreaInsets } from "react-native-safe-area-context"
 import { Input } from "../../../components/input"
 import { Size } from "../../../styles/size"
+import { Page } from "../../../components/page"
+import { Palette } from "../../../styles/palette"
 
 export default function () {
-    const insets = useSafeAreaInsets()
-    const { control, register } = useForm({})
+    const { control } = useForm({})
 
     return (
-        <ScrollView showsVerticalScrollIndicator={false} stickyHeaderIndices={[0]}>
-            {/*<Header title="Create tournament" />*/}
+        <Page backgroundColor={Palette.gray["100"]} title={"Create tournament"}>
             <View style={{ padding: Size.BASE, gap: Size.XS }}>
                 <Controller
                     control={control}
                     rules={{
                         required: true
                     }}
-                    render={({ field: { onChange, onBlur, value } }) => (
+                    render={({ field: { onChange, value } }) => (
                         <Input label="Name" placeholder="Name" onChange={onChange} value={value} />
                     )}
                     name="name"
@@ -30,7 +28,7 @@ export default function () {
                         rules={{
                             required: true
                         }}
-                        render={({ field: { onChange, onBlur, value } }) => (
+                        render={({ field: { onChange, value } }) => (
                             <Input
                                 label="Round time"
                                 placeholder="55"
@@ -47,7 +45,7 @@ export default function () {
                         rules={{
                             required: true
                         }}
-                        render={({ field: { onChange, onBlur, value } }) => (
+                        render={({ field: { onChange, value } }) => (
                             <Input
                                 label="Round limit"
                                 placeholder="4"
@@ -63,6 +61,6 @@ export default function () {
                     <Text> OOO </Text>
                 </View>
             </View>
-        </ScrollView>
+        </Page>
     )
 }
